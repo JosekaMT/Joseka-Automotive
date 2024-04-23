@@ -1,0 +1,216 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Nunito', sans-serif;
+}
+
+/*------------------scroll bar style---------------------*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+}
+
+/*------------------scroll bar style---------------------*/
+.custom-red {
+    display: inline-block;
+    padding: 6px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.custom-red:hover {
+    background-color: #9c2121;
+    border-color: #9c2121;
+    color: white;
+}
+
+.custom-red2 {
+    display: inline-block;
+    padding: 6px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #9c2121;
+    border: 1px solid #9c2121;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.custom-red2:hover {
+    background-color: transparent;
+    border-color: #9c2121;
+    color: #9c2121;
+}
+
+.custom-button {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    background-color: #9c2121;
+    opacity: 1;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    z-index: 9999;
+    /* Valor alto para asegurar que esté sobre otros elementos */
+}
+
+.custom-button:hover {
+    transform: scale(1.5);
+}
+
+/* nav */
+.navbar {
+    background-color: black !important;
+}
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #d31717;
+    transition: color 0.3s;
+}
+
+.nav-link::before,
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: #9c2121;
+    transition: width 0.3s ease;
+}
+
+.nav-link::before {
+    left: 0;
+}
+
+.nav-link::after {
+    right: 0;
+}
+
+.nav-link:hover::before,
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+/* Footer */
+.footer-link {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    margin: 0 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.footer-link::before
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #9c2121;
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: bottom center;
+}
+
+.footer-link:hover::before,
+.footer-link:hover::after {
+    transform: scaleX(1);
+}
+
+.social-link {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 8px;
+    /* Ajusta el espaciado entre los iconos */
+    font-size: 20px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #9c2121;
+}
+
+.social-link::before,
+.social-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #9c2121;
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: bottom center;
+}
+
+.social-link:hover::before,
+.social-link:hover::after {
+    transform: scaleX(1);
+}
+
+@media (min-width: 768px) {
+    .footer-link {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+
+.nav-item.dropdown .caret {
+    display: none; /* Ocultar el triángulo predeterminado */
+}
