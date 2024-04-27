@@ -6,3 +6,8 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.container,
+.row {
+    --bs-gutter-x: 0rem !important; // Importante para responsive de nav
+}

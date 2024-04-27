@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Joseka Automotive</title>
+    <link rel="icon" href="/img/favicon.png">
     <!-- Google Fonts: Nunito -->
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -19,8 +20,7 @@
 </head>
 
 <body>
-    <div id="app">
-    <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top"> <!-- Añadido 'sticky-top' para hacer el menú pegajoso -->
+    <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between" style="background-color: #000;">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('img/logo.png') }}" style="width: 210px; height: 55px;" alt="logo">
@@ -30,45 +30,40 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-
-                <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#inicio">Inicio</a>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link text-uppercase" href="/" style="color: #fff;">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#vehiculos">Vehículos</a>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link text-uppercase" href="#vehiculos" style="color: #fff;">Vehículos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#nosotros">Sobre Nosotros</a>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link text-uppercase" href="#nosotros" style="color: #fff;">Nosotros</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#contacto">Contacto</a>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link text-uppercase" href="#contacto" style="color: #fff;">Contacto</a>
                     </li>
-                    <!-- Authentication Links -->
                     @guest
-                    @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
+                            <i class="fas fa-user-circle fa-lg"></i>
+                            <i class="fas fa-caret-down fa-md"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('register') }}" style="color: #000;">Registrarse</a>
+                            <a class="dropdown-item" href="{{ route('login') }}" style="color: #000;">Iniciar sesión</a>
+                        </div>
                     </li>
-                    @endif
-
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                    @endif
                     @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fas fa-user-circle fa-lg"></i> <!-- Ícono de perfil más grande -->
+                        <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: #fff;">
+                            <i class="fas fa-user-circle fa-lg"></i>
                             {{ Auth::user()->name }}
-                            <i class="fas fa-caret-down fa-md"></i> <!-- Triángulo desplegable -->
+                            <i class="fas fa-caret-down fa-md"></i>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #000;">
                                 Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -82,32 +77,90 @@
         </div>
     </nav>
 
-        <div class="container-fluid bg-light text-dark" style="margin-top: 80px;">
-            <div class="min-vh-100 d-flex flex-column justify-content-center align-items-center">
-                <div class="container-lg">
-                    <header class="row justify-content-between align-items-center py-5">
-                        <div class="col-md-3 text-center text-md-left">
-                            <!-- Your logo or text here -->
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <h1 class="display-4">Welcome to Laravel</h1>
-                        </div>
-                        <div class="col-md-3 text-center text-md-right">
-                            <!-- Your navigation or other content here -->
-                        </div>
-                    </header>
-                    <section class="row justify-content-center">
-                        <div class="col-md-8 text-center">
-                            <p class="lead">You have arrived. This is your new application, crafted with love by the Laravel community.</p>
-                        </div>
-                    </section>
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="videos/video-header.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay"></div>
+
+        <!-- Centered Content -->
+        <div class="centered-content">
+            <div class="text-container">
+                <h1>¿Buscas conducir tus sueños?</h1>
+                <h2>Encuentra el coche que necesita</h2>
+                <div class="underline"></div>
+                <div class="buttons-container d-flex justify-content-center">
+                    <button class="button-1 mr-2" onclick="window.location.href='{{ route('register') }}';">Registrarse</button>
+                    <button class="button-1" onclick="window.location.href='{{ route('login') }}';">Iniciar sesión</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <footer class="text-white bg-black">
+        <div class="container py-2">
+            <div class="row">
+                <div class="col-12 col-md-8 mx-auto">
+                    <div class="text-center">
+                        <div class="d-flex justify-content-center mb-4 mt-3">
+                            <a href="/" class="logo-link">
+                                <img src="/img/logo.png" class="img-fluid" style="width: 260px; height: 70px;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center gap-7 flex-wrap">
+                            <a class="footer-link mx-4" href="/">Inicio</a>
+                            <a class="footer-link mx-4" href="#articles">Vehículos</a>
+                            <a class="footer-link mx-4" href="#becomePartner">Nosotros</a>
+                            <a class="footer-link mx-4" href="#about">Contacto</a>
+                            <a class="footer-link mx-2 " href="https://twitter.com/joseka_mt">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="footer-link mx-4 " href="https://www.instagram.com/joseka_mt/">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr class="my-2" style="border-color: white;">
+                            <p class="text-center text-white-600 mt-4">
+                                Copyright © <script>
+                                    document.write(new Date().getFullYear());
+                                </script> All rights reserved.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="custom-button" id="top">
+        <i class="fas fa-angle-up"></i>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $("#top").click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 'smooth');
+            });
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('#top').fadeIn('slow');
+                } else {
+                    $('#top').fadeOut('slow');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
