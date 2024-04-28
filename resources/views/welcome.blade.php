@@ -129,7 +129,7 @@
                             <p class="text-center text-white-600 mt-4">
                                 Copyright © <script>
                                     document.write(new Date().getFullYear());
-                                </script> All rights reserved.
+                                </script> Todos los derechos reservados.
                             </p>
                         </div>
                     </div>

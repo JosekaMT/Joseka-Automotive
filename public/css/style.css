@@ -30,50 +30,6 @@ body {
 }
 
 /*------------------scroll bar style---------------------*/
-.button-2 {
-    display: inline-block;
-    padding: 6px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: transparent;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-}
-
-.button-2:hover {
-    background-color: #9c2121;
-    border-color: #9c2121;
-    color: white;
-}
-
-.button3 {
-    display: inline-block;
-    padding: 6px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #9c2121;
-    border: 1px solid #9c2121;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-}
-
-.button3:hover {
-    background-color: transparent;
-    border-color: #9c2121;
-    color: #9c2121;
-}
-
 .custom-button {
     position: fixed;
     right: 1rem;
