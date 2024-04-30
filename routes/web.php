@@ -45,12 +45,10 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 
 // Rutas protegidas para usuarios autenticados y verificados
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Coloca aquí las rutas que deseas proteger para usuarios autenticados y verificados.
 });
 
 // Rutas protegidas para invitados (no autenticados)
 Route::middleware(['guest'])->group(function () {
-    // Coloca aquí las rutas que deseas proteger para invitados (no autenticados).
 });
 
 Auth::routes();
@@ -63,3 +61,7 @@ Route::get('/admin', function () {
     }
     abort(403, 'Unauthorized access.');
 })->middleware(['auth']);
+
+
+
+
