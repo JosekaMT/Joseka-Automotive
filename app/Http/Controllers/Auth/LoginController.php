@@ -7,25 +7,22 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Where to redirect users after login based on their role.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        // Check if the authenticated user is an admin
+        if (auth()->check() && auth()->user()->is_admin) {
+            return '/admin';  // Redirige a los administradores al dashboard de administración
+        }
+
+        return '/';  // Redirige a los usuarios no administradores a la página de bienvenida
+    }
 
     /**
      * Create a new controller instance.
