@@ -10,6 +10,8 @@ use Laravel\Fortify\Http\Controllers\ConfirmablePasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 
+use App\Http\Controllers\CarController; 
+
 // Ruta principal de la aplicación
 Route::get('/', function () {
     return view('welcome');
@@ -54,3 +56,5 @@ Route::middleware(['guest'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('cars', CarController::class);
