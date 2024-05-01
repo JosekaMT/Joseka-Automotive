@@ -1,9 +1,9 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
-
+        <!-- Más campos adaptados similarmente -->
         <div class="form-group mb-2 mb20">
             <label for="brand" class="form-label">{{ __('Brand') }}</label>
-            <input type="text" name="brand" class="form-control @error('brand') is-invalid @enderror" value="{{ old('brand', $car?->brand) }}" id="brand" placeholder="Brand">
+            <input type="text" name="brand" class="form-control @error('brand') is-invalid @enderror" value="{{ old('brand', $car->brand ?? '') }}" id="brand" placeholder="Brand">
             {!! $errors->first('brand', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">

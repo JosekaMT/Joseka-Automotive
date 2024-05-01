@@ -1,0 +1,42 @@
+*{
+    font-family: 'Nunito', sans-serif;  
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden !important;
+    font-family: 'Nunito', sans-serif;
+}
+
+
+#sidenav-main {
+    max-width: 17.10rem !important;
+    background-color: black !important;
+    margin: 0; /* Agregado */
+    overflow-x: hidden; /* Agregado */
+}
+
+.bg-black {
+    background-color: #000000 !important;
+}
+
+#navbarBlur {
+    position: relative;
+    z-index: 1;
+}
+
+#navbarBlur::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: -50px;
+    right: -6px;
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.1), transparent);
+    box-shadow: 0 0 3px 0px rgba(255, 0, 0, 0.1);
+    z-index: -1;
+}
+

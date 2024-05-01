@@ -10,7 +10,9 @@ use Laravel\Fortify\Http\Controllers\ConfirmablePasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
+
 
 // Ruta principal de la aplicación
 Route::get('/', function () {
@@ -55,6 +57,7 @@ Auth::routes();
 
 Route::resource('cars', CarController::class);
 
+
 Route::get('/admin', function () {
     if (auth()->user() && auth()->user()->is_admin) {
         return view('admin.dashboard');
@@ -63,5 +66,14 @@ Route::get('/admin', function () {
 })->middleware(['auth']);
 
 
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/vehicle', [AdminController::class, 'vehicle'])->name('admin.vehicle');
+    Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
+    Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
+});
+Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
