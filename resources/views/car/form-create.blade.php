@@ -1,5 +1,5 @@
 <div class="row py-1 px-1">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="form-group mb-4">
             <label for="brand" class="form-label">{{ __('Brand') }}</label>
             <input type="text" name="brand" class="form-control border @error('brand') is-invalid @enderror" value="{{ old('brand', $car->brand ?? '') }}" id="brand" placeholder="Brand">
@@ -44,15 +44,34 @@
             {!! $errors->first('gears', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-4">
-            <label for="engine" class="form-label">{{ __('Engine') }}</label>
+            <label for="image1" class="form-label">{{ __('Image 1') }}</label>
+            <input type="file" name="image1" class="form-control-file border @error('image1') is-invalid @enderror" id="image1">
+            {!! $errors->first('image1', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+        <div class="form-group mb-4">
+            <label for="image2" class="form-label">{{ __('Image 2') }}</label>
+            <input type="file" name="image2" class="form-control-file border @error('image2') is-invalid @enderror" id="image2">
+            {!! $errors->first('image2', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+        <div class="form-group mb-4">
+            <label for="image3" class="form-label">{{ __('Image 3') }}</label>
+            <input type="file" name="image3" class="form-control-file border @error('image3') is-invalid @enderror" id="image3">
+            {!! $errors->first('image3', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="form-group mb-4">
+            <label for="engine" class="form-label">{{ __('Engine') }} (CC)</label>
             <input type="text" name="engine" class="form-control border @error('engine') is-invalid @enderror" value="{{ old('engine', $car?->engine) }}" id="engine" placeholder="Engine">
             {!! $errors->first('engine', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-4">
-            <label for="horsepower" class="form-label">{{ __('Horsepower') }}</label>
+            <label for="horsepower" class="form-label">{{ __('Horsepower') }} (HP)</label>
             <input type="text" name="horsepower" class="form-control border @error('horsepower') is-invalid @enderror" value="{{ old('horsepower', $car?->horsepower) }}" id="horsepower" placeholder="Horsepower">
             {!! $errors->first('horsepower', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <div class="form-group mb-4">
             <label for="seats" class="form-label">{{ __('Seats') }}</label>
             <input type="text" name="seats" class="form-control border @error('seats') is-invalid @enderror" value="{{ old('seats', $car?->seats) }}" id="seats" placeholder="Seats">
@@ -72,28 +91,15 @@
             </select>
             {!! $errors->first('color', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <div class="form-group mb-4">
-            <label for="image1" class="form-label">{{ __('Image 1') }}</label>
-            <input type="file" name="image1" class="form-control-file border @error('image1') is-invalid @enderror" id="image1">
-            {!! $errors->first('image1', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-4">
-            <label for="image2" class="form-label">{{ __('Image 2') }}</label>
-            <input type="file" name="image2" class="form-control-file border @error('image2') is-invalid @enderror" id="image2">
-            {!! $errors->first('image2', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-4">
-            <label for="image3" class="form-label">{{ __('Image 3') }}</label>
-            <input type="file" name="image3" class="form-control-file border @error('image3') is-invalid @enderror" id="image3">
-            {!! $errors->first('image3', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
 
         <div class="form-group mb-4">
-            <label for="price_per_hour" class="form-label">{{ __('Price Per Hour') }}</label>
+            <label for="price_per_hour" class="form-label">{{ __('Price Per Hour') }} (€)</label>
             <input type="text" name="price_per_hour" class="form-control border @error('price_per_hour') is-invalid @enderror" value="{{ old('price_per_hour', $car?->price_per_hour) }}" id="price_per_hour" placeholder="Price Per Hour">
             {!! $errors->first('price_per_hour', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
     </div>
+</div>
+<div class="row px-3">
     <div class="col-md-12 mt-4">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>

@@ -43,7 +43,7 @@ Cars
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fuel</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gears</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Engine (CC)</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Horsepower (CV)</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Horsepower (HP)</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Seats</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Color</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price Per Hour (€)</th>
@@ -66,11 +66,11 @@ Cars
                                         <td class="text-center">{{ $car->body }}</td>
                                         <td class="text-center">{{ $car->fuel }}</td>
                                         <td class="text-center">{{ $car->gears }}</td>
-                                        <td class="text-center">{{ $car->engine }}</td>
-                                        <td class="text-center">{{ $car->horsepower }}</td>
+                                        <td class="text-center">{{ $car->engine }} CC</td>
+                                        <td class="text-center">{{ $car->horsepower }}  HP</td>
                                         <td class="text-center">{{ $car->seats }}</td>
                                         <td class="text-center">{{ $car->color }}</td>
-                                        <td class="text-center">{{ $car->price_per_hour }}</td>
+                                        <td class="text-center">{{ $car->price_per_hour }} €</td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#showCarModal{{ $car->id }}">
                                                 <i class="fa fa-fw fa-eye" style="font-size: 1.3em;"></i>
@@ -85,7 +85,7 @@ Cars
                                     </tr>
                                     <!-- Edit Car Modal -->
                                     <div class="modal fade" id="editCarModal{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="editCarModalLabel{{ $car->id }}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-dialog" role="document" style="max-width: 800px;">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="editCarModalLabel{{ $car->id }}">Edit Car</h5>
@@ -98,13 +98,15 @@ Cars
                                                     <form method="POST" action="{{ route('cars.update', $car->id) }}" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
-                                                        @include('car.form')
+                                                        @include('car.form-edit')
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- End Edit Car Modal -->
+
+
                                     <!-- Show Car Modal -->
                                     <div class="modal fade" id="showCarModal{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="showCarModalLabel{{ $car->id }}" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
@@ -184,8 +186,8 @@ Cars
                                                                     <p style="color: black; font-size: 18px;">{{ $car->engine }} CC</p>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <strong style="color: black; font-size: 18px;">Horsepower (CV):</strong>
-                                                                    <p style="color: black; font-size: 18px;">{{ $car->horsepower }} CV</p>
+                                                                    <strong style="color: black; font-size: 18px;">Horsepower (HP):</strong>
+                                                                    <p style="color: black; font-size: 18px;">{{ $car->horsepower }} HP</p>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <strong style="color: black; font-size: 18px;">Seats:</strong>
@@ -207,12 +209,6 @@ Cars
                                         </div>
                                     </div>
                                     <!-- End Show Car Modal -->
-
-
-
-
-
-
 
                                     <!-- Delete Car Modal -->
                                     <div class="modal fade" id="deleteCarModal{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteCarModalLabel{{ $car->id }}" aria-hidden="true">
@@ -252,7 +248,7 @@ Cars
 
     <!-- Modal for Create Car -->
     <div class="modal fade" id="createCarModal" tabindex="-1" role="dialog" aria-labelledby="createCarModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document"> <!-- Agregamos la clase modal-lg para que el modal sea de ancho grande -->
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createCarModalLabel">{{ __('Create New Car') }}</h5>
@@ -264,7 +260,7 @@ Cars
                     @php $car = $car ?? new \App\Models\Car; @endphp
                     <form method="POST" action="{{ route('cars.store') }}" enctype="multipart/form-data">
                         @csrf
-                        @include('car.form')
+                        @include('car.form-create')
 
                     </form>
                 </div>
