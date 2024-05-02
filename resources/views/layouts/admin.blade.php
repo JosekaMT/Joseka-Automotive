@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-    <!-- Nepcha Analytics (nepcha.com) -->
+
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 
@@ -246,88 +246,90 @@
 
 
 
-            <div class="row mb-4">
-
-            </div>
-
-
-
+           
+        
+                @yield('content')
+       
 
 
 
 
 
 
-            <div class="col-lg-3 col-md-5">
-                <div class="card h-100">
-                    <div class="card-header pb-0">
-                        <h6>Notifications</h6>
-                        <p class="text-sm">
-                            <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                            <span class="font-weight-bold">24%</span> this month
-                        </p>
-                    </div>
-                    <div class="card-body p-3">
-                        <div class="timeline timeline-one-side">
-                            <div class="timeline-block mb-3">
-                                <span class="timeline-step">
-                                    <i class="material-icons text-success text-gradient">notifications</i>
-                                </span>
-                                <div class="timeline-content">
-                                    <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
-                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+
+
+
+
+                <div class="col-lg-3 col-md-5">
+                    <div class="card h-100">
+                        <div class="card-header pb-0">
+                            <h6>Notifications</h6>
+                            <p class="text-sm">
+                                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                                <span class="font-weight-bold">24%</span> this month
+                            </p>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="timeline timeline-one-side">
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                        <i class="material-icons text-success text-gradient">notifications</i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="timeline-block mb-3">
-                                <span class="timeline-step">
-                                    <i class="material-icons text-danger text-gradient">code</i>
-                                </span>
-                                <div class="timeline-content">
-                                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                        <i class="material-icons text-danger text-gradient">code</i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="timeline-block mb-3">
-                                <span class="timeline-step">
-                                    <i class="material-icons text-info text-gradient">shopping_cart</i>
-                                </span>
-                                <div class="timeline-content">
-                                    <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
-                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                        <i class="material-icons text-info text-gradient">shopping_cart</i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="timeline-block mb-3">
-                                <span class="timeline-step">
-                                    <i class="material-icons text-warning text-gradient">credit_card</i>
-                                </span>
-                                <div class="timeline-content">
-                                    <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
-                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                        <i class="material-icons text-warning text-gradient">credit_card</i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="timeline-block mb-3">
-                                <span class="timeline-step">
-                                    <i class="material-icons text-primary text-gradient">key</i>
-                                </span>
-                                <div class="timeline-content">
-                                    <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
-                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                        <i class="material-icons text-primary text-gradient">key</i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="timeline-block">
-                                <span class="timeline-step">
-                                    <i class="material-icons text-dark text-gradient">payments</i>
-                                </span>
-                                <div class="timeline-content">
-                                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
+                                <div class="timeline-block">
+                                    <span class="timeline-step">
+                                        <i class="material-icons text-dark text-gradient">payments</i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
 
@@ -344,17 +346,15 @@
 
 
 
-
-
-        <footer class="footer py-4">
-            <div class="container">
-                <p class="text-center text-white-600 mt-4">
-                    Copyright © <script>
-                        document.write(new Date().getFullYear());
-                    </script> All rights reserved.
-                </p>
-            </div>
-        </footer>
+            <footer class="footer py-4">
+                <div class="container">
+                    <p class="text-center text-white-600 mt-4">
+                        Copyright © <script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved.
+                    </p>
+                </div>
+            </footer>
 
     </main>
 
@@ -640,6 +640,10 @@
         });
     </script>
 
+    <!--APP -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

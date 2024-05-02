@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Log;
 class CarController extends Controller
 {
 
+    public function create()
+    {
+        $car = new Car();
+        return view('car.create', compact('car'));
+    }
+
     public function index()
     {
         $cars = Car::paginate(10);
@@ -42,6 +48,18 @@ class CarController extends Controller
 
         return Redirect::route('cars.index')
             ->with('success', 'Car created successfully.');
+    }
+
+    public function show($id): View
+    {
+        $car = Car::find($id);
+        return view('car.show', compact('car'));
+    }
+
+    public function edit($id): View
+    {
+        $car = Car::find($id);
+        return view('car.edit', compact('car'));
     }
 
     public function update(CarRequest $request, $id): RedirectResponse
