@@ -30,7 +30,7 @@
             <label for="fuel" class="form-label">{{ __('Fuel') }}</label>
             <select name="fuel" class="form-control @error('fuel') is-invalid @enderror" id="fuel">
                 <option value="" disabled selected>Select Fuel Type</option>
-                <option value="Gasolina" {{ old('fuel', $car?->fuel) === 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
+                <option value="Petrol" {{ old('fuel', $car?->fuel) === 'Petrol' ? 'selected' : '' }}>Petrol</option>
                 <option value="Diesel" {{ old('fuel', $car?->fuel) === 'Diesel' ? 'selected' : '' }}>Diesel</option>
             </select>
             {!! $errors->first('fuel', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
@@ -40,7 +40,7 @@
             <select name="gears" class="form-control @error('gears') is-invalid @enderror" id="gears">
                 <option value="" disabled selected>Select Number of Gears</option>
                 <option value="Manual" {{ old('gears', $car?->gears) === 'Manual' ? 'selected' : '' }}>Manual</option>
-                <option value="Automatico" {{ old('gears', $car?->gears) === 'Automatico' ? 'selected' : '' }}>Automatico</option>
+                <option value="Automatic" {{ old('gears', $car?->gears) === 'Automatic' ? 'selected' : '' }}>Automatic</option>
             </select>
             {!! $errors->first('gears', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
