@@ -50,9 +50,9 @@ Cars
                                     <td>{{ $car->id }}</td>
                                     <td>
                                         @if($car->image1)
-                                            <img src="{{ asset('storage/' . $car->image1) }}" alt="Car Image" style="max-width: 130px; max-height: 130px;">
+                                        <img src="{{ asset('storage/' . $car->image1) }}" alt="Car Image" style="max-width: 130px; max-height: 130px;">
                                         @else
-                                            No Image
+                                        No Image
                                         @endif
                                     </td>
                                     <td>{{ $car->brand }}</td>
@@ -160,22 +160,22 @@ Cars
                 </div>
 
                 @if($car->image1)
-                    <div class="form-group mb-2 mb20">
-                        <strong>Image 1:</strong><br>
-                        <img src="{{ asset('storage/' . $car->image1) }}" alt="Image 1" style="max-width: 200px;">
-                    </div>
+                <div class="form-group mb-2 mb20">
+                    <strong>Image 1:</strong><br>
+                    <img src="{{ asset('storage/' . $car->image1) }}" alt="Image 1" style="max-width: 200px;">
+                </div>
                 @endif
                 @if($car->image2)
-                    <div class="form-group mb-2 mb20">
-                        <strong>Image 2:</strong><br>
-                        <img src="{{ asset('storage/' . $car->image2) }}" alt="Image 2" style="max-width: 200px;">
-                    </div>
+                <div class="form-group mb-2 mb20">
+                    <strong>Image 2:</strong><br>
+                    <img src="{{ asset('storage/' . $car->image2) }}" alt="Image 2" style="max-width: 200px;">
+                </div>
                 @endif
                 @if($car->image3)
-                    <div class="form-group mb-2 mb20">
-                        <strong>Image 3:</strong><br>
-                        <img src="{{ asset('storage/' . $car->image3) }}" alt="Image 3" style="max-width: 200px;">
-                    </div>
+                <div class="form-group mb-2 mb20">
+                    <strong>Image 3:</strong><br>
+                    <img src="{{ asset('storage/' . $car->image3) }}" alt="Image 3" style="max-width: 200px;">
+                </div>
                 @endif
             </div>
         </div>

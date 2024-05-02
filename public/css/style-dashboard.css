@@ -1,5 +1,5 @@
-*{
-    font-family: 'Nunito', sans-serif;  
+* {
+    font-family: 'Nunito', sans-serif;
 }
 
 html,
@@ -11,18 +11,50 @@ body {
     font-family: 'Nunito', sans-serif;
 }
 
-
 #sidenav-main {
     max-width: 17.10rem !important;
     background-color: black !important;
-    margin: 0; /* Agregado */
-    overflow-x: hidden; /* Agregado */
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .bg-black {
     background-color: #000000 !important;
 }
 
+
+/*NO BORRAR QUITAR SCROLL LATERAL*/
+.main-content {
+    overflow-x: hidden !important;
+}
+
+/*NO BORRAR QUITAR SCROLL LATERAL*/
+.ps__rail-x,
+.ps__thumb-x {
+    display: none !important;
+}
+
+/*NO BORRAR QUITAR NAV EFECTOS*/
+.nav-item .nav-link:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/*NO BORRAR QUITAR NAV EFECTOS*/
+.nav-item .nav-link:hover {
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+
+}
+
+/*NO BORRAR QUITAR NAV EFECTOS*/
+.nav-item .nav-link.active {
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+}
+
+
+/*NAV*/
 #navbarBlur {
     position: relative;
     z-index: 1;
@@ -39,4 +71,52 @@ body {
     box-shadow: 0 0 3px 0px rgba(255, 0, 0, 0.1);
     z-index: -1;
 }
+
+/*NAV EFECTOS*/
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    margin: 0 8px;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: left;
+    width: fit-content;
+    /* Ajusta el ancho al contenido */
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    /* Ajusta la posición para que empiece justo después del icono */
+    right: 0;
+    height: 2px;
+    background-color: #9c2121;
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.nav-link:hover::before {
+    transform: scaleX(1);
+}
+
+.icon-white {
+    color: #fff;
+    /* Color blanco para el icono */
+}
+
+#dropdownMenuButton:before {
+    content: none !important;
+    /* Elimina cualquier contenido generado */
+    border: none !important;
+    /* Elimina cualquier borde */
+}
+
 

@@ -29,6 +29,7 @@ class CarController extends Controller
     {
         $cars = Car::paginate(10); 
         return view('car.index', compact('cars'));
+        
     }
 
     /**
@@ -121,4 +122,8 @@ class CarController extends Controller
             return Redirect::route('cars.index')->with('error', 'Car not found.');
         }
     }
+
+
+    
 }
+

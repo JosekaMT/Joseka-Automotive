@@ -55,8 +55,6 @@ Route::middleware(['guest'])->group(function () {
 
 Auth::routes();
 
-Route::resource('cars', CarController::class);
-
 
 Route::get('/admin', function () {
     if (auth()->user() && auth()->user()->is_admin) {
@@ -76,4 +74,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
+
+Route::resource('cars', CarController::class);
 Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
