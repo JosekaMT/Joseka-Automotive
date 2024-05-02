@@ -47,7 +47,7 @@ class CarController extends Controller
         $car->save();
 
         return Redirect::route('cars.index')
-            ->with('success', 'Car created successfully.');
+            ->with('success', 'Vehicle created successfully.');
     }
 
     public function show($id): View
@@ -85,20 +85,20 @@ class CarController extends Controller
         $car->save();
 
         return Redirect::route('cars.index')
-            ->with('success', 'Car updated successfully.');
+            ->with('success', 'Vehicle updated successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
-        \Log::info("Attempting to delete car with ID: $id"); // Esto agregará una entrada en tus logs.
+        \Log::info("Attempting to delete vehicle with ID: $id"); // Esto agregará una entrada en tus logs.
         $car = Car::find($id);
         if ($car) {
             $car->delete();
-            \Log::info("Car deleted successfully.");
-            return Redirect::route('cars.index')->with('success', 'Car deleted successfully.');
+            \Log::info("Vehicle deleted successfully.");
+            return Redirect::route('cars.index')->with('success', 'Vehicle deleted successfully.');
         } else {
-            \Log::error("Car not found.");
-            return Redirect::route('cars.index')->with('error', 'Car not found.');
+            \Log::error("Vehicle not found.");
+            return Redirect::route('cars.index')->with('error', 'Vehicle not found.');
         }
     }
 }

@@ -129,7 +129,7 @@
 
     <main class="main-content position-relative max-height-vh-100 h-100 ps ps--active-x">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -160,12 +160,12 @@
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
-                            <div class="icon icon-lg icon-shape  shadow-danger text-center border-radius-xl mt-n4 position-absolute" style="background-color: #9c2121;">
-                                <i class="material-icons opacity-10">person</i>
+                            <div class="icon icon-lg icon-shape shadow-danger text-center border-radius-xl mt-n4 position-absolute" style="background-color: #9c2121;">
+                                <i class="material-icons opacity-10">directions_car</i>
                             </div>
 
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
+                                <p class="text-sm mb-0 text-capitalize">Available Vehicles</p>
                                 <h4 class="mb-0">2,300</h4>
                             </div>
                         </div>

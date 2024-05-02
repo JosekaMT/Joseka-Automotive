@@ -137,6 +137,6 @@
 </div>
 <div class="row px-3">
     <div class="col-md-12 mt-4">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn" style="background-color: #9c2121; color: white;">{{ __('Edit') }}</button>
     </div>
 </div>

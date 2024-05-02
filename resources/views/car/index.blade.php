@@ -12,7 +12,7 @@ Cars
                 <div class="row">
                     <div class="col-lg-6 col-7">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h4 id="card_title"><i class="fa fa-car"></i> {{ __('Cars') }}</h4>
+                            <h4 id="card_title"><i class="fa fa-car"></i> {{ __('Vehicles') }}</h4>
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@ Cars
                                         <td class="text-center">{{ $car->fuel }}</td>
                                         <td class="text-center">{{ $car->gears }}</td>
                                         <td class="text-center">{{ $car->engine }} CC</td>
-                                        <td class="text-center">{{ $car->horsepower }}  HP</td>
+                                        <td class="text-center">{{ $car->horsepower }} HP</td>
                                         <td class="text-center">{{ $car->seats }}</td>
                                         <td class="text-center">{{ $car->color }}</td>
                                         <td class="text-center">{{ $car->price_per_hour }} €</td>
@@ -88,7 +88,7 @@ Cars
                                         <div class="modal-dialog" role="document" style="max-width: 800px;">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="editCarModalLabel{{ $car->id }}">Edit Car</h5>
+                                                    <h5 class="modal-title" id="editCarModalLabel{{ $car->id }}">Edit Vehicle</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -112,7 +112,7 @@ Cars
                                         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="showCarModalLabel{{ $car->id }}" style="color: black; font-size: 18px;">Show Car</h5>
+                                                    <h5 class="modal-title" id="showCarModalLabel{{ $car->id }}" style="color: black; font-size: 18px;">Show Vehicle</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -215,20 +215,21 @@ Cars
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteCarModalLabel{{ $car->id }}">Delete Car</h5>
+                                                    <h5 class="modal-title" id="deleteCarModalLabel{{ $car->id }}">Delete Vehicle</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Are you sure you want to delete this car?
+                                                    Are you sure you want to delete this vehicle?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route('cars.destroy', $car->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn" style="background-color: #9c2121; color: white;">Delete</button>
+
                                                     </form>
                                                 </div>
                                             </div>
@@ -251,7 +252,7 @@ Cars
         <div class="modal-dialog modal-lg" role="document"> <!-- Agregamos la clase modal-lg para que el modal sea de ancho grande -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createCarModalLabel">{{ __('Create New Car') }}</h5>
+                    <h5 class="modal-title" id="createCarModalLabel">{{ __('Create New Vehicle') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
