@@ -36,7 +36,7 @@ Cars
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">Available Vehicles</p>
-                        <h4 class="mb-0">2,30</h4>
+                        <h4 class="mb-0">1</h4>
                     </div>
                 </div>
                 <hr class="dark horizontal my-0">

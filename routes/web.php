@@ -75,7 +75,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
 
-Route::resource('cars', CarController::class);
+Route::resource('admin', CarController::class); //Routa dashboard coches
+Route::resource('cars', CarController::class); //Routa vehicles coches
 Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
-
-

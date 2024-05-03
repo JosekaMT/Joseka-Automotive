@@ -26,6 +26,9 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
+
+
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
     <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -61,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/admin/vehicle') }}">
+                    <a class="nav-link text-white" href="{{ url('/cars') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">directions_car</i>
                         </div>
