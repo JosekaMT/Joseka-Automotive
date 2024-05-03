@@ -55,6 +55,15 @@ return [
             'updated_at',
             'deleted_at',
         ],
+
+        /*
+         * Additional fillable columns
+         */
+        'additionalFillable' => [
+            'city',
+            'phone_number',
+            'profile_photo',
+        ],
     ],
 
     'controller' => [

@@ -23,29 +23,32 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
 
-    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
-
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
-        <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
-            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-            <a href="{{ url('/admin') }}" class="d-flex justify-content-center align-items-center">
-                <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 210px; height: 55px;">
-            </a>
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
+    <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
+        <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a href="{{ url('/admin') }}" class="d-flex justify-content-center align-items-center">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 210px; height: 55px;">
+        </a>
+    </div>
+
+    <hr class="horizontal light mt-0 mb-3">
+
+    <!-- Perfil del usuario -->
+    @auth
+    <div class="d-flex justify-content-between align-items-center px-3">
+        <div class="user-profile me-3">
+            <img src="{{ auth()->user()->photo_url }}" alt="User Photo" class="rounded-circle" style="width: 50px; height: 50px;">
         </div>
-
-        <hr class="horizontal light mt-0 mb-2">
-
-        <!-- Perfil del usuario -->
-        <div class="profile-section text-white d-flex align-items-center px-3">
-            <img src="{{ asset('path/to/profile_image.jpg') }}" alt="Profile Image" class="rounded-circle" style="width: 48px; height: 48px;">
-            <span class="profile-name ms-3">Nombre del Usuario</span>
+        <div class="text-white text-end">
+            <span>{{ auth()->user()->name }}</span>
         </div>
+    </div>
+    @endauth
 
-        <hr class="horizontal light">
+    <hr class="horizontal light">
 
         <div class="collapse navbar-collapse w-auto bg-black" id="sidenav-collapse-main">
             <ul class="navbar-nav">
@@ -153,98 +156,22 @@
                 </div>
             </div>
         </nav>
-
         <!-- End Navbar -->
-        <div class="container-fluid py-4">
+
+        @yield('content')
+
+        <footer class="footer py-4">
             <div class="row">
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div class="icon icon-lg icon-shape shadow-danger text-center border-radius-xl mt-n4 position-absolute" style="background-color: #9c2121;">
-                                <i class="material-icons opacity-10">directions_car</i>
-                            </div>
-
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Available Vehicles</p>
-                                <h4 class="mb-0">2,300</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">euro</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                                <h4 class="mb-0">$53k</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div class="icon icon-lg icon-shape bg-gradient-info shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">people</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                                <h4 class="mb-0">3,462</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div class="icon icon-lg icon-shape bg-gradient-success shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">account_balance</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Sales</p>
-                                <h4 class="mb-0">$103,430</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
-                        </div>
-                    </div>
+                <div class="col-12">
+                    <hr class="my-2" style="border-color: white;">
+                    <p class="text-center text-white-600 mt-4">
+                        Copyright © <script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved.
+                    </p>
                 </div>
             </div>
-            <div class="row mt-4">
-
-            </div>
-
-            @yield('content')
-
-            <footer class="footer py-4">
-                <div class="row">
-                    <div class="col-12">
-                        <hr class="my-2" style="border-color: white;">
-                        <p class="text-center text-white-600 mt-4">
-                            Copyright © <script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved.
-                        </p>
-                    </div>
-                </div>
-            </footer>
+        </footer>
     </main>
 
     <!--   Core JS Files   -->
@@ -500,7 +427,6 @@
             },
         });
     </script>
-
 
     <script>
         /*NO BORRAR*/

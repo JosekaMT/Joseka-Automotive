@@ -22,8 +22,11 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::paginate(10);
-        return view('car.index', compact('cars'));
+        $totalCars = Car::count();
+    
+        return view('car.index', compact('cars', 'totalCars'));
     }
+    
 
     public function store(CarRequest $request): RedirectResponse
     {
