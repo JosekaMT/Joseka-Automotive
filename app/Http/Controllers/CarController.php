@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarRequest;
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -23,11 +24,11 @@ class CarController extends Controller
     {
         $cars = Car::paginate(10);
         $totalCars = Car::count();
+        $totalUsers = User::where('is_admin', false)->count();
     
-        return view('car.index', compact('cars', 'totalCars'));
+        return view('car.index', compact('cars', 'totalCars', 'totalUsers'));
     }
     
-
     public function store(CarRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
