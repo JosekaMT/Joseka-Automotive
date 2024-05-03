@@ -32,16 +32,11 @@ class CarController extends Controller
 
 
 
-
-    public function list()
-    {
-        $cars = Car::all();
-        return response()->json($cars);
+    public function showCars() {
+        $cars = Car::all(); // Obtén todos los coches
+        return view('vehicles', compact('cars'));
     }
     
-
-
-
 
 
 

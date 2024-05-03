@@ -15,9 +15,11 @@ use App\Http\Controllers\CarController;
 
 
 // Ruta principal de la aplicación
-Route::get('/', function () {
+
+Route::get('/', function () { //Vista vehicles
     return view('welcome');
-});
+})->name('vehicles');
+
 
 // Rutas de autenticación
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -61,15 +63,14 @@ Route::get('/vehicles', function () { //Vista vehicles
 })->name('vehicles');
 
 
-Route::get('/api/cars', [CarController::class, 'list']); //Lista de coches cliente
-
+Route::get('/vehicles',  [CarController::class, 'showCars']);
 
 Route::get('/about', function () { //Vista about
     return view('about');
 })->name('about');
 
-Route::get('/contact', function () {//Vista contact
-    return view('contact'); 
+Route::get('/contact', function () { //Vista contact
+    return view('contact');
 })->name('contact');
 
 Route::get('/profile', function () { //Vista profile

@@ -1,9 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    fetch('/api/cars')
-        .then(response => response.json())
-        .then(cars => populate_products(cars));
-});
-
 function create_product_card(car) {
     return `
     <div class="product-card">
@@ -12,6 +6,11 @@ function create_product_card(car) {
             <div class="product-card-details">
                 <span class="product-name">${car.brand} ${car.model}</span>
                 <span class="product-price">$${car.price_per_hour} per hour</span>
+                <div class="product-details">
+                    <p>Fuel: ${car.fuel}</p>
+                    <p>Engine: ${car.engine}</p>
+                    <p>Horsepower: ${car.horsepower}</p>
+                </div>
             </div>
         </a>
         <div class="product-wish-addtocart">
@@ -22,20 +21,3 @@ function create_product_card(car) {
         </div>
     </div> `;
 }
-
-function populate_products(cars) {
-    const product_card_container = document.querySelector('.product-card-container');
-    product_card_container.innerHTML = "";
-    cars.forEach(car => {
-        product_card_container.innerHTML += create_product_card(car);
-    });
-}
-
-function addEvents() {
-    document.querySelectorAll(".wish-btn-img").forEach((one_wish_btn) => {
-        one_wish_btn.addEventListener('click', function(event) {
-            event.target.src = "https://tech.mjassociate.co.in/images/svgs/like_red_filled.svg";
-        });
-    });
-}
-addEvents();
