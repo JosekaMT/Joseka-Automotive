@@ -29,29 +29,29 @@
 
 
 
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
-    <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
-        <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a href="{{ url('/admin') }}" class="d-flex justify-content-center align-items-center">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 210px; height: 55px;">
-        </a>
-    </div>
-
-    <hr class="horizontal light mt-0 mb-3">
-
-    <!-- Perfil del usuario -->
-    @auth
-    <div class="d-flex justify-content-between align-items-center px-3">
-        <div class="user-profile me-3">
-            <img src="{{ auth()->user()->photo_url }}" alt="User Photo" class="rounded-circle" style="width: 50px; height: 50px;">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
+        <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
+            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a href="{{ url('/admin') }}" class="d-flex justify-content-center align-items-center">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 210px; height: 55px;">
+            </a>
         </div>
-        <div class="text-white text-end">
-            <span>{{ auth()->user()->name }}</span>
-        </div>
-    </div>
-    @endauth
 
-    <hr class="horizontal light">
+        <hr class="horizontal light mt-0 mb-3">
+
+        <!-- Perfil del usuario -->
+        @auth
+        <div class="d-flex justify-content-between align-items-center px-3">
+            <div class="user-profile me-3">
+                <img src="{{ auth()->user()->photo_url }}" alt="User Photo" class="rounded-circle" style="width: 50px; height: 50px;">
+            </div>
+            <div class="text-white text-end">
+                <span>{{ auth()->user()->name }}</span>
+            </div>
+        </div>
+        @endauth
+
+        <hr class="horizontal light">
 
         <div class="collapse navbar-collapse w-auto bg-black" id="sidenav-collapse-main">
             <ul class="navbar-nav">
@@ -73,19 +73,19 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white active" href="{{ url('/admin/vehicle2') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">receipt_long</i>
-                        </div>
-                        <span class="nav-link-text ms-1" style="text-transform: uppercase;">Billing</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-white active" href="{{ url('/admin/notifications') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">notifications</i>
                         </div>
                         <span class="nav-link-text ms-1" style="text-transform: uppercase;">Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active" href="{{ url('/admin/vehicle2') }}">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">receipt_long</i>
+                        </div>
+                        <span class="nav-link-text ms-1" style="text-transform: uppercase;">Billing</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -133,48 +133,20 @@
         </div>
     </aside>
 
-    <main class="main-content position-relative max-height-vh-100 h-100 ps ps--active-x">
-        <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur">
-            <div class="container-fluid py-1 px-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Admin</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
-                    </ol>
-                    <h6 class="font-weight-normal mb-0 text-white" style="font-size: 1.2rem;">Dashboard</h6>
-                </nav>
-                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <ul class="navbar-nav justify-content-end">
-                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                                <div class="sidenav-toggler-inner">
-                                    <i class="sidenav-toggler-line"></i>
-                                    <i class="sidenav-toggler-line"></i>
-                                    <i class="sidenav-toggler-line"></i>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- End Navbar -->
+    @yield('content')
 
-        @yield('content')
-
-        <footer class="footer py-4">
-            <div class="row">
-                <div class="col-12">
-                    <hr class="my-2" style="border-color: white;">
-                    <p class="text-center text-white-600 mt-4">
-                        Copyright © <script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved.
-                    </p>
-                </div>
+    <footer class="footer py-4">
+        <div class="row">
+            <div class="col-12">
+                <hr class="my-2" style="border-color: white;">
+                <p class="text-center text-white-600 mt-4">
+                    Copyright © <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved.
+                </p>
             </div>
-        </footer>
+        </div>
+    </footer>
     </main>
 
     <!--   Core JS Files   -->

@@ -22,13 +22,29 @@ class CarController extends Controller
 
     public function index()
     {
-        $cars = Car::paginate(10);
+        $cars = Car::all();
         $totalCars = Car::count();
+        $availableCars = Car::where('available', true)->count();
         $totalUsers = User::where('is_admin', false)->count();
-    
-        return view('car.index', compact('cars', 'totalCars', 'totalUsers'));
+
+        return view('car.index', compact('cars', 'totalCars', 'availableCars', 'totalUsers'));
+    }
+
+
+
+
+    public function list()
+    {
+        $cars = Car::all();
+        return response()->json($cars);
     }
     
+
+
+
+
+
+
     public function store(CarRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();

@@ -15,6 +15,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('./css/style-card.css') }}" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -27,7 +28,7 @@
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
 
-            </button>                <span class="navbar-toggler-icon"></span>
+            </button> <span class="navbar-toggler-icon"></span>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
@@ -35,13 +36,13 @@
                         <a class="nav-link text-uppercase" href="/" style="color: #fff;">Home</a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="#vehiculos" style="color: #fff;">Vehicles</a>
+                        <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}" style="color: #fff;">Vehicles</a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="#nosotros" style="color: #fff;">About us</a>
+                        <a class="nav-link text-uppercase" href="{{ url('/about') }}" style="color: #fff;">About us</a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="#contacto" style="color: #fff;">Contact</a>
+                        <a class="nav-link text-uppercase" href="{{ url('/contact') }}" style="color: #fff;">Contact</a>
                     </li>
                     @guest
                     <li class="nav-item dropdown">
@@ -112,7 +113,7 @@
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center gap-7 flex-wrap">
                             <a class="footer-link mx-4" href="/">Home</a>
-                            <a class="footer-link mx-4" href="#articles">Vehicles</a>
+                            <a class="footer-link mx-4" href="{{ route('vehicles') }}">Vehicles</a>
                             <a class="footer-link mx-4" href="#becomePartner">About us</a>
                             <a class="footer-link mx-4" href="#about">Contact</a>
                             <a class="footer-link mx-2 " href="https://twitter.com/joseka_mt">
@@ -164,4 +165,3 @@
 </body>
 
 </html>
-

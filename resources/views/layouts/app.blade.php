@@ -19,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('./css/style-card.css') }}" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -36,16 +37,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="/" style="color: #fff;">Inicio</a>
+                        <a class="nav-link text-uppercase" href="/" style="color: #fff;">Home</a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="#vehiculos" style="color: #fff;">Vehículos</a>
+                        <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}" style="color: #fff;">Vehicles</a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="#nosotros" style="color: #fff;">Nosotros</a>
+                        <a class="nav-link text-uppercase" href="#nosotros" style="color: #fff;">About us</a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-uppercase" href="#contacto" style="color: #fff;">Contacto</a>
+                        <a class="nav-link text-uppercase" href="#contacto" style="color: #fff;">Contact</a>
                     </li>
                     @guest
                     <li class="nav-item dropdown">
@@ -54,8 +55,8 @@
                             <i class="fas fa-caret-down fa-md"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('register') }}" style="color: #000;">Registrarse</a>
-                            <a class="dropdown-item" href="{{ route('login') }}" style="color: #000;">Iniciar sesión</a>
+                            <a class="dropdown-item" href="{{ route('register') }}" style="color: #000;">Register</a>
+                            <a class="dropdown-item" href="{{ route('login') }}" style="color: #000;">Login</a>
                         </div>
                     </li>
                     @else
@@ -98,10 +99,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center gap-7 flex-wrap">
-                            <a class="footer-link mx-4" href="/">Inicio</a>
-                            <a class="footer-link mx-4" href="#articles">Vehículos</a>
-                            <a class="footer-link mx-4" href="#becomePartner">Nosotros</a>
-                            <a class="footer-link mx-4" href="#about">Contacto</a>
+                            <a class="footer-link mx-4" href="/">Home</a>
+                            <a class="footer-link mx-4" href="#articles">Vehicles</a>
+                            <a class="footer-link mx-4" href="#becomePartner">About us</a>
+                            <a class="footer-link mx-4" href="#about">Contact</a>
                             <a class="footer-link mx-2 " href="https://twitter.com/joseka_mt">
                                 <i class="fab fa-twitter"></i>
                             </a>
@@ -116,7 +117,7 @@
                             <p class="text-center text-white-600 mt-4">
                                 Copyright © <script>
                                     document.write(new Date().getFullYear());
-                                </script> Todos los derechos reservados.
+                                </script> All rights reserved.
                             </p>
                         </div>
                     </div>
@@ -127,12 +128,18 @@
     <div class="custom-button" id="top">
         <i class="fas fa-angle-up"></i>
     </div>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script> <!--*Script principal de la aplicación-->
-
+    <script src="{{ asset('js/card.js') }}"></script> <!--*Script principal de la aplicación-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Scripts de Material Design Bootstrap (MDB) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+
+
 
     <script>
         $(document).ready(function() {
@@ -152,6 +159,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>

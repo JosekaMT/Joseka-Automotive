@@ -56,6 +56,42 @@ Route::middleware(['guest'])->group(function () {
 Auth::routes();
 
 
+Route::get('/vehicles', function () { //Vista vehicles
+    return view('vehicles');
+})->name('vehicles');
+
+
+Route::get('/api/cars', [CarController::class, 'list']); //Lista de coches cliente
+
+
+Route::get('/about', function () { //Vista about
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {//Vista contact
+    return view('contact'); 
+})->name('contact');
+
+Route::get('/profile', function () { //Vista profile
+    return view('profile');
+})->name('profile');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ADMIN PANEL
 Route::get('/admin', function () {
     if (auth()->user() && auth()->user()->is_admin) {
         return view('admin.dashboard');
@@ -78,3 +114,4 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('admin', CarController::class); //Routa dashboard coches
 Route::resource('cars', CarController::class); //Routa vehicles coches
 Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
+//ADMIN PANEL
