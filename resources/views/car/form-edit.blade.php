@@ -128,6 +128,52 @@
             </select>
             {!! $errors->first('color', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="mb-4">
+    <label for="available" class="form-label">{{ __('Available') }}</label>
+    <select name="available" class="form-select border rounded-0 @error('available') is-invalid @enderror" id="available">
+        <option value="" disabled selected>Select Availability</option>
+        <option value="1" {{ old('available', $car->available ?? '') == 1 ? 'selected' : '' }}>Yes</option>
+        <option value="0" {{ old('available', $car->available ?? '') == 0 ? 'selected' : '' }}>No</option>
+    </select>
+    @error('available')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="mb-4">
+    <label for="rented" class="form-label">{{ __('Rented') }}</label>
+    <select name="rented" class="form-select border rounded-0 @error('rented') is-invalid @enderror" id="rented">
+        <option value="" disabled selected>Select Rental Status</option>
+        <option value="1" {{ old('rented', $car->rented ?? '') == 1 ? 'selected' : '' }}>Yes</option>
+        <option value="0" {{ old('rented', $car->rented ?? '') == 0 ? 'selected' : '' }}>No</option>
+    </select>
+    @error('rented')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+
+
+
+
+
+
+
+
+
+
         <div class="mb-4">
             <label for="price_per_hour" class="form-label">{{ __('Price Per Hour') }} (€)</label>
             <input type="text" name="price_per_hour" class="form-control border rounded-0 @error('price_per_hour') is-invalid @enderror" value="{{ old('price_per_hour', $car?->price_per_hour) }}" id="price_per_hour" placeholder="Price Per Hour">

@@ -47,22 +47,22 @@ Cars
         </div>
 
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-    <div class="card">
-        <div class="card-header p-3 pt-2">
-            <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">people</i>
-            </div>
-            <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Clients</p>
-                <h4 class="mb-0">{{ $totalUsers }}</h4>
+            <div class="card">
+                <div class="card-header p-3 pt-2">
+                    <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                        <i class="material-icons opacity-10">people</i>
+                    </div>
+                    <div class="text-end pt-1">
+                        <p class="text-sm mb-0 text-capitalize">Clients</p>
+                        <h4 class="mb-0">{{ $totalUsers }}</h4>
+                    </div>
+                </div>
+                <hr class="dark horizontal my-0">
+                <div class="card-footer p-3">
+                    <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+                </div>
             </div>
         </div>
-        <hr class="dark horizontal my-0">
-        <div class="card-footer p-3">
-            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
-        </div>
-    </div>
-</div>
 
 
 
@@ -131,6 +131,8 @@ Cars
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Horsepower (HP)</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Seats</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Color</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Availability</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rental</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price Per Hour (€)</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
                                         </tr>
@@ -141,7 +143,7 @@ Cars
                                             <td class="text-center">{{ $car->id }}</td>
                                             <td class="text-center">
                                                 @if($car->image1)
-                                                <img src="{{ asset('storage/' . $car->image1) }}" alt="Car Image" style="max-width: 150px; max-height: 150px;">
+                                                <img src="{{ asset('storage/' . $car->image1) }}" alt="Car Image" style="max-width: 120px; max-height: 120px;">
                                                 @else
                                                 No Image
                                                 @endif
@@ -155,10 +157,30 @@ Cars
                                             <td class="text-center">{{ $car->horsepower }} HP</td>
                                             <td class="text-center">{{ $car->seats }}</td>
                                             <td class="text-center">{{ $car->color }}</td>
+
+
+
+
+                                            <td class="text-center">
+                                                @if($car->available)
+                                                <span class="badge bg-success">Available</span>
+                                                @else
+                                                <span class="badge bg-danger">Not Available</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if($car->rented)
+                                                <span class="badge bg-warning">Rented</span>
+                                                @else
+                                                <span class="badge bg-secondary">Not Rented</span>
+                                                @endif
+                                            </td>
+
+
                                             <td class="text-center">{{ $car->price_per_hour }} €</td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#showCarModal{{ $car->id }}">
-                                                    <i class="fa fa-fw fa-eye" style="font-size: 1.3em;"></i>
+                                                    <i class="fa fa-fw fa-eye" style="font-size: 1.2em;"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editCarModal{{ $car->id }}">
                                                     <i class="fa fa-fw fa-edit" style="font-size: 1.2em;"></i>
@@ -282,6 +304,20 @@ Cars
                                                                         <strong style="color: black; font-size: 18px;">Color:</strong>
                                                                         <p style="color: black; font-size: 18px;">{{ $car->color }}</p>
                                                                     </div>
+
+
+
+                                                                    <div class="form-group">
+                                                                        <strong style="color: black; font-size: 18px;">Available:</strong>
+                                                                        <p style="color: black; font-size: 18px;">{{ $car->available ? 'Yes' : 'No' }}</p>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <strong style="color: black; font-size: 18px;">Rented:</strong>
+                                                                        <p style="color: black; font-size: 18px;">{{ $car->rented ? 'Yes' : 'No' }}</p>
+                                                                    </div>
+
+
+
                                                                     <div class="form-group">
                                                                         <strong style="color: black; font-size: 18px;">Price Per Hour (€):</strong>
                                                                         <p style="color: black; font-size: 18px;">{{ $car->price_per_hour }} €</p>

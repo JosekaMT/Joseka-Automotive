@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property $seats
  * @property $color
  * @property $price_per_hour
+ * @property $available
+ * @property $rented
  * @property $created_at
  * @property $updated_at
  *
@@ -26,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Car extends Model
 {
-
     protected $perPage = 20;
 
     /**
@@ -34,5 +35,18 @@ class Car extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['brand', 'model', 'body', 'fuel', 'gears', 'engine', 'horsepower', 'seats', 'color', 'price_per_hour'];
+    protected $fillable = [
+        'brand',
+        'model',
+        'body',
+        'fuel',
+        'gears',
+        'engine',
+        'horsepower',
+        'seats',
+        'color',
+        'price_per_hour',
+        'available', 
+        'rented' 
+    ];
 }
