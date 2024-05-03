@@ -118,3 +118,9 @@ body {
     border: none !important;
     /* Elimina cualquier borde */
 }
+
+
+.li.nav-item, .listitem{
+
+    color: transparent !important;;
+}

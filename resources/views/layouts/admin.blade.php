@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/cars') }}">
+                    <a class="nav-link text-white active" href="{{ url('/cars') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">directions_car</i>
                         </div>
@@ -73,7 +73,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/admin/vehicle2') }}">
+                    <a class="nav-link text-white active" href="{{ url('/admin/vehicle2') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">receipt_long</i>
                         </div>
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/admin/notifications') }}">
+                    <a class="nav-link text-white active" href="{{ url('/admin/notifications') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">notifications</i>
                         </div>
@@ -89,7 +89,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/admin/notifications') }}">
+                    <a class="nav-link text-white active" href="{{ url('/admin/notifications') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">people</i>
                         </div>
@@ -100,7 +100,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-sm text-white font-weight-bolder opacity-8">Account pages</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/admin/profile') }}">
+                    <a class="nav-link text-white active" href="{{ url('/admin/profile') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">person</i>
                         </div>
@@ -108,7 +108,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('register') }}">
+                    <a class="nav-link text-white active" href="{{ route('register') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">exit_to_app</i>
                         </div>
@@ -117,7 +117,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    <a class="nav-link text-white active" href="{{ route('logout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">logout</i>
