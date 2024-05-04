@@ -113,4 +113,13 @@ class CarController extends Controller
             return Redirect::route('cars.index')->with('error', 'Vehicle not found.');
         }
     }
+
+
+    public function rentVehicle($id): View
+    {
+        $car = Car::findOrFail($id);
+        return view('rent-vehicles', compact('car', 'id')); // Pasar el ID del vehículo a la vista
+    }
+    
+
 }

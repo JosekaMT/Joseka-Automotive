@@ -23,11 +23,11 @@
         <div class="col-md-6">
             <!-- Car details -->
             <h2>{{ $car->brand }} {{ $car->model }}</h2>
-            <h3 class="text-danger"><strike>€{{ $car->original_price_per_hour }} per hour</strike> €{{ $car->price_per_hour }} per hour</h3>
-            <p class="text-success">Extra discount: 33% off with code #33may. Applies to orders over €100.00 EUR.</p>
+            <h3 class="text-danger"><strike>€{{ $car->price_per_hour * 1.2 }}</strike> €{{ $car->price_per_hour }}</h3>
+            <p class="text-success">Special discount available!</p>
             <p class="lead">
-                <span class="badge bg-primary">New</span>
-                <span class="badge bg-success">In stock</span>
+                <span class="badge bg-primary">{{ $car->new ? 'New' : 'Used' }}</span>
+                <span class="badge bg-success">{{ $car->available ? 'Available' : 'Not available' }}</span>
             </p>
             <div>
                 <h5>Color:</h5>
@@ -36,14 +36,14 @@
             <div class="mt-3">
                 <h5>Seats:</h5>
                 <select class="form-select" style="width: 150px;">
-                    <option selected>{{ $car->seats }}</option>
-                    <option>2 seats</option>
-                    <option>4 seats</option>
-                    <option>5 seats</option>
+                    <option selected>{{ $car->seats }} Seats</option>
                 </select>
             </div>
-            <button class="btn btn-primary btn-lg my-4">Book Now</button>
-        </div>
+            <button class="btn btn-primary btn-lg my-4">
+    <a href="{{ route('rent-vehicles.show', ['id' => $id]) }}" style="text-decoration: none; color: white;">Rent Now</a>
+</button>
+
+
     </div>
 </div>
 @endsection

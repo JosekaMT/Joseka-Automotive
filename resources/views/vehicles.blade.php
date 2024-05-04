@@ -27,7 +27,7 @@ Vehicle Showcase
                         <a class="wish-btn" role="button" style="text-decoration: none;">
                             <i class="far fa-heart"></i>
                         </a>
-                        <a href="{{ route('rent-vehicles') }}" class="addtocart-btn" style="text-decoration: none;">Rent Now!</a>
+                        <a href="{{ route('rent-vehicles.show', ['id' => $car->id]) }}" class="addtocart-btn" style="text-decoration: none;">Rent Now!</a>
 
                     </div>
                 </div>
