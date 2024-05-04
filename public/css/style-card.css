@@ -1,6 +1,24 @@
+
+.wish-btn i {
+  font-size: 21px; /* Tamaño del ícono */
+  color: #9c2121; /* Color rojo específico */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+.wish-btn:hover i {
+  content: '\f004'; /* Código Unicode de FontAwesome para el corazón relleno */
+  font-weight: 900; /* Font Awesome utiliza 900 para íconos sólidos */
+}
+
+
+
+
+
+
 main {
   padding-top: 100px;
 }
+
 .product-card-container {
   padding-top: 1rem;
   display: flex;
@@ -31,46 +49,60 @@ main {
 
 .product-card .product-card-img {
   width: 100%;
-  height: 300px;
+  height: 240px;
   object-fit: cover;
   object-position: 10% 10% 10% 10%;
 }
 
 .product-card:hover .product-card-img {
-  height: 240px;
+  height: 180px;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 .product-card:hover .product-card-details {
   padding-bottom: 75px;
+  
+  
 }
 
 .product-card .product-card-details{
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   background: linear-gradient(rgba(0,0,0,0.025), transparent);
 }
 
-/*** Product Details: Produt Name & Product Price Styling [STARTS] ***/
+/*** Product Details***/
 
 .product-card .product-card-details .product-name {
-  font-size: 18px;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
   color: #555555;
+  
 }
+
+
 
 .product-card .product-card-details .product-price {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  color: #2ecc71;
+  font-weight: 600;
+  font-size: 22px;
+  color: #9c2121;
 }
 
-/*** Product Details: Produt Name & Product Price Styling [ENDS] ***/
+/*** Product Details:***/
 
 
-/*** Product Details: Produt Wish & AddToCart [STARTS] ***/
+/*** Product Details***/
 
 .product-card .product-wish-addtocart{
   position: absolute;
@@ -89,7 +121,7 @@ main {
 }
 
 .product-card .product-wish-addtocart .addtocart-btn {
-  border-radius: 32px 0 0 32px!important;
+  border-radius: 8px 0 0 8px!important;
   width: 162px;
 }
 
@@ -98,7 +130,7 @@ main {
   width: 2.2rem;
   height: 2.2rem;
   padding: 1.3rem 1.3rem;
-  background-color: #eee;
+ /*** background-color: #eee;**/
   color: #bbbbbb;
   box-shadow: none;
   text-content: center;
@@ -110,10 +142,10 @@ main {
   align-items: center;
 }
 
-a.wish-btn, a.addtocart-btn {
-  background: #2ecc71;
+a.addtocart-btn {
+  background: #9c2121;
   padding: 0.6rem 2.2rem;
-  font-family: 'Open Sans',sans-serif;
+
   font-weight: 600!important;
   font-size: 15px;
   border-radius: 100px!important;
@@ -125,10 +157,10 @@ a.wish-btn, a.addtocart-btn {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
-/*** Product Details: Produt Wish & AddToCart [ENDS] ***/
+/*** Product Details/
 
 
-/** Mobile Friendly [STARTS] ***/
+/** Mobile***/
 @media (max-width: 840px) {
 
   .product-card-container {
@@ -136,7 +168,7 @@ a.wish-btn, a.addtocart-btn {
   }
   
   .product-card .product-card-img {
-    height: 240px;
+    height: 180px;
   }
   
   .product-card .product-card-details {
@@ -158,3 +190,5 @@ a.wish-btn, a.addtocart-btn {
     width: 100%;
   }
 }
+
+/*** Mobile***/

@@ -30,14 +30,11 @@ class CarController extends Controller
         return view('car.index', compact('cars', 'totalCars', 'availableCars', 'totalUsers'));
     }
 
-
-
-    public function showCars() {
-        $cars = Car::all(); // Obtén todos los coches
+    public function showCars()
+    {
+        $cars = Car::all(); // Obtén todos los coches para cliente
         return view('vehicles', compact('cars'));
     }
-    
-
 
 
     public function store(CarRequest $request): RedirectResponse
