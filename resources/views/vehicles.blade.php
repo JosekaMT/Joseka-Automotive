@@ -19,7 +19,7 @@ Vehicle Showcase
                                     <span class="product-name mr-10">{{ $car->brand }} {{ $car->model }}</span>
                                     <span class="product-price">{{ $car->price_per_hour }} €/H</span>
                                 </div>
-                                <div class="product-info text-center text-muted mt-1">{{ $car->fuel }} | {{ $car->engine }} CC | {{ $car->horsepower }} CV</div>
+                                <div class="product-info text-center text-muted mt-1">{{ $car->fuel }} | {{ $car->engine }} CC | {{ $car->horsepower }} HP</div>
                             </div>
                         </div>
                     </a>
