@@ -34,13 +34,14 @@
         display: inline-block;
         margin-right: 5px;
         margin-bottom: -5px;
-         /* Margen superior para ajustar la posición */
+        /* Margen superior para ajustar la posición */
     }
 
     /* Estilos para el nombre del color */
     .color-name {
         display: inline-block;
-        vertical-align: middle; /* Alinear verticalmente */
+        vertical-align: middle;
+        /* Alinear verticalmente */
     }
 
     .red-circle {
@@ -73,9 +74,12 @@
     }
 </style>
 
+<!-- Incluir Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-7" style="padding: 0; overflow: hidden;">
+        <div class="col-md-7 mb-6 mb-md-0" style="padding: 0; overflow: hidden;">
             <!-- Bootstrap Carousel for Main Image with Rounded Corners -->
             <div id="carImageCarousel" class="carousel slide" data-bs-ride="carousel" style="max-height: 400px; overflow: hidden; border-radius: 15px; margin: auto; width: 85%;">
                 <div class="carousel-inner">
@@ -111,7 +115,7 @@
         <div class="col-md-5">
             <!-- Car Details -->
             <h2>{{ $car->brand }} {{ $car->model }} {{ $car->body }} {{ $car->horsepower }} HP {{ $car->seats }}p.</h2>
-            <h2 class="text-danger">{{ $car->price_per_hour }} €</h2>
+            <h2 class="text-danger">{{ $car->price_per_hour }} €/H</h2>
             <p class="lead">
                 <span class="badge bg-success">{{ $car->available ? 'Available' : 'Not available' }}</span>
             </p>
@@ -168,20 +172,93 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Formulario para seleccionar la fecha y hora de recogida y entrega -->
+            <div class="container mt-4">
+                <h5>Select Pickup and Drop-off Date and Time:</h5>
+                <div class="row">
+                    <div class="col-md-6 mb-3 spaced-col pr-md-2">
+                        <label for="pickup_date" class="form-label">Pickup Date:</label>
+                        <div class="input-group">
+                            <input type="text" id="pickup_date" name="pickup_date" class="form-control" placeholder="Select Pickup Date">
+                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3 spaced-col pl-md-2">
+                        <label for="dropoff_date" class="form-label">Drop-off Date:</label>
+                        <div class="input-group">
+                            <input type="text" id="dropoff_date" name="dropoff_date" class="form-control" placeholder="Select Drop-off Date">
+                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3 spaced-col pr-md-2">
+                        <label for="pickup_time" class="form-label">Pickup Time:</label>
+                        <div class="input-group">
+                            <input type="text" id="pickup_time" name="pickup_time" class="form-control" placeholder="Select Pickup Time">
+                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3 spaced-col pl-md-2">
+                        <label for="dropoff_time" class="form-label">Drop-off Time:</label>
+                        <div class="input-group">
+                            <input type="text" id="dropoff_time" name="dropoff_time" class="form-control" placeholder="Select Drop-off Time">
+                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
             <button class="btn btn-primary btn-lg my-4">
                 <a href="{{ route('rent-vehicles.show', ['id' => $id]) }}" style="text-decoration: none; color: white;">Rent Now</a>
             </button>
         </div>
     </div>
 </div>
+<!-- Incluir Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Incluir Font Awesome JS -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
+<!-- Include Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    // Inicializar el carrusel de Bootstrap al cargar la página
-    window.onload = function() {
-        var carousel = new bootstrap.Carousel(document.getElementById('carImageCarousel'), {
-            interval: false // Desactivar la transición automática de las diapositivas
-        });
-    };
-</script>
+    // Initialize Flatpickr for the Pickup Date and Time selection
+    var pickupDateInput = flatpickr("#pickup_date", {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        disableMobile: true,
+        onChange: function(selectedDates, dateStr, instance) {
+            dropoffDateInput.set("minDate", dateStr);
+            if (dropoffDateInput.selectedDates[0] < selectedDates[0]) {
+                dropoffDateInput.clear();
+            }
+        }
+    });
 
+    var dropoffDateInput = flatpickr("#dropoff_date", {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        disableMobile: true
+    });
+
+    flatpickr("#pickup_time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        minTime: "08:00",
+        maxTime: "20:00",
+        disableMobile: true
+    });
+
+    flatpickr("#dropoff_time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        minTime: "08:00",
+        maxTime: "20:00",
+        disableMobile: true
+    });
+</script>
 @endsection
