@@ -186,9 +186,6 @@ Cars
                                                 <td class="text-center">{{ $car->seats }}</td>
                                                 <td class="text-center">{{ $car->color }}</td>
 
-
-
-
                                                 <td class="text-center">
                                                     @if($car->available)
                                                     <span class="badge bg-success">Available</span>
@@ -203,7 +200,6 @@ Cars
                                                     <span class="badge bg-secondary">Not Rented</span>
                                                     @endif
                                                 </td>
-
 
                                                 <td class="text-center">{{ $car->price_per_hour }} €</td>
                                                 <td class="text-center">

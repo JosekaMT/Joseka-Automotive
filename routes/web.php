@@ -62,16 +62,12 @@ Route::get('/vehicles', function () { //Vista vehicles
     return view('vehicles');
 })->name('vehicles');
 
+Route::get('/vehicles',  [CarController::class, 'showCars']); //Vista vehicles(mostrar lista de coches)
 
-Route::get('/vehicles',  [CarController::class, 'showCars']);
+Route::get('/rent-vehicles', function () { //Vista rentar vehicles
+    return view('rent-vehicles');
+})->name('rent-vehicles');
 
-Route::get('/about', function () { //Vista about
-    return view('about');
-})->name('about');
-
-Route::get('/contact', function () { //Vista contact
-    return view('contact');
-})->name('contact');
 
 Route::get('/profile', function () { //Vista profile
     return view('profile');
