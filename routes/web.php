@@ -85,26 +85,20 @@ Route::get('/profile', function () { //Vista profile
 
 
 //ADMIN PANEL
-Route::get('/admin', function () {
-    if (auth()->user() && auth()->user()->is_admin) {
-        return view('admin.dashboard');
-    }
-    abort(403, 'Unauthorized access.');
-})->middleware(['auth']);
-
-
 Route::middleware(['auth', 'is_admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 
-Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/vehicle', [AdminController::class, 'vehicle'])->name('admin.vehicle');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
 
-Route::resource('admin', CarController::class); //Routa dashboard coches
-Route::resource('cars', CarController::class); //Routa vehicles coches
-Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
-//ADMIN PANEL
+Route::middleware(['auth'])->group(function () {
+    Route::resource('admin', CarController::class); // Route dashboard coches
+    Route::resource('cars', CarController::class); // Route vehicles coches
+    Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
+});
