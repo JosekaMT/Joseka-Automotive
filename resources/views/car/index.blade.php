@@ -129,13 +129,14 @@ Cars
                                 </div>
                             </div>
 
-                            <div class="px-0">
+                            <div class="px-0 d-flex justify-content">
                                 @if ($message = Session::get('success'))
-                                <div class="alert alert-success m-2">
+                                <div class="alert alert-success w-auto p-2 mt-2">
                                     <p>{{ $message }}</p>
                                 </div>
                                 @endif
                             </div>
+
 
                             <div class="card-body px-0 pb-2">
                                 <div class="float">
