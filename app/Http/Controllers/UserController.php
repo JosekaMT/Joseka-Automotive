@@ -30,31 +30,27 @@ class UserController extends Controller
         // Método para mostrar el formulario de edición de un usuario
     }
 
-
-
-
-
-
-
     public function update(Request $request)
     {
         $user = Auth::user();
     
-        // Validación de todos los campos requeridos
+        // Validación de todos los campos requeridos, incluyendo address
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone_number' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255', // Añadir validación para el campo address
             'profile_photo' => 'nullable|image',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
     
-        // Actualización de los campos básicos
+        // Actualización de los campos básicos, incluyendo address
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->phone_number = $validatedData['phone_number'];
         $user->city = $validatedData['city'];
+        $user->address = $validatedData['address']; // Actualizar el campo address
     
         // Manejo de la carga de la foto de perfil
         if ($request->hasFile('profile_photo')) {
@@ -64,7 +60,7 @@ class UserController extends Controller
     
         // Actualizar la contraseña si se proporciona una nueva
         if ($request->filled('password')) {
-            $user->password = Hash::make($request->password); // Uso de Hash::make para asegurar la contraseña
+            $user->password = Hash::make($request->password);
         }
     
         // Guardar los cambios y manejar posibles errores
@@ -75,14 +71,6 @@ class UserController extends Controller
     
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
-    
-    
-
-
-
-
-
-
     public function destroy($id)
     {
         // Método para eliminar un usuario de la base de datos

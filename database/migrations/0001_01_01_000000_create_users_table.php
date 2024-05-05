@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('profile_photo')->nullable();
+            $table->string('address')->nullable(); // Agrega esta línea para el campo address
             $table->rememberToken();
             $table->timestamps();
         });
 
+        // Las otras tablas se mantienen sin cambios
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

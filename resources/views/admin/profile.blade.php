@@ -81,6 +81,10 @@ Profile
                         <label for="city" class="form-label">City</label>
                         <input type="text" class="form-control border" id="city" name="city" value="{{ auth()->user()->city }}">
                     </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control border" id="address" name="address" value="{{ auth()->user()->address }}">
+                    </div>
                 </div>
             </div>
         </div>

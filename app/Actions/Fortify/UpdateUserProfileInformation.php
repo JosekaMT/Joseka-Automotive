@@ -30,6 +30,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'city' => ['nullable', 'string', 'max:255'],
             'phone_number' => ['nullable', 'string', 'max:20'],
             'profile_photo_path' => ['nullable', 'image', 'max:1024'], // Max size 1MB
+            'address' => ['nullable', 'string', 'max:255'], // Añadir validación para el campo address
         ])->validateWithBag('updateProfileInformation');
 
         if ($input['email'] !== $user->email && $user instanceof MustVerifyEmail) {
@@ -41,6 +42,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'city' => $input['city'],
                 'phone_number' => $input['phone_number'],
                 'profile_photo_path' => $input['profile_photo_path'],
+                'address' => $input['address'], // Actualizar el campo address
             ])->save();
         }
     }
@@ -59,6 +61,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'city' => $input['city'],
             'phone_number' => $input['phone_number'],
             'profile_photo_path' => $input['profile_photo_path'],
+            'address' => $input['address'], // Actualizar el campo address
             'email_verified_at' => null,
         ])->save();
 

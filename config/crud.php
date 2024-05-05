@@ -63,6 +63,7 @@ return [
             'city',
             'phone_number',
             'profile_photo',
+            'address',
         ],
     ],
 

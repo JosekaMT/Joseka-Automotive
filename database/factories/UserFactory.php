@@ -28,7 +28,8 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'city' => $this->faker->city(),
             'phone_number' => $this->faker->phoneNumber(),
-            'profile_photo' => 'default.jpg', // Assuming you have a default image
+            'profile_photo' => 'default.jpg', 
+            'address' => $this->faker->address(),
             'remember_token' => Str::random(10),
         ];
     }

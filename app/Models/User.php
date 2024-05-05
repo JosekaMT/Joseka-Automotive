@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'city',
         'phone_number',
         'profile_photo',
+        'address', // Añadido el campo 'address' al array de asignación masiva
     ];
 
     /**
@@ -44,7 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
-           // 'password' => 'hashed',
         ];
     }
 }
