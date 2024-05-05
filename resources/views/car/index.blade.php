@@ -36,7 +36,6 @@ Cars
 
     <div class="container-fluid py-4">
         <div class="row">
-
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-header p-3 pt-2">
@@ -92,9 +91,6 @@ Cars
                 </div>
             </div>
 
-
-
-
             <div class="col-xl-3 col-sm-6">
                 <div class="card">
                     <div class="card-header p-3 pt-2">
@@ -114,9 +110,7 @@ Cars
             </div>
         </div>
         <div class="row mt-4">
-
         </div>
-
 
         <div class="row mb-4">
             <div class="col-lg-12">
@@ -136,7 +130,6 @@ Cars
                                 </div>
                                 @endif
                             </div>
-
 
                             <div class="card-body px-0 pb-2">
                                 <div class="float">
@@ -237,7 +230,6 @@ Cars
                                                 </div>
                                             </div>
                                             <!-- End Edit Car Modal -->
-
 
                                             <!-- Show Car Modal -->
                                             <div class="modal fade" id="showCarModal{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="showCarModalLabel{{ $car->id }}" aria-hidden="true">
