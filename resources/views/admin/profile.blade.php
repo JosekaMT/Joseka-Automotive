@@ -6,7 +6,7 @@ Profile
 
 @section('content')
 
-<main class="main-content position-relative max-height-vh-100 h-100 ps ps--active-x">
+<main class="main-content position-relative max-height-vh-100 h-100">
   <!-- Navbar -->
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur">
     <div class="container-fluid py-1 px-3">
@@ -19,7 +19,7 @@ Profile
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <li class="nav-item d-xl-none d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
                 <i class="sidenav-toggler-line"></i>
@@ -39,6 +39,7 @@ Profile
       <span class="mask bg-gradient-dark opacity-6"></span>
     </div>
     <div class="card card-body mx-3 mx-md-4 mt-n6">
+
       <div class="row gx-4 mb-2">
         <div class="col-auto">
           <div class="avatar avatar-xl position-relative">
@@ -57,109 +58,105 @@ Profile
         </div>
       </div>
 
-
       <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-    <div class="row">
-        <!-- Columna de Información Básica -->
-        <div class="col-12 col-xl-4">
+        @csrf
+        @method('PUT')
+        <div class="row">
+          <!-- Columna de Información Básica -->
+          <div class="col-12 col-xl-4">
             <div class="card card-plain h-100">
-                <div class="card-header pb-0 p-3">
-                    <h6 class="mb-0">Basic Information</h6>
+              <div class="card-header pb-0 p-3">
+                <h6 class="mb-0">Basic Information</h6>
+              </div>
+              <div class="card-body p-3">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" class="form-control border" id="name" name="name" value="{{ auth()->user()->name }}">
                 </div>
-                <div class="card-body p-3">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control border" id="name" name="name" value="{{ auth()->user()->name }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone_number" class="form-label">Mobile</label>
-                        <input type="text" class="form-control border" id="phone_number" name="phone_number" value="{{ auth()->user()->phone_number }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control border" id="city" name="city" value="{{ auth()->user()->city }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control border" id="address" name="address" value="{{ auth()->user()->address }}">
-                    </div>
+                <div class="mb-3">
+                  <label for="phone_number" class="form-label">Mobile</label>
+                  <input type="text" class="form-control border" id="phone_number" name="phone_number" value="{{ auth()->user()->phone_number }}">
                 </div>
+                <div class="mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" class="form-control border" id="city" name="city" value="{{ auth()->user()->city }}">
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <input type="text" class="form-control border" id="address" name="address" value="{{ auth()->user()->address }}">
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Columna de Información de Contacto -->
-        <div class="col-12 col-xl-4">
+          <!-- Columna de Información de Contacto -->
+          <div class="col-12 col-xl-4">
             <div class="card card-plain h-100">
-                <div class="card-header pb-0 p-3">
-                    <h6 class="mb-0">Contact Information</h6>
+              <div class="card-header pb-0 p-3">
+                <h6 class="mb-0">Email Information</h6>
+              </div>
+              <div class="card-body p-3">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control border" id="email" name="email" value="{{ auth()->user()->email }}">
                 </div>
-                <div class="card-body p-3">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control border" id="email" name="email" value="{{ auth()->user()->email }}">
-                    </div>
-                    <div class="mb-3 position-relative">
-                        <label for="password" class="form-label">New Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control border" id="password" name="password">
-                            <span class="input-group-text ms-2" onclick="togglePasswordVisibility('password')">
-                                <i class="material-icons mx-2" style="color: black;">visibility</i> <!-- Icono de ojo -->
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mb-3 position-relative">
-                        <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control border" id="password_confirmation" name="password_confirmation">
-                            <span class="input-group-text ms-2" onclick="togglePasswordVisibility('password_confirmation')">
-                                <i class="material-icons mx-2" style="color: black;">visibility</i> <!-- Icono de ojo -->
-                            </span>
-                        </div>
-                    </div>
+                <div class="mb-3 position-relative">
+                  <label for="password" class="form-label">New Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control border" id="password" name="password">
+                    <span class="input-group-text ms-2" onclick="togglePasswordVisibility('password')">
+                      <i class="material-icons mx-2" style="color: black;">visibility</i> <!-- Icono de ojo -->
+                    </span>
+                  </div>
                 </div>
+                <div class="mb-3 position-relative">
+                  <label for="password_confirmation" class="form-label">Confirm New Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control border" id="password_confirmation" name="password_confirmation">
+                    <span class="input-group-text ms-2" onclick="togglePasswordVisibility('password_confirmation')">
+                      <i class="material-icons mx-2" style="color: black;">visibility</i> <!-- Icono de ojo -->
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Columna de Foto de Perfil -->
-        <div class="col-12 col-xl-4">
+          <!-- Columna de Foto de Perfil -->
+          <div class="col-12 col-xl-4">
             <div class="card card-plain h-100">
-                <div class="card-header pb-0 p-3">
-                    <h6 class="mb-0">Profile Photo</h6>
+              <div class="card-header pb-0 p-3">
+                <h6 class="mb-0">Profile Photo</h6>
+              </div>
+              <div class="card-body p-3">
+                <div class="mb-3">
+                  <label for="profile_photo" class="form-label">Upload New Photo</label>
+                  <input type="file" class="form-control border" id="profile_photo" name="profile_photo">
                 </div>
-                <div class="card-body p-3">
-                    <div class="mb-3">
-                        <label for="profile_photo" class="form-label">Upload New Photo</label>
-                        <input type="file" class="form-control border" id="profile_photo" name="profile_photo">
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary">Update All</button>
+        <div class="row">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-danger" style="background-color: #9c2121;">Update All</button>
+          </div>
         </div>
-    </div>
-</form>
+      </form>
 
-<script>
-    function togglePasswordVisibility(inputId) {
-        const passwordInput = document.getElementById(inputId);
-        const passwordIcon = passwordInput.nextElementSibling.querySelector('i');
-        if (passwordInput.type === "password") {
+      <script>
+        function togglePasswordVisibility(inputId) {
+          const passwordInput = document.getElementById(inputId);
+          const passwordIcon = passwordInput.nextElementSibling.querySelector('i');
+          if (passwordInput.type === "password") {
             passwordInput.type = "text";
             passwordIcon.textContent = "visibility_off"; // Cambia el ícono a "visibility_off" cuando la contraseña es visible
-        } else {
+          } else {
             passwordInput.type = "password";
             passwordIcon.textContent = "visibility"; // Cambia el ícono a "visibility" cuando la contraseña está oculta
+          }
         }
-    }
-</script>
-
-
-
+      </script>
 
     </div>
   </div>

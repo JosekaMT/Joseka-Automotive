@@ -120,7 +120,49 @@ body {
 }
 
 
-.li.nav-item, .listitem{
+.li.nav-item,
+.listitem {
 
-    color: transparent !important;;
+    color: transparent !important;
+    ;
 }
+
+/* Desactivar Perfect Scrollbar */
+.ps__rail-y,
+.ps__thumb-y {
+    display: none !important;
+    /* Ocultar la barra de desplazamiento vertical */
+}
+
+.ps--active-y {
+    overflow-y: auto !important;
+    /* Restaurar el desplazamiento vertical predeterminado */
+}
+
+/*------------------scroll bar style---------------------*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+/*------------------scroll bar style---------------------*/

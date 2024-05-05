@@ -6,7 +6,7 @@ Cars
 
 @section('content')
 
-<main class="main-content position-relative max-height-vh-100 h-100 ps ps--active-x">
+<main class="main-content position-relative max-height-vh-100 h-100">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur">
         <div class="container-fluid py-1 px-3">

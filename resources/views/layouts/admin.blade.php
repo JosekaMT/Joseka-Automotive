@@ -12,6 +12,7 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap">
     <!-- Nucleo Icons -->
+
     <link href="{{ asset('./css/style-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/nucleo-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/nucleo-svg.css') }}" rel="stylesheet">
@@ -24,9 +25,19 @@
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 
+
+
+
+
+
+
+
+
+
+
 </head>
 
-<body class="g-sidenav-show  bg-gray-200">
+<body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
 
 
 
@@ -42,12 +53,17 @@
 
         <!-- Perfil del usuario -->
         @auth
-        <div class="d-flex justify-content-between align-items-center px-3">
-            <div class="user-profile me-3">
-                <img src="{{ auth()->user()->photo_url }}" alt="User Photo" class="rounded-circle" style="width: 50px; height: 50px;">
+        <div class="d-flex justify-content-between align-items-center px-4">
+            <div class="avatar avatar-xl position-relative">
+                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm" style="width: 50px; height: 70px; object-fit: cover;">
             </div>
-            <div class="text-white text-end">
-                <span>{{ auth()->user()->name }}</span>
+            <div class="h-100 text-white">
+                <h5 class="mb-0 text-white">
+                    {{ Auth::user()->name }}
+                </h5>
+                <p class="mb-0 font-weight-normal text-sm ">
+                    {{ Auth::user()->is_admin ? 'Admin' : Auth::user()->role }} / Co-Founder
+                </p>
             </div>
         </div>
         @endauth
@@ -153,8 +169,6 @@
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -429,15 +443,32 @@
         document.querySelector('.main-content').addEventListener('ps-scroll-x', function() {
             this.classList.remove('ps--active-x');
         });
+
+
+        $(document).ready(function() {
+
+            $("#top").click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 'smooth');
+            });
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('#top').fadeIn('slow');
+                } else {
+                    $('#top').fadeOut('slow');
+                }
+            });
+        });
     </script>
 
     <!--APP -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
 </body>
