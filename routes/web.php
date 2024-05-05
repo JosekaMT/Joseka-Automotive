@@ -11,9 +11,9 @@ use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CarController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\RentController;
 
 // Ruta principal de la aplicación
 
@@ -72,6 +72,16 @@ Route::get('/rent-vehicles', function () { //Vista rentar vehicles
 
 Route::get('/rent-vehicles/{id}', [CarController::class, 'rentVehicle'])->name('rent-vehicles.show'); //Vista rentar vehicles
 
+Route::post('/car/{carId}/rent', [CarController::class, 'rent'])->name('car.rent');
+
+
+
+
+// En rotes/web.php
+Route::post('/rent/{id}', [RentController::class, 'rent'])->name('rent');
+
+Route::post('/rent-car/{carId}', [CarController::class, 'rent'])->name('car.rent');
+
 
 
 
@@ -79,6 +89,13 @@ Route::get('/rent-vehicles/{id}', [CarController::class, 'rentVehicle'])->name('
 Route::get('/profile', function () { //Vista profile
     return view('profile');
 })->name('profile');
+
+
+
+
+
+
+
 
 
 
@@ -111,5 +128,4 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
 
 
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
-
 });

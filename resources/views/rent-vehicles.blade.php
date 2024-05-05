@@ -2,78 +2,6 @@
 
 @section('content')
 
-<style>
-    /* Estilos para las miniaturas */
-    .product-card-container .product-card-img {
-        width: 200px;
-        /* Establecer un ancho fijo para todas las miniaturas */
-        height: 115px;
-        /* Establecer la misma altura para todas las miniaturas */
-        object-fit: cover;
-        /* Ajustar el tamaño de la imagen sin deformarla */
-        cursor: pointer;
-        border-radius: 10px;
-        /* Ajustar el radio de borde */
-    }
-
-    /* Estilos para la imagen principal */
-    .main-image {
-        height: 400px;
-        /* Establecer un tamaño fijo para la imagen principal */
-        object-fit: cover;
-        /* Ajustar la imagen principal para que cubra todo el contenedor */
-        border-radius: 10px;
-        /* Agregar bordes redondeados */
-    }
-
-    /* Estilos para los círculos de colores */
-    .color-circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 5px;
-        margin-bottom: -5px;
-        /* Margen superior para ajustar la posición */
-    }
-
-    /* Estilos para el nombre del color */
-    .color-name {
-        display: inline-block;
-        vertical-align: middle;
-        /* Alinear verticalmente */
-    }
-
-    .red-circle {
-        background-color: red;
-    }
-
-    .blue-circle {
-        background-color: blue;
-    }
-
-    .green-circle {
-        background-color: green;
-    }
-
-    .yellow-circle {
-        background-color: yellow;
-    }
-
-    .black-circle {
-        background-color: black;
-    }
-
-    .white-circle {
-        background-color: white;
-        border: 1px solid #000;
-    }
-
-    .silver-circle {
-        background-color: silver;
-    }
-</style>
-
 <!-- Incluir Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -98,19 +26,6 @@
                     @endif
                 </div>
             </div>
-
-            <!-- Thumbnails with Matching Width, Rounded Corners, and Precise Alignment -->
-            <div class="d-flex justify-content-between product-card-container" style="width: 85%; margin: 10px auto 0 auto; border-radius: 10px; overflow: hidden;">
-                <!-- Align width and margin with the carousel above -->
-                <img src="{{ asset('storage/' . $car->image1) }}" class="product-card-img cover-img" data-bs-target="#carImageCarousel" data-bs-slide-to="0" class="active">
-                @if($car->image2)
-                <img src="{{ asset('storage/' . $car->image2) }}" class="product-card-img cover-img" data-bs-target="#carImageCarousel" data-bs-slide-to="1">
-                <!-- Increased margin -->
-                @endif
-                @if($car->image3)
-                <img src="{{ asset('storage/' . $car->image3) }}" class="product-card-img cover-img" data-bs-target="#carImageCarousel" data-bs-slide-to="2">
-                @endif
-            </div>
         </div>
         <div class="col-md-5">
             <!-- Car Details -->
@@ -132,16 +47,16 @@
                 <span class="color-circle green-circle"></span>Green
                 @break
                 @case('Yellow')
-                <span class="color-circle yellow-circle"></span>Yellow
+                <span the="color-circle yellow-circle"></span>Yellow
                 @break
                 @case('Black')
-                <span class="color-circle black-circle"></span>Black
+                <span the="color-circle black-circle"></span>Black
                 @break
                 @case('White')
-                <span class="color-circle white-circle"></span>White
+                <span the="color-circle white-circle"></span>White
                 @break
                 @case('Silver')
-                <span class="color-circle silver-circle"></span>Silver
+                <span the="color-circle silver-circle"></span>Silver
                 @break
                 @default
                 <button class="btn btn-primary btn-sm">{{ $car->color }}</button>
@@ -168,97 +83,81 @@
                             <td>Horsepower <h6> <strong>{{ $car->horsepower }} HP</strong></h6>
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>
-
-            <!-- Formulario para seleccionar la fecha y hora de recogida y entrega -->
-            <div class="container mt-4">
-                <h5>Select Pickup and Drop-off Date and Time:</h5>
-                <div class="row">
-                    <div class="col-md-6 mb-3 spaced-col pr-md-2">
-                        <label for="pickup_date" class="form-label">Pickup Date:</label>
-                        <div class="input-group">
-                            <input type="text" id="pickup_date" name="pickup_date" class="form-control" placeholder="Select Pickup Date">
-                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3 spaced-col pl-md-2">
-                        <label for="dropoff_date" class="form-label">Drop-off Date:</label>
-                        <div class="input-group">
-                            <input type="text" id="dropoff_date" name="dropoff_date" class="form-control" placeholder="Select Drop-off Date">
-                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3 spaced-col pr-md-2">
-                        <label for="pickup_time" class="form-label">Pickup Time:</label>
-                        <div class="input-group">
-                            <input type="text" id="pickup_time" name="pickup_time" class="form-control" placeholder="Select Pickup Time">
-                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3 spaced-col pl-md-2">
-                        <label for="dropoff_time" class="form-label">Drop-off Time:</label>
-                        <div class="input-group">
-                            <input type="text" id="dropoff_time" name="dropoff_time" class="form-control" placeholder="Select Drop-off Time">
-                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                        </div>
-                    </div>
-                </div>
+            <!-- Rental Form -->
+            <!-- Rental Form -->
+<div class="container mt-4" style="width: 100%; padding: 0;">
+    <h5>Select Pickup and Drop-off Date and Time:</h5>
+    <form action="{{ route('car.rent', ['carId' => $car->id]) }}" method="POST">
+        @csrf
+        <div class="row">
+            <div class="col-md-6">
+                <label for="pickup_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i> Pickup: </label>
+                <input type="text" id="pickup_date_time" name="pickup_date_time" class="form-control" placeholder="Select Pickup Date and Time" required>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-            <button class="btn btn-primary btn-lg my-4">
-                <a href="{{ route('rent-vehicles.show', ['id' => $id]) }}" style="text-decoration: none; color: white;">Rent Now</a>
-            </button>
+            <div class="col-md-6">
+                <label for="dropoff_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i> Drop-off: </label>
+                <input type="text" id="dropoff_date_time" name="dropoff_date_time" class="form-control" placeholder="Select Drop-off Date and Time" required readonly>
+            </div>
+        </div>
+        <h2 id="total_price_display">Total Price: 0 €</h2>
+        <input type="hidden" name="total_price" id="total_price_input">
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
         </div>
     </div>
 </div>
-<!-- Incluir Flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<!-- Incluir Font Awesome JS -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 <!-- Include Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    // Initialize Flatpickr for the Pickup Date and Time selection
-    var pickupDateInput = flatpickr("#pickup_date", {
+    // Initialize Flatpickr for the combined Pickup Date and Time selection
+    var pickupInput = flatpickr("#pickup_date_time", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
         minDate: "today",
-        dateFormat: "Y-m-d",
+        minTime: "08:00",
+        maxTime: "20:00",
         disableMobile: true,
         onChange: function(selectedDates, dateStr, instance) {
-            dropoffDateInput.set("minDate", dateStr);
-            if (dropoffDateInput.selectedDates[0] < selectedDates[0]) {
-                dropoffDateInput.clear();
+            if (selectedDates.length > 0) {
+                const pickupDate = new Date(selectedDates[0].getTime() + 24 * 3600 * 1000); // Ensure 24 hours minimum
+                const formattedDate = flatpickr.formatDate(pickupDate, "Y-m-d H:i");
+                dropoffInput.setDate(formattedDate, true);
+                calculateTotal(); // Calculate the total when dates are picked
             }
         }
     });
 
-    var dropoffDateInput = flatpickr("#dropoff_date", {
-        minDate: "today",
-        dateFormat: "Y-m-d",
-        disableMobile: true
-    });
-
-    flatpickr("#pickup_time", {
+    // Initialize Flatpickr for the drop-off date and time
+    var dropoffInput = flatpickr("#dropoff_date_time", {
         enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
+        dateFormat: "Y-m-d H:i",
+        minDate: new Date().fp_incr(1), // Tomorrow
         minTime: "08:00",
         maxTime: "20:00",
         disableMobile: true
     });
 
-    flatpickr("#dropoff_time", {
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        minTime: "08:00",
-        maxTime: "20:00",
-        disableMobile: true
-    });
+    // Function to calculate the total price
+    function calculateTotal() {
+        if (pickupInput.selectedDates[0] && dropoffInput.selectedDates[0]) {
+            const pickupDateTime = pickupInput.selectedDates[0];
+            const dropoffDateTime = dropoffInput.selectedDates[0];
+            const diff = dropoffDateTime - pickupDateTime;
+            const hours = diff / 3600000; // Convert milliseconds to hours
+            const total = hours * {{ $car->price_per_hour }};
+            document.getElementById('total_price_display').innerText = `Total Price: €${total.toFixed(2)}`;
+            document.getElementById('total_price_input').value = total.toFixed(2);
+        }
+    }
+
+    document.getElementById('pickup_date_time').addEventListener('change', calculateTotal);
+    document.getElementById('dropoff_date_time').addEventListener('change', calculateTotal);
 </script>
+
 @endsection

@@ -6,10 +6,16 @@ use App\Http\Requests\CarRequest;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\User;
+use App\Models\Rental;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\RentalRequestReceived;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+
 
 class CarController extends Controller
 {
@@ -114,12 +120,49 @@ class CarController extends Controller
         }
     }
 
-
     public function rentVehicle($id): View
     {
         $car = Car::findOrFail($id);
         return view('rent-vehicles', compact('car', 'id')); // Pasar el ID del vehículo a la vista
     }
-    
 
+
+    public function rent(Request $request, $carId)
+    {
+        $validator = Validator::make($request->all(), [
+            'pickup_date_time' => 'required|date',
+            'dropoff_date_time' => 'required|date|after:pickup_date_time'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $car = Car::findOrFail($carId);
+        $startDate = new \DateTime($request->pickup_date_time);
+        $endDate = new \DateTime($request->dropoff_date_time);
+
+        $duration = $startDate->diff($endDate);
+        $hours = $duration->h + ($duration->days * 24);
+        $totalPrice = $hours * $car->price_per_hour;
+
+        $rental = new Rental([
+            'user_id' => Auth::id(),
+            'car_id' => $car->id,
+            'start_date' => $startDate->format('Y-m-d H:i:s'),
+            'end_date' => $endDate->format('Y-m-d H:i:s'),
+            'total_price' => $totalPrice,
+            'status' => 'pending',
+            'brand' => $car->brand,
+            'model' => $car->model,
+            'image1' => $car->image1
+        ]);
+
+        $rental->save();
+
+        $admins = User::where('is_admin', true)->get();
+        Notification::send($admins, new RentalRequestReceived($rental));
+
+        return back()->with('message', 'Rental request sent successfully, waiting for approval.');
+    }
 }
