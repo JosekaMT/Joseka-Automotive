@@ -257,19 +257,20 @@ Cars
                                                                 <div class="carousel-inner">
                                                                     @if($car->image1)
                                                                     <div class="carousel-item active">
-                                                                        <img src="{{ asset('storage/' . $car->image1) }}" class="d-block mx-auto img-fluid" alt="Image 1" style="max-height: 300px;">
+                                                                        <img src="{{ asset('storage/' . $car->image1) }}" class="d-block mx-auto img-fluid rounded" alt="Image 1" style="max-height: 300px; border-radius: 10px;">
                                                                     </div>
                                                                     @endif
                                                                     @if($car->image2)
                                                                     <div class="carousel-item">
-                                                                        <img src="{{ asset('storage/' . $car->image2) }}" class="d-block mx-auto img-fluid" alt="Image 2" style="max-height: 300px;">
+                                                                        <img src="{{ asset('storage/' . $car->image2) }}" class="d-block mx-auto img-fluid rounded" alt="Image 2" style="max-height: 300px; border-radius: 10px;">
                                                                     </div>
                                                                     @endif
                                                                     @if($car->image3)
                                                                     <div class="carousel-item">
-                                                                        <img src="{{ asset('storage/' . $car->image3) }}" class="d-block mx-auto img-fluid" alt="Image 3" style="max-height: 300px;">
+                                                                        <img src="{{ asset('storage/' . $car->image3) }}" class="d-block mx-auto img-fluid rounded" alt="Image 3" style="max-height: 300px; border-radius: 10px;">
                                                                     </div>
                                                                     @endif
+
                                                                 </div>
                                                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="color: black;">
                                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -295,16 +296,20 @@ Cars
                                                                             <strong style="color: black; font-size: 18px;">Body:</strong>
                                                                             <p style="color: black; font-size: 18px;">{{ $car->body }}</p>
                                                                         </div>
+
+
+
                                                                         <div class="form-group">
-                                                                            <strong style="color: black; font-size: 18px;">Fuel:</strong>
-                                                                            <p style="color: black; font-size: 18px;">{{ $car->fuel }}</p>
+                                                                            <strong style="color: black; font-size: 18px;">Seats:</strong>
+                                                                            <p style="color: black; font-size: 18px;">{{ $car->seats }}</p>
                                                                         </div>
+
                                                                         <div class="form-group">
-                                                                            <strong style="color: black; font-size: 18px;">Gears:</strong>
-                                                                            <p style="color: black; font-size: 18px;">{{ $car->gears }}</p>
+                                                                            <strong style="color: black; font-size: 18px;">Description:</strong>
+                                                                            <p style="color: black; font-size: 18px;">{{ $car->description }}</p>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
+
+
                                                                         <div class="form-group">
                                                                             <strong style="color: black; font-size: 18px;">Engine (CC):</strong>
                                                                             <p style="color: black; font-size: 18px;">{{ $car->engine }} CC</p>
@@ -313,10 +318,27 @@ Cars
                                                                             <strong style="color: black; font-size: 18px;">Horsepower (HP):</strong>
                                                                             <p style="color: black; font-size: 18px;">{{ $car->horsepower }} HP</p>
                                                                         </div>
+
+
+
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+
+
+
                                                                         <div class="form-group">
-                                                                            <strong style="color: black; font-size: 18px;">Seats:</strong>
-                                                                            <p style="color: black; font-size: 18px;">{{ $car->seats }}</p>
+                                                                            <strong style="color: black; font-size: 18px;">Fuel:</strong>
+                                                                            <p style="color: black; font-size: 18px;">{{ $car->fuel }}</p>
                                                                         </div>
+                                                                        <div class="form-group">
+                                                                            <strong style="color: black; font-size: 18px;">Gears:</strong>
+                                                                            <p style="color: black; font-size: 18px;">{{ $car->gears }}</p>
+                                                                        </div>
+
+
+
+
+
                                                                         <div class="form-group">
                                                                             <strong style="color: black; font-size: 18px;">Color:</strong>
                                                                             <p style="color: black; font-size: 18px;">{{ $car->color }}</p>

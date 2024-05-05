@@ -13,29 +13,30 @@
     <div class="carousel-inner">
         @if($car->image1)
         <div class="carousel-item active">
-            <img src="{{ asset('storage/' . $car->image1) }}" class="d-block mx-auto img-fluid" alt="Image 1" style="max-height: 300px;">
+            <img src="{{ asset('storage/' . $car->image1) }}" class="d-block mx-auto img-fluid rounded" alt="Image 1" style="max-height: 300px; border-radius: 10px;">
         </div>
         @endif
         @if($car->image2)
         <div class="carousel-item">
-            <img src="{{ asset('storage/' . $car->image2) }}" class="d-block mx-auto img-fluid" alt="Image 2" style="max-height: 300px;">
+            <img src="{{ asset('storage/' . $car->image2) }}" class="d-block mx-auto img-fluid rounded" alt="Image 2" style="max-height: 300px; border-radius: 10px;">
         </div>
         @endif
         @if($car->image3)
         <div class="carousel-item">
-            <img src="{{ asset('storage/' . $car->image3) }}" class="d-block mx-auto img-fluid" alt="Image 3" style="max-height: 300px;">
+            <img src="{{ asset('storage/' . $car->image3) }}" class="d-block mx-auto img-fluid rounded" alt="Image 3" style="max-height: 300px; border-radius: 10px;">
         </div>
         @endif
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="color: black;">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: black;"></span>
         <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="color: black;">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true" style="color: black;"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>
+
 <div class="row py-3 px-3">
     <div class="col-md-6">
         <div class="mb-4">
