@@ -15,6 +15,8 @@ class AdminUserSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('12345678'),
             'is_admin' => true,
+            'city' => 'Sevilla',          
+            'phone_number' => '+34 677 27 57 27', 
         ]);
     }
 }
