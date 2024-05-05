@@ -12,6 +12,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\UserController;
 
 
 // Ruta principal de la aplicación
@@ -97,8 +98,18 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin aqui para restrigir el acceso al resto de usuarios
     Route::resource('admin', CarController::class); // Route dashboard coches
     Route::resource('cars', CarController::class); // Route vehicles coches
     Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
+
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/vehicle', [AdminController::class, 'vehicle'])->name('admin.vehicle');
+    Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
+    Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
+
+
+    Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
+
 });
