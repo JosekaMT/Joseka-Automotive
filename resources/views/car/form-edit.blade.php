@@ -70,15 +70,11 @@
             {!! $errors->first('seats', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
         <div class="mb-4">
             <label for="description" class="form-label">{{ __('Description') }}</label>
             <input type="text" name="description" class="form-control border rounded-0 @error('description') is-invalid @enderror" value="{{ old('description', $car->description ?? '') }}" id="description" placeholder="Description">
             {!! $errors->first('description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-
-
-
 
         <div class="mb-4">
             <label for="image1" class="form-label">{{ __('Image 1') }}</label>
@@ -108,8 +104,6 @@
             {!! $errors->first('horsepower', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
-
         <div class="mb-4">
             <label for="fuel" class="form-label">{{ __('Fuel') }}</label>
             <select name="fuel" class="form-select border rounded-0 @error('fuel') is-invalid @enderror" id="fuel">
@@ -129,10 +123,6 @@
             {!! $errors->first('gears', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
-
-
-    
         <div class="mb-4">
             <label for="color" class="form-label">{{ __('Color') }}</label>
             <select name="color" class="form-select border rounded-0 @error('color') is-invalid @enderror" id="color">
@@ -148,48 +138,27 @@
             {!! $errors->first('color', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
-
-
-
-
-
-
-
-
-
+        <div class="mb-4">
+            <label for="available" class="form-label">{{ __('Available') }}</label>
+            <select name="available" class="form-select border rounded-0 @error('available') is-invalid @enderror" id="available">
+                <option value="" disabled selected>Select Availability</option>
+                <option value="1" {{ old('available', $car->available ?? '') == 1 ? 'selected' : '' }}>Yes</option>
+                <option value="0" {{ old('available', $car->available ?? '') == 0 ? 'selected' : '' }}>No</option>
+            </select>
+            @error('available')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-4">
-    <label for="available" class="form-label">{{ __('Available') }}</label>
-    <select name="available" class="form-select border rounded-0 @error('available') is-invalid @enderror" id="available">
-        <option value="" disabled selected>Select Availability</option>
-        <option value="1" {{ old('available', $car->available ?? '') == 1 ? 'selected' : '' }}>Yes</option>
-        <option value="0" {{ old('available', $car->available ?? '') == 0 ? 'selected' : '' }}>No</option>
-    </select>
-    @error('available')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<div class="mb-4">
-    <label for="rented" class="form-label">{{ __('Rented') }}</label>
-    <select name="rented" class="form-select border rounded-0 @error('rented') is-invalid @enderror" id="rented">
-        <option value="" disabled selected>Select Rental Status</option>
-        <option value="1" {{ old('rented', $car->rented ?? '') == 1 ? 'selected' : '' }}>Yes</option>
-        <option value="0" {{ old('rented', $car->rented ?? '') == 0 ? 'selected' : '' }}>No</option>
-    </select>
-    @error('rented')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-
-
-
-
-
-
-
+            <label for="rented" class="form-label">{{ __('Rented') }}</label>
+            <select name="rented" class="form-select border rounded-0 @error('rented') is-invalid @enderror" id="rented" readonly>
+                <option value="{{ old('rented', $car->rented ?? '') }}">{{ $car->rented == 1 ? 'Yes' : 'No' }}</option>
+            </select>
+            @error('rented')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-4">
             <label for="price_per_hour" class="form-label">{{ __('Price Per Hour') }} (€)</label>

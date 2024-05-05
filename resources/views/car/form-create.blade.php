@@ -25,7 +25,6 @@
             </select>
             {!! $errors->first('body', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-   
 
         <div class="form-group mb-4">
             <label for="seats" class="form-label">{{ __('Seats') }}</label>
@@ -33,18 +32,11 @@
             {!! $errors->first('seats', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
-
-
-
-
         <div class="form-group mb-4">
             <label for="description" class="form-label">{{ __('Description') }}</label>
             <input type="text" name="description" class="form-control border @error('description') is-invalid @enderror" value="{{ old('description', $car->description ?? '') }}" id="description" placeholder="Description">
             {!! $errors->first('description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-
-
 
         <div class="form-group mb-4">
             <label for="image1" class="form-label">{{ __('Image 1') }}</label>
@@ -75,7 +67,6 @@
             {!! $errors->first('horsepower', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
         <div class="form-group mb-4">
             <label for="fuel" class="form-label">{{ __('Fuel') }}</label>
             <select name="fuel" class="form-select border @error('fuel') is-invalid @enderror" id="fuel">
@@ -95,14 +86,6 @@
             {!! $errors->first('gears', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
-
-
-
-
-
-
-
         <div class="form-group mb-4">
             <label for="color" class="form-label">{{ __('Color') }}</label>
             <select name="color" class="form-select border @error('color') is-invalid @enderror" id="color">
@@ -118,9 +101,6 @@
             {!! $errors->first('color', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-
-
-
         <!-- Adding new properties for 'available' and 'rented' -->
         <div class="form-group mb-4">
             <label for="available" class="form-label">{{ __('Available') }}</label>
@@ -134,20 +114,15 @@
             @enderror
         </div>
 
-
         <div class="form-group mb-4">
             <label for="rented" class="form-label">{{ __('Rented') }}</label>
             <select name="rented" class="form-select border @error('rented') is-invalid @enderror" id="rented">
-                <option value="" disabled selected>Select Rental Status</option>
-                <option value="1" {{ old('rented', $car->rented ?? '') == 1 ? 'selected' : '' }}>Yes</option>
-                <option value="0" {{ old('rented', $car->rented ?? '') == 0 ? 'selected' : '' }}>No</option>
+                <option value="0" selected>No</option>
             </select>
             @error('rented')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
-
 
         <div class="form-group mb-4">
             <label for="price_per_hour" class="form-label">{{ __('Price Per Hour') }} (€)</label>
