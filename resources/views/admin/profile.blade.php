@@ -59,81 +59,106 @@ Profile
 
 
       <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
-  @csrf
-  @method('PUT')
-  <div class="row">
-    <!-- Columna de Información Básica -->
-    <div class="col-12 col-xl-4">
-      <div class="card card-plain h-100">
-        <div class="card-header pb-0 p-3">
-          <h6 class="mb-0">Basic Information</h6>
+        @csrf
+        @method('PUT')
+        <div class="row">
+          <!-- Columna de Información Básica -->
+          <div class="col-12 col-xl-4">
+            <div class="card card-plain h-100">
+              <div class="card-header pb-0 p-3">
+                <h6 class="mb-0">Basic Information</h6>
+              </div>
+              <div class="card-body p-3">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" class="form-control border" id="name" name="name" value="{{ auth()->user()->name }}">
+                </div>
+                <div class="mb-3">
+                  <label for="phone_number" class="form-label">Mobile</label>
+                  <input type="text" class="form-control border" id="phone_number" name="phone_number" value="{{ auth()->user()->phone_number }}">
+                </div>
+                <div class="mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" class="form-control border" id="city" name="city" value="{{ auth()->user()->city }}">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna de Información de Contacto -->
+          <div class="col-12 col-xl-4">
+            <div class="card card-plain h-100">
+              <div class="card-header pb-0 p-3">
+                <h6 class="mb-0">Contact Information</h6>
+              </div>
+              <div class="card-body p-3">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control border" id="email" name="email" value="{{ auth()->user()->email }}">
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="password" class="form-label">New Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control border" id="password" name="password">
+                    <button type="button" class="btn btn-outline-dark" onclick="togglePasswordVisibility('password')">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="password_confirmation" class="form-label">Confirm New Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control border" id="password_confirmation" name="password_confirmation">
+                    <button type="button" class="btn btn-outline-dark" onclick="togglePasswordVisibility('password_confirmation')">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna de Foto de Perfil -->
+          <div class="col-12 col-xl-4">
+            <div class="card card-plain h-100">
+              <div class="card-header pb-0 p-3">
+                <h6 class="mb-0">Profile Photo</h6>
+              </div>
+              <div class="card-body p-3">
+                <div class="mb-3">
+                  <label for="profile_photo" class="form-label">Upload New Photo</label>
+                  <input type="file" class="form-control border" id="profile_photo" name="profile_photo">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-body p-3">
-          <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control border" id="name" name="name" value="{{ auth()->user()->name }}">
-          </div>
-          <div class="mb-3">
-            <label for="phone_number" class="form-label">Mobile</label>
-            <input type="text" class="form-control border" id="phone_number" name="phone_number" value="{{ auth()->user()->phone_number }}">
-          </div>
-          <div class="mb-3">
-            <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control border" id="city" name="city" value="{{ auth()->user()->city }}">
+        <div class="row">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary">Update All</button>
           </div>
         </div>
-      </div>
+      </form>
+
+      <script>
+        function togglePasswordVisibility(inputId) {
+          const passwordInput = document.getElementById(inputId);
+          const buttonIcon = passwordInput.nextElementSibling.querySelector('i');
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            buttonIcon.classList.remove('bi-eye');
+            buttonIcon.classList.add('bi-eye-slash');
+          } else {
+            passwordInput.type = "password";
+            buttonIcon.classList.remove('bi-eye-slash');
+            buttonIcon.classList.add('bi-eye');
+          }
+        }
+      </script>
+
+
+
     </div>
-
-    <!-- Columna de Información de Contacto -->
-    <div class="col-12 col-xl-4">
-      <div class="card card-plain h-100">
-        <div class="card-header pb-0 p-3">
-          <h6 class="mb-0">Contact Information</h6>
-        </div>
-        <div class="card-body p-3">
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control border" id="email" name="email" value="{{ auth()->user()->email }}">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">New Password</label>
-            <input type="password" class="form-control border" id="password" name="password">
-          </div>
-          <div class="mb-3">
-            <label for="password_confirmation" class="form-label">Confirm New Password</label>
-            <input type="password" class="form-control border" id="password_confirmation" name="password_confirmation">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Columna de Foto de Perfil -->
-    <div class="col-12 col-xl-4">
-      <div class="card card-plain h-100">
-        <div class="card-header pb-0 p-3">
-          <h6 class="mb-0">Profile Photo</h6>
-        </div>
-        <div class="card-body p-3">
-          <div class="mb-3">
-            <label for="profile_photo" class="form-label">Upload New Photo</label>
-            <input type="file" class="form-control border" id="profile_photo" name="profile_photo">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 text-center">
-      <button type="submit" class="btn btn-primary">Update All</button>
-    </div>
-  </div>
-</form>
-
-
-
-
-</div>
   </div>
 </main>
 
