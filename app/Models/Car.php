@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $price_per_hour
  * @property $available
  * @property $rented
+ * @property $description
  * @property $created_at
  * @property $updated_at
  *
@@ -47,6 +48,7 @@ class Car extends Model
         'color',
         'price_per_hour',
         'available', 
-        'rented' 
+        'rented',
+        'description'
     ];
 }

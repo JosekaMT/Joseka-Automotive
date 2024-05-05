@@ -25,24 +25,27 @@
             </select>
             {!! $errors->first('body', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+   
+
         <div class="form-group mb-4">
-            <label for="fuel" class="form-label">{{ __('Fuel') }}</label>
-            <select name="fuel" class="form-select border @error('fuel') is-invalid @enderror" id="fuel">
-                <option value="" disabled selected>Select Fuel Type</option>
-                <option value="Petrol" {{ old('fuel', $car?->fuel) === 'Petrol' ? 'selected' : '' }}>Petrol</option>
-                <option value="Diesel" {{ old('fuel', $car?->fuel) === 'Diesel' ? 'selected' : '' }}>Diesel</option>
-            </select>
-            {!! $errors->first('fuel', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="seats" class="form-label">{{ __('Seats') }}</label>
+            <input type="text" name="seats" class="form-control border @error('seats') is-invalid @enderror" value="{{ old('seats', $car?->seats) }}" id="seats" placeholder="Seats">
+            {!! $errors->first('seats', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
+
+
+
+
+
         <div class="form-group mb-4">
-            <label for="gears" class="form-label">{{ __('Gears') }}</label>
-            <select name="gears" class="form-select border @error('gears') is-invalid @enderror" id="gears">
-                <option value="" disabled selected>Select Number of Gears</option>
-                <option value="Manual" {{ old('gears', $car?->gears) === 'Manual' ? 'selected' : '' }}>Manual</option>
-                <option value="Automatic" {{ old('gears', $car?->gears) === 'Automatic' ? 'selected' : '' }}>Automatic</option>
-            </select>
-            {!! $errors->first('gears', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="description" class="form-label">{{ __('Description') }}</label>
+            <input type="text" name="description" class="form-control border @error('description') is-invalid @enderror" value="{{ old('description', $car->description ?? '') }}" id="description" placeholder="Description">
+            {!! $errors->first('description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
+
+
         <div class="form-group mb-4">
             <label for="image1" class="form-label">{{ __('Image 1') }}</label>
             <input type="file" name="image1" class="form-control-file border @error('image1') is-invalid @enderror" id="image1">
@@ -72,11 +75,34 @@
             {!! $errors->first('horsepower', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+
         <div class="form-group mb-4">
-            <label for="seats" class="form-label">{{ __('Seats') }}</label>
-            <input type="text" name="seats" class="form-control border @error('seats') is-invalid @enderror" value="{{ old('seats', $car?->seats) }}" id="seats" placeholder="Seats">
-            {!! $errors->first('seats', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="fuel" class="form-label">{{ __('Fuel') }}</label>
+            <select name="fuel" class="form-select border @error('fuel') is-invalid @enderror" id="fuel">
+                <option value="" disabled selected>Select Fuel Type</option>
+                <option value="Petrol" {{ old('fuel', $car?->fuel) === 'Petrol' ? 'selected' : '' }}>Petrol</option>
+                <option value="Diesel" {{ old('fuel', $car?->fuel) === 'Diesel' ? 'selected' : '' }}>Diesel</option>
+            </select>
+            {!! $errors->first('fuel', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+        <div class="form-group mb-4">
+            <label for="gears" class="form-label">{{ __('Gears') }}</label>
+            <select name="gears" class="form-select border @error('gears') is-invalid @enderror" id="gears">
+                <option value="" disabled selected>Select Number of Gears</option>
+                <option value="Manual" {{ old('gears', $car?->gears) === 'Manual' ? 'selected' : '' }}>Manual</option>
+                <option value="Automatic" {{ old('gears', $car?->gears) === 'Automatic' ? 'selected' : '' }}>Automatic</option>
+            </select>
+            {!! $errors->first('gears', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+
+
+
+
+
+
+
+
+
         <div class="form-group mb-4">
             <label for="color" class="form-label">{{ __('Color') }}</label>
             <select name="color" class="form-select border @error('color') is-invalid @enderror" id="color">
@@ -120,8 +146,6 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
-
 
 
 

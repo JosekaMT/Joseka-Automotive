@@ -31,7 +31,8 @@ class CarRequest extends FormRequest
             'color' => 'required|string|in:Red,Blue,Green,Yellow,Black,White,Silver',
             'price_per_hour' => 'required|numeric',
             'available' => 'required|boolean', // Campo nuevo para disponibilidad, true = disponible, false = no disponible
-            'rented' => 'required|boolean' // Campo nuevo para estado de alquiler, true = alquilado, false = no alquilado
+            'rented' => 'required|boolean', // Campo nuevo para estado de alquiler, true = alquilado, false = no alquilado
+            'description' => 'required|string|max:255'
         ];
     }
 }

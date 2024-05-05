@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('price_per_hour', 8, 2);
             $table->boolean('available')->default(true); // New field for availability, default to true
             $table->boolean('rented')->default(false); // New field for rental status, default to false
+            $table->string('description');
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
