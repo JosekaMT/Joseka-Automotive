@@ -1,4 +1,4 @@
-<div class="row py-1 px-1">
+<div class="row py-3 px-3">
     <div class="col-md-6">
         <div class="form-group mb-4">
             <label for="brand" class="form-label">{{ __('Brand') }}</label>
@@ -40,21 +40,22 @@
 
         <div class="form-group mb-4">
             <label for="image1" class="form-label">{{ __('Image 1') }}</label>
-            <input type="file" name="image1" class="form-control-file border @error('image1') is-invalid @enderror" id="image1">
+            <input type="file" name="image1" class="form-control-file border rounded-2 @error('image1') is-invalid @enderror" id="image1">
             {!! $errors->first('image1', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-4">
             <label for="image2" class="form-label">{{ __('Image 2') }}</label>
-            <input type="file" name="image2" class="form-control-file border @error('image2') is-invalid @enderror" id="image2">
+            <input type="file" name="image2" class="form-control-file border rounded-2 @error('image2') is-invalid @enderror" id="image2">
             {!! $errors->first('image2', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-4">
             <label for="image3" class="form-label">{{ __('Image 3') }}</label>
-            <input type="file" name="image3" class="form-control-file border @error('image3') is-invalid @enderror" id="image3">
+            <input type="file" name="image3" class="form-control-file border rounded-2 @error('image3') is-invalid @enderror" id="image3">
             {!! $errors->first('image3', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-
     </div>
+    <!-- Col-md-6 -->
+
     <div class="col-md-6">
         <div class="form-group mb-4">
             <label for="engine" class="form-label">{{ __('Engine') }} (CC)</label>
@@ -135,5 +136,4 @@
     <div class="col-md-12 mt-4">
         <button type="submit" class="btn" style="background-color: #9c2121; color: white;">{{ __('Create') }}</button>
     </div>
-
 </div>
