@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
         Joseka Automotive · Admin
@@ -25,22 +24,9 @@
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-
-
-
-
-
-
-
-
 </head>
 
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
-
-
-
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
         <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
