@@ -41,17 +41,17 @@ class CarController extends Controller
         $startDate = new DateTime($request->input('pickup_date_time'));
         $endDate = new DateTime($request->input('dropoff_date_time'));
 
-        // Ensure at least 24 hours of rental period
+        // Garantizar al menos 24 horas de alquiler
         if ($endDate <= $startDate->add(new DateInterval('PT24H'))) {
             return back()->with('error', 'The rental period must be at least 24 hours.');
         }
 
-        // Calculate the duration in hours
+        // Calcular horas
         $duration = $startDate->diff($endDate);
         $hours = $duration->h + ($duration->days * 24);
         $totalPrice = $hours * $car->price_per_hour;
 
-        // Create the rental record
+        // Crear el registro de alquiler
         $rental = new Rental([
             'user_id' => Auth::id(),
             'car_id' => $car->id,
@@ -66,47 +66,13 @@ class CarController extends Controller
 
         $rental->save();
 
-        // Update car status if necessary
         $car->status = 'rented';
         $car->save();
 
-        // Notify administrators
+        // Notificacion admin
         $admins = User::where('is_admin', true)->get();
         Notification::send($admins, new RentalRequestReceived($rental));
 
         return back()->with('message', 'Rental request sent successfully, waiting for approval.');
     }
-
-    class RentalRequestReceived extends Notification
-    {
-        use Queueable;
-    
-        public function __construct()
-        {
-            // Inicialización si es necesario
-        }
-    
-        public function via($notifiable)
-        {
-            return ['mail']; // Ajusta los canales como necesites
-        }
-    
-        public function toMail($notifiable)
-        {
-            return (new MailMessage)
-                        ->line('The introduction to the notification.')
-                        ->action('Notification Action', url('/'))
-                        ->line('Thank you for using our application!');
-        }
-    
-
-
-
-
-
-
-
-
-
-    
 }

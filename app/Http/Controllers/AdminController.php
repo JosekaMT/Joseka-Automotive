@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\DatabaseNotification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Car;
+use App\Models\Rental;
 
 class AdminController extends Controller
 {
@@ -32,5 +36,27 @@ class AdminController extends Controller
     public function vehicle2()
     {
         return view('admin.vehicle2');
+    }
+
+    public function showNotifications()
+    {
+        $user = Auth::user();
+    
+        // Recupera todas las notificaciones, puedes ajustar para traer solo las no leídas
+        $notifications = $user->notifications;
+    
+        return view('admin.notifications', compact('notifications'));
+    }
+    
+
+    public function markNotificationAsRead($notificationId)
+    {
+        $user = Auth::user();
+        $notification = DatabaseNotification::find($notificationId);
+        if ($notification && $notification->notifiable_id === $user->id) {
+            $notification->markAsRead();
+        }
+
+        return back();
     }
 }

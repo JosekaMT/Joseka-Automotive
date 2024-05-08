@@ -18,11 +18,6 @@ class RentalRequestReceived extends Notification
         $this->rental = $rental;
     }
 
-    public function via($notifiable)
-    {
-        return ['mail']; // Ajusta esto según los canales que desees utilizar (por ejemplo, mail, database, etc.)
-    }
-
     public function toMail($notifiable)
     {
         return (new MailMessage)
@@ -30,6 +25,17 @@ class RentalRequestReceived extends Notification
             ->action('Ver Detalles', url('/'))
             ->line('Gracias por usar nuestra aplicación!');
     }
+    public function via($notifiable)
+    {
+        return ['mail', 'database'];
+    }
 
-    
+    public function toDatabase($notifiable)
+    {
+        return [
+            'rental_id' => $this->rental->id,
+            'message' => 'Una nueva solicitud de alquiler ha sido recibida.',
+            'action_url' => url('/rentals/' . $this->rental->id),
+        ];
+    }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('profile_photo')->nullable();
-            $table->string('address')->nullable(); // Agrega esta línea para el campo address
+            $table->string('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

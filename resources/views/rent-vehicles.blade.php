@@ -8,7 +8,6 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-7 mb-6 mb-md-0" style="padding: 0; overflow: hidden;">
-            <!-- Bootstrap Carousel for Main Image with Rounded Corners -->
             <div id="carImageCarousel" class="carousel slide" data-bs-ride="carousel" style="max-height: 400px; overflow: hidden; border-radius: 15px; margin: auto; width: 85%;">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -87,26 +86,25 @@
                 </table>
             </div>
             <!-- Rental Form -->
-            <!-- Rental Form -->
-<div class="container mt-4" style="width: 100%; padding: 0;">
-    <h5>Select Pickup and Drop-off Date and Time:</h5>
-    <form action="{{ route('car.rent', ['carId' => $car->id]) }}" method="POST">
-        @csrf
-        <div class="row">
-            <div class="col-md-6">
-                <label for="pickup_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i> Pickup: </label>
-                <input type="text" id="pickup_date_time" name="pickup_date_time" class="form-control" placeholder="Select Pickup Date and Time" required>
+            <div class="container mt-4" style="width: 100%; padding: 0;">
+                <h5>Select Pickup and Drop-off Date and Time:</h5>
+                <form action="{{ route('car.rent', ['carId' => $car->id]) }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="pickup_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i> Pickup: </label>
+                            <input type="text" id="pickup_date_time" name="pickup_date_time" class="form-control" placeholder="Select Pickup Date and Time" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dropoff_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i> Drop-off: </label>
+                            <input type="text" id="dropoff_date_time" name="dropoff_date_time" class="form-control" placeholder="Select Drop-off Date and Time" required readonly>
+                        </div>
+                    </div>
+                    <h2 id="total_price_display">Total Price: 0 €</h2>
+                    <input type="hidden" name="total_price" id="total_price_input">
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
             </div>
-            <div class="col-md-6">
-                <label for="dropoff_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i> Drop-off: </label>
-                <input type="text" id="dropoff_date_time" name="dropoff_date_time" class="form-control" placeholder="Select Drop-off Date and Time" required readonly>
-            </div>
-        </div>
-        <h2 id="total_price_display">Total Price: 0 €</h2>
-        <input type="hidden" name="total_price" id="total_price_input">
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-    </form>
-</div>
 
         </div>
     </div>
@@ -115,7 +113,6 @@
 <!-- Include Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    // Initialize Flatpickr for the combined Pickup Date and Time selection
     var pickupInput = flatpickr("#pickup_date_time", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
@@ -128,29 +125,33 @@
                 const pickupDate = new Date(selectedDates[0].getTime() + 24 * 3600 * 1000); // Ensure 24 hours minimum
                 const formattedDate = flatpickr.formatDate(pickupDate, "Y-m-d H:i");
                 dropoffInput.setDate(formattedDate, true);
-                calculateTotal(); // Calculate the total when dates are picked
+                calculateTotal(); // Calcular el total cuando se eligen las fechas
             }
         }
     });
 
-    // Initialize Flatpickr for the drop-off date and time
+    // Inicializar Flatpickr para la fecha y hora de entrega
     var dropoffInput = flatpickr("#dropoff_date_time", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
-        minDate: new Date().fp_incr(1), // Tomorrow
+        minDate: new Date().fp_incr(1),
         minTime: "08:00",
         maxTime: "20:00",
         disableMobile: true
     });
 
-    // Function to calculate the total price
+    // Función para calcular el precio total
     function calculateTotal() {
         if (pickupInput.selectedDates[0] && dropoffInput.selectedDates[0]) {
             const pickupDateTime = pickupInput.selectedDates[0];
             const dropoffDateTime = dropoffInput.selectedDates[0];
             const diff = dropoffDateTime - pickupDateTime;
-            const hours = diff / 3600000; // Convert milliseconds to hours
-            const total = hours * {{ $car->price_per_hour }};
+            const hours = diff / 3600000; // Convertir milisegundos en horas
+            const total = hours * {
+                {
+                    $car - > price_per_hour
+                }
+            };
             document.getElementById('total_price_display').innerText = `Total Price: €${total.toFixed(2)}`;
             document.getElementById('total_price_input').value = total.toFixed(2);
         }
