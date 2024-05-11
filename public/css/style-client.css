@@ -1,0 +1,380 @@
+* {
+    font-family: "Nunito", sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden !important;
+    font-family: "Nunito", sans-serif;
+}
+
+#sidenav-main {
+    max-width: 17.1rem !important;
+    background-color: black !important;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.bg-black {
+    background-color: #000000 !important;
+}
+
+/*NO BORRAR QUITAR SCROLL LATERAL*/
+.main-content {
+    overflow-x: hidden !important;
+}
+
+/*NO BORRAR QUITAR SCROLL LATERAL*/
+.ps__rail-x,
+.ps__thumb-x {
+    display: none !important;
+}
+
+/*NO BORRAR QUITAR NAV EFECTOS*/
+.nav-item .nav-link:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/*NO BORRAR QUITAR NAV EFECTOS*/
+.nav-item .nav-link:hover {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/*NO BORRAR QUITAR NAV EFECTOS*/
+.nav-item .nav-link.active {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/*NAV*/
+#navbarBlur {
+    position: relative;
+    z-index: 1;
+}
+
+#navbarBlur::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: -50px;
+    right: -6px;
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.1), transparent);
+    box-shadow: 0 0 3px 0px rgba(255, 0, 0, 0.1);
+    z-index: -1;
+}
+
+/*NAV EFECTOS*/
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    margin: 0 8px;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center; /* Centrar contenido */
+    width: fit-content; /* Ajustar al contenido */
+}
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Inicio del subrayado desde el centro */
+    width: 0; /* Inicia con un ancho de 0 */
+    height: 2px;
+    background-color: #9c2121; /* Ajusta al color deseado, por ejemplo rojo */
+    transition: width 0.3s ease, left 0.3s ease; /* Transición suavizada para el ancho y la posición izquierda */
+    transform-origin: center; /* Transformación desde el centro */
+}
+
+.nav-link:hover::before {
+    width: 100%; /* Expande el ancho al 100% */
+    left: 0; /* Ajusta la posición izquierda para cubrir todo el ancho */
+}
+
+.icon-white {
+    color: #fff;
+    /* Color blanco para el icono */
+}
+
+#dropdownMenuButton:before {
+    content: none !important;
+    /* Elimina cualquier contenido generado */
+    border: none !important;
+    /* Elimina cualquier borde */
+}
+
+.li.nav-item,
+.listitem {
+    color: transparent !important;
+}
+
+/* video header */
+.video-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.centered-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    max-width: 600px;
+}
+
+.text-container {
+    min-width: 600px;
+    max-width: 800px;
+    margin: 0 auto;
+    /* Esto centrará el contenedor horizontalmente */
+}
+
+@media (max-width: 768px) {
+    .text-container {
+        min-width: 500px;
+    }
+}
+
+@media (max-width: 560px) {
+    .text-container {
+        min-width: 400px;
+    }
+}
+
+@media (max-width: 440px) {
+    .text-container {
+        min-width: 300px;
+    }
+}
+
+/* boton header */
+.button-1 {
+    display: inline-block;
+    padding: 6px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    font-weight: bold;
+    flex: 1;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out,
+        border-color 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.button-1:hover {
+    color: rgb(255, 255, 255);
+    background-color: #9c2121;
+    border-color: #9c2121;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.underline {
+    height: 1px;
+    background-color: #fff;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.text-container h1 {
+    font-weight: normal;
+    font-size: 36px;
+}
+
+.text-container h2 {
+    font-weight: normal;
+    font-size: 26px;
+}
+
+.button-1 {
+    font-weight: normal;
+}
+
+/* Footer */
+
+.footer-link {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    margin: 0 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.footer-link::before,
+.footer-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #9c2121;
+    transition: transform 0.3s ease, background-color 0s;
+    transform: scaleX(0);
+    transform-origin: bottom center;
+}
+
+.footer-link:hover::before,
+.footer-link:hover::after {
+    transform: scaleX(1);
+    background-color: #9c2121;
+}
+
+.footer-link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-link i {
+    font-size: 18px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover i {
+    color: red;
+}
+
+@media (min-width: 768px) {
+    .footer-link {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-toggler-icon {
+        border: none;
+        /* Elimina el borde del icono */
+    }
+}
+
+.no-uppercase {
+    text-transform: none !important;
+}
+
+/* Desactivar Perfect Scrollbar */
+.ps__rail-y,
+.ps__thumb-y {
+    display: none !important;
+    /* Ocultar la barra de desplazamiento vertical */
+}
+
+.ps--active-y {
+    overflow-y: auto !important;
+    /* Restaurar el desplazamiento vertical predeterminado */
+}
+
+/*------------------scroll bar style---------------------*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+/*------------------scroll bar style---------------------*/
+
+.custom-button {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    background-color: #9c2121;
+    opacity: 1;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    z-index: 9999;
+}
+
+.custom-button:hover {
+    transform: scale(1.3);
+}
+
+#top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000; /* Aumenta el z-index si es necesario */
+    cursor: pointer;
+    background-color: red; /* Hazlo visible con un color de fondo */
+    padding: 10px; /* Tamaño suficiente para hacer clic fácilmente */
+}
