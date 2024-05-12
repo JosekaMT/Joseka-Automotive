@@ -87,6 +87,9 @@ Route::post('/rent-car/{carId}', [CarController::class, 'rent'])->name('car.rent
 
 
 
+
+
+
 Route::get('/admin/notifications', 'AdminController@showNotifications')->name('admin.notifications');
 
 

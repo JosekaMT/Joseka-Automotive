@@ -373,3 +373,15 @@ video {
 .container {
     justify-content: flex-end;
 }
+
+.align-center {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+
+.navbar-nav .nav-link {
+    display: flex;
+    align-items: center;
+}

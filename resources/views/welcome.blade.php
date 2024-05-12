@@ -70,7 +70,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user-circle fa-lg" style="font-size: 32px;"></i>
+                                    <i class="fas fa-user-circle fa-lg" style="font-size: 24px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('register') }}">Register</a>
@@ -79,19 +79,37 @@
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::user()->name }}
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
-                                        class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                                </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
                                         out</a>
+                                    @if (Auth::user()->is_admin)
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                    @endif
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf</form>
+                                        @csrf
+                                    </form>
+                                </div>
+
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image "
+                                        class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if (Auth::user()->is_admin)
+                                        <a class="dropdown-item" href="{{ url('/admin') }}">Dashboard</a>
+                                    @endif
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
+                                        out</a>
                                 </div>
                             </li>
                         @endguest
