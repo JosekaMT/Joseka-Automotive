@@ -12,7 +12,7 @@ body {
 }
 
 #sidenav-main {
-    max-width: 17.10rem !important;
+    max-width: 17.12rem !important;
     background-color: black !important;
     margin: 0;
     overflow-x: hidden;
@@ -171,3 +171,7 @@ body {
 }
 
 /*------------------scroll bar style---------------------*/
+
+aside.sidenav {
+    display: none;
+}

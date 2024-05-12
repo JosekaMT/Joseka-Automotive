@@ -1,162 +1,78 @@
-    /* Estilos para las miniaturas */
-    .product-card-container .product-card-img {
-        width: 200px;
-        /* Establecer un ancho fijo para todas las miniaturas */
-        height: 115px;
-        /* Establecer la misma altura para todas las miniaturas */
-        object-fit: cover;
-        /* Ajustar el tamaño de la imagen sin deformarla */
-        cursor: pointer;
-        border-radius: 10px;
-        /* Ajustar el radio de borde */
-    }
+/* General styles for thumbnails */
+.product-card-container .product-card-img {
+    width: 200px;
+    height: 115px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 10px;
+}
 
-    /* Estilos para la imagen principal */
-    .main-image {
-        height: 400px;
-        /* Establecer un tamaño fijo para la imagen principal */
-        object-fit: cover;
-        /* Ajustar la imagen principal para que cubra todo el contenedor */
-        border-radius: 10px;
-        /* Agregar bordes redondeados */
-    }
+/* Styles for the main image */
+.main-image {
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
-    /* Estilos para los círculos de colores */
-    .color-circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 5px;
-        margin-bottom: -5px;
-        /* Margen superior para ajustar la posición */
-    }
+/* Styles for color circles */
+.color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: -5px;
+}
 
-    /* Estilos para el nombre del color */
-    .color-name {
-        display: inline-block;
-        vertical-align: middle;
-        /* Alinear verticalmente */
-    }
+/* Styles for color names */
+.color-name {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-    .red-circle {
-        background-color: red;
-    }
+/* Specific colors for circles */
+.red-circle {
+    background-color: red;
+}
+.blue-circle {
+    background-color: blue;
+}
+.green-circle {
+    background-color: green;
+}
+.yellow-circle {
+    background-color: yellow;
+}
+.black-circle {
+    background-color: black;
+}
+.white-circle {
+    background-color: white;
+    border: 1px solid #000;
+}
+.silver-circle {
+    background-color: silver;
+}
 
-    .blue-circle {
-        background-color: blue;
-    }
+/* Styles for the form layout */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+}
 
-    .green-circle {
-        background-color: green;
-    }
+.form-column {
+    flex: 1;
+    margin-right: 10px;
+}
 
-    .yellow-circle {
-        background-color: yellow;
-    }
-
-    .black-circle {
-        background-color: black;
-    }
-
-    .white-circle {
-        background-color: white;
-        border: 1px solid #000;
-    }
-
-    .silver-circle {
-        background-color: silver;
-    }
-
-    /* Estilos para el formulario */
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
     .form-container {
-        display: flex;
-        justify-content: space-between;
+        flex-direction: column;
     }
 
     .form-column {
-        flex: 1;
-        margin-right: 10px;
+        margin-right: 0;
+        margin-bottom: 10px;
     }
-
-    /* Ajuste de tamaño para pantallas pequeñas */
-    @media (max-width: 768px) {
-        .form-container {
-            flex-direction: column;
-        }
-
-        .form-column {
-            margin-right: 0;
-            margin-bottom: 10px;
-        }
-    }
-
-    /* Estilos para las miniaturas */
-    .product-card-container .product-card-img {
-        width: 200px;
-        /* Establecer un ancho fijo para todas las miniaturas */
-        height: 115px;
-        /* Establecer la misma altura para todas las miniaturas */
-        object-fit: cover;
-        /* Ajustar el tamaño de la imagen sin deformarla */
-        cursor: pointer;
-        border-radius: 10px;
-        /* Ajustar el radio de borde */
-    }
-
-    /* Estilos para la imagen principal */
-    .main-image {
-        height: 400px;
-        /* Establecer un tamaño fijo para la imagen principal */
-        object-fit: cover;
-        /* Ajustar la imagen principal para que cubra todo el contenedor */
-        border-radius: 10px;
-        /* Agregar bordes redondeados */
-    }
-
-    /* Estilos para los círculos de colores */
-    .color-circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 5px;
-        margin-bottom: -5px;
-        /* Margen superior para ajustar la posición */
-    }
-
-    /* Estilos para el nombre del color */
-    .color-name {
-        display: inline-block;
-        vertical-align: middle;
-        /* Alinear verticalmente */
-    }
-
-    .red-circle {
-        background-color: red;
-    }
-
-    .blue-circle {
-        background-color: blue;
-    }
-
-    .green-circle {
-        background-color: green;
-    }
-
-    .yellow-circle {
-        background-color: yellow;
-    }
-
-    .black-circle {
-        background-color: black;
-    }
-
-    .white-circle {
-        background-color: white;
-        border: 1px solid #000;
-    }
-
-    .silver-circle {
-        background-color: silver;
-    }
+}
