@@ -13,9 +13,9 @@ body {
 
 .vehicle-heading {
     text-align: center;
-    font-weight: normal; 
-    text-transform: uppercase; 
-    color: #000; 
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #000;
 }
 
 #sidenav-main {
@@ -352,26 +352,24 @@ video {
 
 /*------------------scroll bar style---------------------*/
 
-.custom-button {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    background-color: #9c2121;
-    opacity: 1;
-    height: 2rem;
-    width: 2rem;
-    text-align: center;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    z-index: 9999;
+.nav-link {
+    color: #fff !important;
+    box-shadow: none !important;
 }
-
-.custom-button:hover {
-    transform: scale(1.3);
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.navbar-toggler {
+    border: none !important;
+}
+.dropdown-menu {
+    text-align: left;
+}
+.dropdown-item {
+    color: #000 !important;
+}
+.container {
+    justify-content: flex-end;
 }

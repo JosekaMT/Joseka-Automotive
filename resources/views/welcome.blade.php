@@ -16,6 +16,7 @@
     <link href="{{ asset('./css/nucleo-svg.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/style-rent.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/style-card.css') }}" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
     <!-- Font Awesome Icons -->
@@ -25,70 +26,72 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <main class="main-content position-relative max-height-vh-100 h-100">
+
         <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between"
             style="background-color: #000;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo.png') }}" style="width: 210px; height: 55px;" alt="logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <!-- Botón personalizado para todos los dispositivos -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <div class="sidenav-toggler-inner">
+                        <i class="sidenav-toggler-line line-white"></i>
+                        <i class="sidenav-toggler-line line-white"></i>
+                        <i class="sidenav-toggler-line line-white"></i>
+                    </div>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Contenido del menú -->
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="/" style="color: #fff;">Home</a>
+                            <a class="nav-link text-uppercase" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}"
-                                style="color: #fff;">Vehicles</a>
+                            <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}">Vehicles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#nosotros" style="color: #fff;">About us</a>
+                            <a class="nav-link text-uppercase" href="#nosotros">About us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#contacto" style="color: #fff;">Contact</a>
+                            <a class="nav-link text-uppercase" href="#contacto">Contact</a>
                         </li>
                         @guest
                             <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="color: #fff;">
-                                    <i class="fas fa-caret-down fa-md me-2"></i>
-                                    <!-- Move the dropdown toggle to the left -->
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-user-circle fa-lg" style="font-size: 32px;"></i>
-                                    <!-- Increase the size of the user icon to match the profile picture size -->
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('register') }}"
-                                        style="color: #000;">Register</a>
-                                    <a class="dropdown-item" href="{{ route('login') }}" style="color: #000;">Login</a>
+                                    <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+                                    <a class="dropdown-item" href="{{ route('login') }}">Login</a>
                                 </div>
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link d-flex align-items-center" href="#"
-                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    v-pre style="color: #fff;">
-                                    <i class="fas fa-caret-down fa-md me-2"></i> <!-- Flecha a la izquierda del nombre -->
-                                    {{ Auth::user()->name }} <span class="me-2"></span>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
                                     <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
                                         class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}"
-                                        style="color: #000;">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                        style="color: #000;">Sign out</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">@csrf</form>
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
+                                        out</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf</form>
                                 </div>
                             </li>
                         @endguest
@@ -96,6 +99,8 @@
                 </div>
             </div>
         </nav>
+
+
 
         <div class="video-container">
             <video autoplay muted loop>
@@ -203,8 +208,8 @@
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/chartjs.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -285,6 +290,7 @@
                 },
             },
         });
+
 
         var ctx2 = document.getElementById("chart-line").getContext("2d");
 
@@ -477,6 +483,24 @@
         document.querySelector('.main-content').addEventListener('ps-scroll-x', function() {
             this.classList.remove('ps--active-x');
         });
+
+
+        $(document).ready(function() {
+
+            $("#top").click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 'smooth');
+            });
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('#top').fadeIn('slow');
+                } else {
+                    $('#top').fadeOut('slow');
+                }
+            });
+        });
     </script>
 
     <!--APP -->
@@ -484,10 +508,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <!-- MDBootstrap Scripts -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+
 </body>
 
 </html>
