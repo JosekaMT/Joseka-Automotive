@@ -1,5 +1,5 @@
 * {
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 html,
@@ -8,7 +8,7 @@ body {
     padding: 0;
     height: 100%;
     overflow-x: hidden !important;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 #sidenav-main {
@@ -21,7 +21,6 @@ body {
 .bg-black {
     background-color: #000000 !important;
 }
-
 
 /*NO BORRAR QUITAR SCROLL LATERAL*/
 .main-content {
@@ -43,16 +42,14 @@ body {
 /*NO BORRAR QUITAR NAV EFECTOS*/
 .nav-item .nav-link:hover {
     background-color: transparent !important;
-    color: #FFFFFF !important;
-
+    color: #ffffff !important;
 }
 
 /*NO BORRAR QUITAR NAV EFECTOS*/
 .nav-item .nav-link.active {
     background-color: transparent !important;
-    color: #FFFFFF !important;
+    color: #ffffff !important;
 }
-
 
 /*NAV*/
 #navbarBlur {
@@ -61,7 +58,7 @@ body {
 }
 
 #navbarBlur::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -90,7 +87,7 @@ body {
 }
 
 .nav-link::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 16px;
@@ -119,17 +116,14 @@ body {
     /* Elimina cualquier borde */
 }
 
-
 .li.nav-item,
 .listitem {
     color: transparent !important;
-    ;
 }
 
 .no-uppercase {
     text-transform: none !important;
 }
-
 
 /* Desactivar Perfect Scrollbar */
 .ps__rail-y,
@@ -142,7 +136,6 @@ body {
     overflow-y: auto !important;
     /* Restaurar el desplazamiento vertical predeterminado */
 }
-
 
 /*------------------scroll bar style---------------------*/
 
@@ -172,6 +165,19 @@ body {
 
 /*------------------scroll bar style---------------------*/
 
-aside.sidenav {
-    display: none;
+/*------------------ASIDE Y NAV ADMIN---------------------*/
+.line-white {
+    /*Menu icono blanco */
+    background-color: #ffffff !important;
 }
+
+#navbar {
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos internos a la izquierda */
+}
+
+.navbar-nav {
+    width: 100%; /* Ocupa todo el ancho si es necesario */
+    justify-content: flex-start; /* Alinea los elementos de la lista a la izquierda */
+}
+/*------------------ASIDE Y NAV ADMIN---------------------*/

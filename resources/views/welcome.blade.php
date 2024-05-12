@@ -123,7 +123,7 @@
             <div class="container">
                 <!-- Heading for the Vehicle Showcase -->
                 <h2 class="vehicle-heading">Vehicles</h2>
-                
+
                 <div id="product-card-container" class="product-card-container">
                     @foreach ($cars as $car)
                         <div class="product-card">
@@ -204,6 +204,7 @@
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 

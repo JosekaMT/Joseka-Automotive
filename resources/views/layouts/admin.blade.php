@@ -29,29 +29,30 @@
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
         <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
-            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <i class="fas fa-times p-3 cursor-pointer text-white position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
             <a href="{{ url('/admin') }}" class="d-flex justify-content-center align-items-center">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 210px; height: 55px;">
             </a>
         </div>
-
         <hr class="horizontal light mt-0 mb-3">
 
         <!-- Perfil del usuario -->
         @auth
-        <div class="d-flex justify-content-between align-items-center px-4">
-            <div class="avatar avatar-xl position-relative">
-                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm" style="width: 50px; height: 70px; object-fit: cover;">
+            <div class="d-flex justify-content-between align-items-center px-4">
+                <div class="avatar avatar-xl position-relative">
+                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
+                        class="w-100 border-radius-lg shadow-sm" style="width: 50px; height: 70px; object-fit: cover;">
+                </div>
+                <div class="h-100 text-white">
+                    <h5 class="mb-0 text-white">
+                        {{ Auth::user()->name }}
+                    </h5>
+                    <p class="mb-0 font-weight-normal text-sm ">
+                        {{ Auth::user()->is_admin ? 'Admin' : Auth::user()->role }} / Co-Founder
+                    </p>
+                </div>
             </div>
-            <div class="h-100 text-white">
-                <h5 class="mb-0 text-white">
-                    {{ Auth::user()->name }}
-                </h5>
-                <p class="mb-0 font-weight-normal text-sm ">
-                    {{ Auth::user()->is_admin ? 'Admin' : Auth::user()->role }} / Co-Founder
-                </p>
-            </div>
-        </div>
         @endauth
 
         <hr class="horizontal light">
@@ -100,7 +101,8 @@
                     </a>
                 </li>
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-sm text-white font-weight-bolder opacity-8">Account pages</h6>
+                    <h6 class="ps-4 ms-2 text-uppercase text-sm text-white font-weight-bolder opacity-8">Account pages
+                    </h6>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white active" href="{{ url('/admin/profile') }}">
@@ -120,7 +122,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white active" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    <a class="nav-link text-white active" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">logout</i>
@@ -143,7 +146,8 @@
             <div class="col-12">
                 <hr class="my-2" style="border-color: white;">
                 <p class="text-center text-white-600 mt-4">
-                    Copyright © <script>
+                    Copyright ©
+                    <script>
                         document.write(new Date().getFullYear());
                     </script> All rights reserved.
                 </p>
@@ -151,10 +155,11 @@
         </div>
     </footer>
     </main>
-
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
