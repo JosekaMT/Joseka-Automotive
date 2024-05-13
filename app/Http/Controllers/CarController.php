@@ -38,9 +38,10 @@ class CarController extends Controller
 
     public function showCars()
     {
-        $cars = Car::all(); // Obtén todos los coches para cliente
+        $cars = Car::where('available', true)->get(); // Obtener solo los coches disponibles cliente
         return view('vehicles', compact('cars'));
     }
+
 
 
     public function store(CarRequest $request): RedirectResponse

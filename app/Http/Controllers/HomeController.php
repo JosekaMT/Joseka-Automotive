@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth')->except(['showCars']);
     }
-    
+
 
     /**
      * Show the application dashboard.
@@ -40,9 +40,8 @@ class HomeController extends Controller
     }
 
     public function showCars()
-{
-    $cars = Car::all(); 
-    return view('welcome', compact('cars'));
-}
-
+    {
+        $cars = Car::where('available', true)->get(); // Obtener solo los coches disponibles para cliente
+        return view('welcome', compact('cars'));
+    }
 }
