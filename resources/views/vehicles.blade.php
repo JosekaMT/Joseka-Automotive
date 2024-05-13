@@ -1,7 +1,7 @@
 @extends('layouts.client')
 
 @section('template_title')
-    Vehicle Showcase
+    Vehicles
 @endsection
 
 @section('content')

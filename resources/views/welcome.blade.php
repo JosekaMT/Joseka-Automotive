@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        Joseka Automotive · Home
+        Home · Joseka Automotive
     </title>
     <link rel="icon" href="/img/favicon.png">
     <!-- Google Fonts: Nunito -->

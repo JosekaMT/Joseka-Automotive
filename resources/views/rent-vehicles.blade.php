@@ -1,9 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.client')
 
+@section('template_title')
+    Rent Vehicle
+@endsection
 @section('content')
     <!-- Incluir Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 
     <div class="container my-5">
         <div class="row">
@@ -157,7 +159,7 @@
             onChange: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 0) {
                     const pickupDate = new Date(selectedDates[0].getTime() + 24 * 3600 *
-                    1000); // Ensure 24 hours minimum
+                        1000); // Ensure 24 hours minimum
                     const formattedDate = flatpickr.formatDate(pickupDate, "Y-m-d H:i");
                     dropoffInput.setDate(formattedDate, true);
                     calculateTotal(); // Calcular el total cuando se eligen las fechas
