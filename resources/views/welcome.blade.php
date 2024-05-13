@@ -27,14 +27,10 @@
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-
 </head>
 
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <main class="main-content position-relative max-height-vh-100 h-100">
-
         <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between"
             style="background-color: #000;">
             <div class="container">
@@ -119,8 +115,6 @@
                 </div>
             </div>
         </nav>
-
-
 
         <div class="video-container">
             <video autoplay muted loop>
@@ -283,7 +277,6 @@
             },
         });
 
-
         var ctx2 = document.getElementById("chart-line").getContext("2d");
 
         new Chart(ctx2, {
@@ -304,7 +297,6 @@
                     fill: true,
                     data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
                     maxBarThickness: 6
-
                 }],
             },
             options: {
@@ -386,7 +378,6 @@
                     fill: true,
                     data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
                     maxBarThickness: 6
-
                 }],
             },
             options: {
