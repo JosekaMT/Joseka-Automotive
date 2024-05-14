@@ -7,8 +7,119 @@
 @section('content')
     <!-- Incluir Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Estilos personalizados para el calendario */
+        .flatpickr-calendar {
+            animation: fadeIn 0.3s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flatpickr-calendar .flatpickr-day {
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .flatpickr-calendar .flatpickr-day.selected,
+        .flatpickr-calendar .flatpickr-day.startRange,
+        .flatpickr-calendar .flatpickr-day.endRange,
+        .flatpickr-calendar .flatpickr-day.selected.inRange,
+        .flatpickr-calendar .flatpickr-day.selected:focus,
+        .flatpickr-calendar .flatpickr-day.selected:hover,
+        .flatpickr-calendar .flatpickr-day.startRange:focus,
+        .flatpickr-calendar .flatpickr-day.startRange:hover,
+        .flatpickr-calendar .flatpickr-day.endRange:focus,
+        .flatpickr-calendar .flatpickr-day.endRange:hover,
+        .flatpickr-calendar .flatpickr-day.selected.inRange:focus,
+        .flatpickr-calendar .flatpickr-day.selected.inRange:hover {
+            background-color: #9c2121 !important;
+            border-color: #9c2121 !important;
+            color: #fff !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .flatpickr-calendar .flatpickr-day.today {
+            background-color: #f5c6c6 !important;
+            /* Rojo más claro cuando es hoy */
+            border-color: #f5c6c6 !important;
+            /* Rojo más claro cuando es hoy */
+            color: #000 !important;
+            /* Color de texto negro */
+            border-radius: 50%;
+        }
+
+        .flatpickr-calendar .flatpickr-day.today.selected {
+            background-color: #9c2121 !important;
+            /* Rojo cuando hoy es seleccionado */
+            border-color: #9c2121 !important;
+            /* Rojo cuando hoy es seleccionado */
+            color: #fff !important;
+            /* Color de texto blanco */
+        }
+
+        .flatpickr-calendar .flatpickr-day:hover {
+            background-color: #f5c6c6 !important;
+            /* Rojo más claro al pasar el ratón por encima */
+            border-color: #f5c6c6 !important;
+            /* Rojo más claro */
+            color: #000 !important;
+            /* Color de texto negro */
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .flatpickr-time input:hover,
+        .flatpickr-time input:focus,
+        .flatpickr-time .flatpickr-am-pm:hover,
+        .flatpickr-time .flatpickr-am-pm:focus {
+            background-color: #f5c6c6 !important;
+            /* Rojo más claro al pasar el ratón por encima */
+            border-color: #f5c6c6 !important;
+            /* Rojo más claro */
+            color: #000 !important;
+            /* Color de texto negro */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Añadir borde a los campos de entrada de fecha */
+        .form-control.flatpickr-input {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 0.375rem 0.75rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-control.flatpickr-input:focus {
+            border-color: #9c2121;
+            box-shadow: 0 0 5px rgba(156, 33, 33, 0.5);
+        }
+    </style>
 
     <div class="container my-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-md-7 mb-6 mb-md-0" style="padding: 0; overflow: hidden;">
                 <!-- Bootstrap Carousel for Main Image with Rounded Corners -->
@@ -121,31 +232,37 @@
                     </table>
                 </div>
                 <!-- Rental Form -->
-                <div class="container mt-4" style="width: 100%; padding: 0;">
+                <div class="container" style="width: 100%; padding: 0;">
                     <h5>Select Pickup and Drop-off Date and Time:</h5>
                     <form action="{{ route('car.rent', ['carId' => $car->id]) }}" method="POST">
                         @csrf
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="pickup_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i>
                                     Pickup: </label>
-                                <input type="text" id="pickup_date_time" name="pickup_date_time" class="form-control"
-                                    placeholder="Select Pickup Date and Time" required>
+                                <input type="text" id="pickup_date_time" name="pickup_date_time"
+                                    class="form-control flatpickr-input" placeholder="Select Pickup Date and Time" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="dropoff_date_time" class="form-label"> <i class="fas fa-calendar-alt"></i>
                                     Drop-off: </label>
-                                <input type="text" id="dropoff_date_time" name="dropoff_date_time" class="form-control"
-                                    placeholder="Select Drop-off Date and Time" required readonly>
+                                <input type="text" id="dropoff_date_time" name="dropoff_date_time"
+                                    class="form-control flatpickr-input" placeholder="Select Drop-off Date and Time"
+                                    required readonly>
                             </div>
                         </div>
-                        <h3 id="total_price_display" class="vehicle-heading2">Total Price: 0 €</h3>
-                        <input type="hidden" name="total_price" id="total_price_input">
-                        <button type="submit" class="btn btn-danger mt-3"
-                            style="background-color: #9c2121;">Submit</button>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-danger" style="background-color: #9c2121;">RENT
+                                    NOW!</button>
+                            </div>
+                            <div class="col-md-8 text-end">
+                                <h2 id="total_price_display" class="vehicle-heading2">Total Price: 0 €</h2>
+                                <input type="hidden" name="total_price" id="total_price_input">
+                            </div>
+                        </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
@@ -163,7 +280,7 @@
             onChange: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 0) {
                     const pickupDate = new Date(selectedDates[0].getTime() + 24 * 3600 *
-                    1000); // Ensure 24 hours minimum
+                        1000); // Ensure 24 hours minimum
                     dropoffInput.set('minDate', pickupDate);
                     const formattedDate = flatpickr.formatDate(pickupDate, "Y-m-d H:i");
                     dropoffInput.setDate(formattedDate, true);

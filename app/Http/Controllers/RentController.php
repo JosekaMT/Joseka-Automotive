@@ -9,9 +9,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\RentalRequestReceived;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use DateTime;
 use DateInterval;
 use Illuminate\Support\Facades\Validator;
@@ -27,6 +24,11 @@ class CarController extends Controller
      */
     public function rent(Request $request, $carId)
     {
+        //el usuario esté autenticado
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
+        }
+
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'pickup_date_time' => 'required|date',
@@ -73,6 +75,6 @@ class CarController extends Controller
         $admins = User::where('is_admin', true)->get();
         Notification::send($admins, new RentalRequestReceived($rental));
 
-        return back()->with('message', 'Rental request sent successfully, waiting for approval.');
+        return back()->with('success', 'Rental request sent successfully, waiting for approval.');
     }
 }

@@ -74,7 +74,7 @@ Route::get('/rent-vehicles', function () { //Vista rentar vehicles
 
 
 Route::get('/rent-vehicles/{id}', [CarController::class, 'rentVehicle'])->name('rent-vehicles.show'); //Vista rentar vehicles
-
+Route::get('/vehicles', [CarController::class, 'showCars'])->name('vehicles.index'); //Redireccion bloquear otros coches noa available
 Route::post('/car/{carId}/rent', [CarController::class, 'rent'])->name('car.rent');
 
 
