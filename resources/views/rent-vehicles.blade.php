@@ -7,79 +7,6 @@
 @section('content')
     <!-- Incluir Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <style>
-        /* Estilos personalizados para el calendario */
-        .flatpickr-calendar {
-            animation: fadeIn 0.3s ease-in-out;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .flatpickr-calendar .flatpickr-day {
-            transition: all 0.3s ease-in-out;
-            position: relative;
-        }
-
-        .flatpickr-calendar .flatpickr-day.selected, 
-        .flatpickr-calendar .flatpickr-day.startRange, 
-        .flatpickr-calendar .flatpickr-day.endRange, 
-        .flatpickr-calendar .flatpickr-day.selected.inRange, 
-        .flatpickr-calendar .flatpickr-day.selected:focus, 
-        .flatpickr-calendar .flatpickr-day.selected:hover, 
-        .flatpickr-calendar .flatpickr-day.startRange:focus, 
-        .flatpickr-calendar .flatpickr-day.startRange:hover, 
-        .flatpickr-calendar .flatpickr-day.endRange:focus, 
-        .flatpickr-calendar .flatpickr-day.endRange:hover, 
-        .flatpickr-calendar .flatpickr-day.selected.inRange:focus, 
-        .flatpickr-calendar .flatpickr-day.selected.inRange:hover {
-            background-color: #9c2121 !important;
-            border-color: #9c2121 !important;
-            color: #fff !important;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .flatpickr-calendar .flatpickr-day.today.selected {
-            background-color: #9c2121 !important; /* Rojo cuando hoy es seleccionado */
-            border-color: #9c2121 !important; /* Rojo cuando hoy es seleccionado */
-            color: #fff !important; /* Color de texto blanco */
-        }
-
-        .flatpickr-calendar .flatpickr-day.today {
-            background-color: #f5c6c6 !important; /* Rojo más claro cuando es hoy */
-            border-color: #f5c6c6 !important; /* Rojo más claro cuando es hoy */
-            color: #000 !important; /* Color de texto negro */
-            border-radius: 50%;
-        }
-
-        .flatpickr-calendar .flatpickr-day:hover {
-            background-color: #f5c6c6 !important; /* Rojo más claro al pasar el ratón por encima */
-            border-color: #f5c6c6 !important; /* Rojo más claro */
-            color: #000 !important; /* Color de texto negro */
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .flatpickr-time input:hover,
-        .flatpickr-time input:focus,
-        .flatpickr-time .flatpickr-am-pm:hover,
-        .flatpickr-time .flatpickr-am-pm:focus {
-            background-color: #f5c6c6 !important; /* Rojo más claro al pasar el ratón por encima */
-            border-color: #f5c6c6 !important; /* Rojo más claro */
-            color: #000 !important; /* Color de texto negro */
-            transition: background-color 0.3s, color 0.3s;
-        }
-    </style>
 
     <div class="container my-5">
         <div class="row">
@@ -214,7 +141,8 @@
                         </div>
                         <h3 id="total_price_display" class="vehicle-heading2">Total Price: 0 €</h3>
                         <input type="hidden" name="total_price" id="total_price_input">
-                        <button type="submit" class="btn btn-danger mt-3" style="background-color: #9c2121;">Submit</button>
+                        <button type="submit" class="btn btn-danger mt-3"
+                            style="background-color: #9c2121;">Submit</button>
                     </form>
                 </div>
 
@@ -234,7 +162,8 @@
             disableMobile: true,
             onChange: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 0) {
-                    const pickupDate = new Date(selectedDates[0].getTime() + 24 * 3600 * 1000); // Ensure 24 hours minimum
+                    const pickupDate = new Date(selectedDates[0].getTime() + 24 * 3600 *
+                    1000); // Ensure 24 hours minimum
                     dropoffInput.set('minDate', pickupDate);
                     const formattedDate = flatpickr.formatDate(pickupDate, "Y-m-d H:i");
                     dropoffInput.setDate(formattedDate, true);
@@ -270,8 +199,8 @@
         document.getElementById('dropoff_date_time').addEventListener('change', calculateTotal);
 
         // Prevenir números negativos en los campos de entrada
-        document.querySelectorAll('input[type="number"]').forEach(function (input) {
-            input.addEventListener('input', function () {
+        document.querySelectorAll('input[type="number"]').forEach(function(input) {
+            input.addEventListener('input', function() {
                 if (this.value < 0) {
                     this.value = 0;
                 }
