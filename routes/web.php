@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RentController;
+use App\Http\Controllers\NotificationController;
 
 // Ruta principal de la aplicación
 
@@ -80,17 +81,12 @@ Route::post('/car/{carId}/rent', [CarController::class, 'rent'])->name('car.rent
 
 
 
-// En rotes/web.php
 Route::post('/rent/{id}', [RentController::class, 'rent'])->name('rent');
-
 Route::post('/rent-car/{carId}', [CarController::class, 'rent'])->name('car.rent');
 
 
-
-
-
-
 Route::get('/admin/notifications', 'AdminController@showNotifications')->name('admin.notifications');
+Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
 
 
 

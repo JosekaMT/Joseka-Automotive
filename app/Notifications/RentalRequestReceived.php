@@ -25,7 +25,7 @@ class RentalRequestReceived extends Notification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->line('A new rental application has been received.')
+            ->line('A rental application has been received.')
             ->action('View Details', url('/'))
             ->line('Thank you for using our application!');
 
@@ -45,13 +45,14 @@ class RentalRequestReceived extends Notification
     {
         $data = [
             'rental_id' => $this->rental->id,
-            'message' => 'A new rental application has been received.',
+            'message' => 'A rental application has been received.',
             'brand' => $this->rental->car->brand,
             'model' => $this->rental->car->model,
             'start_date' => $this->rental->start_date,
             'end_date' => $this->rental->end_date,
             'total_price' => $this->rental->total_price,
             'action_url' => url('/rentals/' . $this->rental->id),
+            'user_name' => $this->rental->user->name, // Agregar el nombre del usuario
         ];
 
         if ($this->status != 'pending') {
