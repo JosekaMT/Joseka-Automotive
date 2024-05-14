@@ -18,6 +18,12 @@ body {
     color: #000;
 }
 
+.vehicle-heading2 {
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #000;
+}
+
 #sidenav-main {
     max-width: 17.1rem !important;
     background-color: black !important;
@@ -340,7 +346,7 @@ video {
 }
 
 .footer-link:hover i {
-    color: red;
+    color: #9c2121;
 }
 
 @media (min-width: 768px) {
