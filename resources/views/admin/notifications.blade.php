@@ -36,85 +36,83 @@
                 @endphp
 
                 @if ($rental && $user && $car)
-                    <div class="card mb-3" style="width: 100%;">
-                        <div class="row g-0">
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-start mb-3">
-                                        <div class="me-3">
-                                            <div class="avatar avatar-xl position-relative">
-                                                @if ($user->profile_photo)
-                                                    <img src="{{ asset('storage/' . $user->profile_photo) }}"
-                                                        alt="profile_image" class="w-100 border-radius-lg shadow-sm"
-                                                        style="width: 70px; height: 70px; object-fit: cover;">
-                                                @else
-                                                    <img src="{{ asset('images/default-user.png') }}" alt="profile_image"
-                                                        class="w-100 border-radius-lg shadow-sm"
-                                                        style="width: 70px; height: 70px; object-fit: cover;">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h5 class="mb-0">
-                                                {{ $user->name }}
-                                            </h5>
-                                            <p class="mb-0 font-weight-normal text-sm">
-                                                {{ $user->is_admin ? 'Admin' : 'Client' }}
+                    <div class="card mb-3 mt-3 mx-auto" style="max-width: 75%;">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-start mb-2">
+                                <div class="me-3">
+                                    <div class="avatar avatar-xl position-relative">
+                                        @if ($user->profile_photo)
+                                            <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="profile_image"
+                                                class="w-100 border-radius-lg shadow-sm"
+                                                style="width: 60px; height: 60px; object-fit: cover;">
+                                        @else
+                                            <img src="{{ asset('images/default-user.png') }}" alt="profile_image"
+                                                class="w-100 border-radius-lg shadow-sm"
+                                                style="width: 60px; height: 60px; object-fit: cover;">
+                                        @endif
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">
+                                        {{ $user->name }}
+                                    </h6>
+                                    <p class="mb-0 text-sm">
+                                        {{ $user->is_admin ? 'Admin' : 'Client' }}
+                                    </p>
+                                </div>
+                                <div class="ms-4 d-flex flex-column">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p class="card-text mb-1">
+                                                <strong>User ID:</strong> {{ $user->id }}<br>
+                                                <strong>Email:</strong> {{ $user->email }}<br>
                                             </p>
                                         </div>
-                                        <div class="ms-5 d-flex flex-column">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p class="card-text mb-2">
-                                                        <strong>User ID:</strong> {{ $user->id }}<br>
 
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p class="card-text mb-2">
-                                                        <strong>Email:</strong> {{ $user->email }}<br>
-                                                        <strong>Phone:</strong> {{ $user->phone_number ?? 'N/A' }}<br>
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p class="card-text mb-2">
-                                                        <strong>City:</strong> {{ $user->city ?? 'N/A' }}<br>
-                                                        <strong>Address:</strong> {{ $user->address ?? 'N/A' }}<br>
-                                                    </p>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <p class="card-text mb-1">
+                                                <strong>Phone:</strong> {{ $user->phone_number ?? 'N/A' }}<br>
+                                                <strong>City:</strong> {{ $user->city ?? 'N/A' }}<br>
+                                            </p>
                                         </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <p class="card-text">
-                                                <strong>Car ID:</strong> {{ $car->id }}<br>
-                                                <strong>Car:</strong> {{ $car->brand }} {{ $car->model }}<br>
-                                                <strong>Rental Period:</strong> {{ $rental->start_date }} to
-                                                {{ $rental->end_date }}<br>
-                                                <strong>Total Price:</strong> {{ $rental->total_price }} €<br>
+                                        <div class="col-md-4">
+                                            <p class="card-text mb-1">
+                                                <strong>Address:</strong> {{ $user->address ?? 'N/A' }}<br>
                                             </p>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <p class="card-text mb-2">
+                                        <strong>Car ID:</strong> {{ $car->id }}<br>
+                                        <strong>Car:</strong> {{ $car->brand }} {{ $car->model }}<br>
+                                        <strong>Rental Period:</strong> {{ $rental->start_date }} to
+                                        {{ $rental->end_date }}<br>
+                                        <strong>Total Price:</strong> {{ $rental->total_price }} €<br>
+                                    </p>
                                     <form action="{{ route('admin.rentals.approve', $rental->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
-                                        <button type="submit" class="btn btn-success mt-2">Approve</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
                                     </form>
                                     <form action="{{ route('admin.rentals.reject', $rental->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger mt-2">Reject</button>
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            style="background-color: #9c2121; color: white;">Reject</button>
                                     </form>
-                                    <p class="text-muted mt-2">
+                                    <p class="text-muted mt-1">
                                         <small>{{ $notification->created_at->diffForHumans() }}</small>
                                     </p>
                                 </div>
-                            </div>
-                            <div class="col-md-4 d-flex align-items-center justify-content-end">
-                                <!-- Mostrar foto del vehículo -->
-                                <img src="{{ asset('storage/' . $car->image1) }}" class="img-fluid rounded-end"
-                                    alt="Car Photo" style="width: 200px; height: 200px; object-fit: cover;">
+                                <div class="col-md-6 d-flex align-items-center justify-content-end">
+                                    <!-- Mostrar foto del vehículo -->
+                                    <img src="{{ asset('storage/' . $car->image1) }}" class="img-fluid rounded-end"
+                                        alt="Car Photo"
+                                        style="width: auto; height: 100%; max-height: 200px; object-fit: cover; border-radius: 10px;">
+                                </div>
                             </div>
                         </div>
                     </div>
