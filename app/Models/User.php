@@ -7,27 +7,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Los atributos que son asignables en masa.
      *
-     * @var array<int, string>
+     * @var array<string>
      */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'city',
         'phone_number',
+        'city',
+        'address',
         'profile_photo',
-        'address', // Añadido el campo 'address' al array de asignación masiva
+        'is_admin',
+        'role'
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Los atributos que deberían ser ocultos para arreglos.
      *
      * @var array<int, string>
      */
@@ -37,14 +39,19 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast.
+     * Los atributos que deberían ser convertidos a tipos nativos.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * Obtener el alquiler relacionado.
+     */
+    public function rentals()
     {
-        return [
-            'email_verified_at' => 'datetime',
-        ];
+        return $this->hasMany(Rental::class);
     }
 }

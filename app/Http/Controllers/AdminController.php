@@ -12,7 +12,6 @@ use App\Models\Rental;
 
 class AdminController extends Controller
 {
-
     public function dashboard()
     {
         return view('admin.dashboard');
@@ -41,13 +40,12 @@ class AdminController extends Controller
     public function showNotifications()
     {
         $user = Auth::user();
-    
+
         // Recupera todas las notificaciones, puedes ajustar para traer solo las no leídas
         $notifications = $user->notifications;
-    
+
         return view('admin.notifications', compact('notifications'));
     }
-    
 
     public function markNotificationAsRead($notificationId)
     {
@@ -58,5 +56,27 @@ class AdminController extends Controller
         }
 
         return back();
+    }
+
+    public function approveRental($id)
+    {
+        $rental = Rental::find($id);
+        if ($rental) {
+            $rental->status = 'approved';
+            $rental->save();
+            return redirect()->route('admin.notifications')->with('success', 'Rental request approved.');
+        }
+        return redirect()->route('admin.notifications')->with('error', 'Rental request not found.');
+    }
+
+    public function rejectRental($id)
+    {
+        $rental = Rental::find($id);
+        if ($rental) {
+            $rental->status = 'rejected';
+            $rental->save();
+            return redirect()->route('admin.notifications')->with('success', 'Rental request rejected.');
+        }
+        return redirect()->route('admin.notifications')->with('error', 'Rental request not found.');
     }
 }

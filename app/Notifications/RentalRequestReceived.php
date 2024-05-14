@@ -25,6 +25,7 @@ class RentalRequestReceived extends Notification
             ->action('Ver Detalles', url('/'))
             ->line('Gracias por usar nuestra aplicación!');
     }
+
     public function via($notifiable)
     {
         return ['mail', 'database'];
@@ -35,6 +36,11 @@ class RentalRequestReceived extends Notification
         return [
             'rental_id' => $this->rental->id,
             'message' => 'Una nueva solicitud de alquiler ha sido recibida.',
+            'brand' => $this->rental->car->brand,
+            'model' => $this->rental->car->model,
+            'start_date' => $this->rental->start_date,
+            'end_date' => $this->rental->end_date,
+            'total_price' => $this->rental->total_price,
             'action_url' => url('/rentals/' . $this->rental->id),
         ];
     }

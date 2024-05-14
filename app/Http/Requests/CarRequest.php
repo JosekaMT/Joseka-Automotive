@@ -30,8 +30,8 @@ class CarRequest extends FormRequest
             'seats' => 'required|numeric|min:1',
             'color' => 'required|string|in:Red,Blue,Green,Yellow,Black,White,Silver',
             'price_per_hour' => 'required|numeric',
-            'available' => 'required|boolean', // Campo nuevo para disponibilidad, true = disponible, false = no disponible
-            'rented' => 'required|boolean', // Campo nuevo para estado de alquiler, true = alquilado, false = no alquilado
+            'available' => 'required|boolean',
+            'rented' => 'required|boolean',
             'description' => 'required|string|max:255'
         ];
     }

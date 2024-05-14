@@ -9,10 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes; // Si deseas incluir eliminación 
 class Rental extends Model
 {
     use HasFactory;
-    use SoftDeletes; // Opcional, úsalo si necesitas la funcionalidad de eliminación suave
+    // use SoftDeletes; // Eliminar 
 
     /**
-     * Los atributos que son asignables en masa.
      *
      * @var array<string>
      */
@@ -25,11 +24,10 @@ class Rental extends Model
         'status',
         'brand',
         'model',
-        'image1'
+        'image1',
     ];
 
     /**
-     * Los atributos que deberían ser convertidos a fechas.
      *
      * @var array<string>
      */
@@ -57,7 +55,7 @@ class Rental extends Model
     }
 
     /**
-     * Configuraciones adicionales para soft deletes.
+     * Configuraciones para soft deletes.
      */
-    protected $softDelete = true; // Habilita esto si estás usando SoftDeletes
+    protected $softDelete = true;
 }
