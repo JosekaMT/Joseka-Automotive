@@ -124,6 +124,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/notifications', [AdminController::class, 'showNotifications'])->name('admin.notifications');
     Route::post('/admin/rentals/{id}/approve', [AdminController::class, 'approveRental'])->name('admin.rentals.approve');
     Route::post('/admin/rentals/{id}/reject', [AdminController::class, 'rejectRental'])->name('admin.rentals.reject');
+
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
 

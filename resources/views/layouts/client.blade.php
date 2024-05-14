@@ -32,16 +32,13 @@
 
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <main class="main-content position-relative max-height-vh-100 h-100">
-        <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between"
-            style="background-color: #000;">
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between" style="background-color: #000;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo.png') }}" style="width: 210px; height: 55px;" alt="logo">
                 </a>
                 <!-- Botón personalizado para todos los dispositivos -->
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="sidenav-toggler-inner">
                         <i class="sidenav-toggler-line line-white"></i>
                         <i class="sidenav-toggler-line line-white"></i>
@@ -51,7 +48,6 @@
                 <!-- Contenido del menú -->
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto align-items-center">
-
                         <li class="nav-item">
                             <a class="nav-link text-uppercase" href="/">Home</a>
                         </li>
@@ -61,14 +57,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-uppercase" href="#nosotros">About us</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link text-uppercase" href="#contacto">Contact</a>
                         </li>
                         @guest
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-user-circle fa-lg" style="font-size: 24px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -77,38 +71,32 @@
                                 </div>
                             </li>
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="material-icons opacity-10">notifications</i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @foreach(Auth::user()->unreadNotifications as $notification)
+                                        <li class="dropdown-item">
+                                            {{ $notification->data['message'] }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
                             <li class="nav-item dropdown">
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
-                                        out</a>
-                                    @if (Auth::user()->is_admin)
-                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                                    @endif
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image "
-                                        class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image" class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if (Auth::user()->is_admin)
                                         <a class="dropdown-item" href="{{ url('/admin') }}">Dashboard</a>
                                     @endif
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
-                                        out</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
                                 </div>
                             </li>
                         @endguest
@@ -116,6 +104,8 @@
                 </div>
             </div>
         </nav>
+        
+    
 
 
 

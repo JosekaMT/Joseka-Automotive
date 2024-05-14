@@ -12,7 +12,7 @@ function create_product_card(car) {
                     <p>Horsepower: ${car.horsepower}</p>
                 </div>
             </div>
-            <a href="#" class="btn btn-danger w-100">Rent Now!</a>
+            <a href="#" class="btn btn-danger w-100">RENT NOW!</a>
         </a>
     </div> `;
 }

@@ -27,7 +27,23 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
+
+        <div class="container mt-3">
+            @if (session('success'))
+                <div class="alert alert-success text-center">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger text-center">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @php
+                $hasNotifications = false;
+            @endphp
+
             @forelse($notifications as $notification)
                 @php
                     $rental = \App\Models\Rental::find($notification->data['rental_id']);
@@ -35,7 +51,10 @@
                     $car = $rental ? \App\Models\Car::find($rental->car_id) : null;
                 @endphp
 
-                @if ($rental && $user && $car)
+                @if ($rental && $user && $car && $rental->status == 'pending')
+                    @php
+                        $hasNotifications = true;
+                    @endphp
                     <div class="card mb-3 mt-3 mx-auto" style="max-width: 75%;">
                         <div class="card-body p-3">
                             <div class="d-flex align-items-start mb-2">
@@ -116,11 +135,13 @@
                             </div>
                         </div>
                     </div>
-                @else
-                    <p>Notification data is incomplete or invalid.</p>
                 @endif
             @empty
-                <p>No notifications found.</p>
+                <h4 class="text-center">No notifications found.</h4>
             @endforelse
+
+            @if (!$hasNotifications)
+                <h4 class="text-center">No notifications found.</h4>
+            @endif
         </div>
     @endsection

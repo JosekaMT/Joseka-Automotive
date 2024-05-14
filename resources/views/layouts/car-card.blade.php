@@ -21,6 +21,6 @@
             <i class="far fa-heart"></i>
         </a>
         <a href="{{ route('rent-vehicles.show', ['id' => $car->id]) }}" class="addtocart-btn"
-            style="text-decoration: none;">Rent Now!</a>
+            style="text-decoration: none;">RENT NOW!</a>
     </div>
 </div>

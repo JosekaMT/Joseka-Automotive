@@ -7,33 +7,27 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RentalRequestReceived extends Notification
+class RentalRequestStatusChanged extends Notification
 {
     use Queueable;
 
     protected $rental;
     protected $status;
-    protected $adminResponse;
+    protected $message;
 
-    public function __construct($rental, $status = 'pending', $adminResponse = null)
+    public function __construct($rental, $status, $message)
     {
         $this->rental = $rental;
         $this->status = $status;
-        $this->adminResponse = $adminResponse;
+        $this->message = $message;
     }
 
     public function toMail($notifiable)
     {
-        $mailMessage = (new MailMessage)
-            ->line('A new rental application has been received.')
+        return (new MailMessage)
+            ->line($this->message)
             ->action('View Details', url('/'))
             ->line('Thank you for using our application!');
-
-        if ($this->status != 'pending') {
-            $mailMessage->line("The rental application has been {$this->status}.");
-        }
-
-        return $mailMessage;
     }
 
     public function via($notifiable)
@@ -43,9 +37,10 @@ class RentalRequestReceived extends Notification
 
     public function toDatabase($notifiable)
     {
-        $data = [
+        return [
             'rental_id' => $this->rental->id,
-            'message' => 'A new rental application has been received.',
+            'status' => $this->status,
+            'message' => $this->message,
             'brand' => $this->rental->car->brand,
             'model' => $this->rental->car->model,
             'start_date' => $this->rental->start_date,
@@ -53,12 +48,5 @@ class RentalRequestReceived extends Notification
             'total_price' => $this->rental->total_price,
             'action_url' => url('/rentals/' . $this->rental->id),
         ];
-
-        if ($this->status != 'pending') {
-            $data['message'] = "The rental application has been {$this->status}.";
-            $data['adminResponse'] = $this->adminResponse;
-        }
-
-        return $data;
     }
 }
