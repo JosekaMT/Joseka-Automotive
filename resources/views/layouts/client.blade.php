@@ -33,16 +33,15 @@
 
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <main class="main-content position-relative max-height-vh-100 h-100">
-        <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between"
-            style="background-color: #000;">
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between" style="background-color: #000;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo.png') }}" style="width: 210px; height: 55px;" alt="logo">
                 </a>
                 <!-- Botón personalizado para todos los dispositivos -->
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <div class="sidenav-toggler-inner">
                         <i class="sidenav-toggler-line line-white"></i>
                         <i class="sidenav-toggler-line line-white"></i>
@@ -66,8 +65,7 @@
                         </li>
                         @guest
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-user-circle fa-lg" style="font-size: 24px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -77,56 +75,45 @@
                             </li>
                         @else
                             <li class="nav-item dropdown position-relative">
-                                <a class="nav-link position-relative" href="#" id="notificationsDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="material-icons notification-material-icons">notifications</i>
                                     @if (Auth::user()->unreadNotifications->count() > 0)
-                                        <span
-                                            class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
+                                        <span class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
                                     @endif
                                 </a>
-                                <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
-                                    aria-labelledby="notificationsDropdown" style="width: 310px;">
+                                <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow" aria-labelledby="notificationsDropdown" style="width: 310px;">
                                     @forelse(Auth::user()->unreadNotifications as $notification)
-                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
-                                            id="notification-{{ $notification->id }}">
-                                            <div class="text-dark">
-                                                <strong>{{ $notification->data['user_name'] }}</strong>:<br>{{ $notification->data['message'] }}
-                                                <br>
-                                                <small
-                                                    class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                                            </div>
-                                            <button class="notification-close-btn-custom"
-                                                onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
+                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center" id="notification-{{ $notification->id }}">
+                                            <a href="{{ url('/admin/notifications') }}" class="text-decoration-none text-dark w-100">
+                                                <div>
+                                                    <strong>{{ $notification->data['user_name'] }}</strong>:<br>{{ $notification->data['message'] }}
+                                                    <br>
+                                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                </div>
+                                            </a>
+                                            <button class="notification-close-btn-custom" onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
                                                 <i class="material-icons" style="color: #9c2121;">close</i>
                                             </button>
                                         </li>
                                     @empty
-                                        <li class="notification-dropdown-item-custom text-center w-100"
-                                            id="no-notifications">No notifications</li>
+                                        <li class="notification-dropdown-item-custom text-center w-100" id="no-notifications">No notifications</li>
                                     @endforelse
                                 </ul>
                             </li>
-
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
-                                        class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image" class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if (Auth::user()->is_admin)
                                         <a class="dropdown-item" href="{{ url('/admin') }}">Dashboard</a>
                                     @endif
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
-                                        out</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
                                 </div>
                             </li>
                         @endguest
@@ -475,38 +462,37 @@
             });
         });
     </script>
-    <script>
-        function markNotificationAsRead(event, notificationId) {
-            event.stopPropagation(); // Evitar que se cierre el desplegable
-            fetch(`/notifications/${notificationId}/mark-as-read`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    notificationId: notificationId
-                })
-            }).then(response => {
-                if (response.ok) {
-                    // Eliminar la notificación del desplegable
-                    document.getElementById(`notification-${notificationId}`).remove();
-
-                    // Update the notification count
-                    let badge = document.querySelector('.notification-badge-custom');
-                    let count = parseInt(badge.textContent);
-                    badge.textContent = count - 1;
-
-                    // Si no quedan notificaciones, elimina la insignia y muestra el mensaje "Sin notificaciones
-                    if (count - 1 === 0) {
+   <script>
+    function markNotificationAsRead(event, notificationId) {
+        event.preventDefault();
+        fetch(`/notifications/${notificationId}/mark-as-read`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById(`notification-${notificationId}`).remove();
+                if (!document.querySelector('.notification-dropdown-item-custom')) {
+                    const noNotificationsItem = document.createElement('li');
+                    noNotificationsItem.id = 'no-notifications';
+                    noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
+                    noNotificationsItem.textContent = 'No notifications';
+                    document.querySelector('.notification-dropdown-menu-custom').appendChild(noNotificationsItem);
+                }
+                const badge = document.querySelector('.notification-badge-custom');
+                if (badge) {
+                    const count = parseInt(badge.textContent, 10) - 1;
+                    if (count > 0) {
+                        badge.textContent = count;
+                    } else {
                         badge.remove();
-                        document.querySelector('.notification-dropdown-menu-custom').innerHTML =
-                            '<li class="notification-dropdown-item-custom text-center w-100">No notifications</li>';
                     }
                 }
-            });
-        }
-    </script>
+            }
+        });
+    }
+</script>
     <!--APP -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

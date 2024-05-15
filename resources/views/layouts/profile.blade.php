@@ -11,7 +11,7 @@
     <!-- Fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap">
     <!-- Nucleo Icons -->
-
+    <link href="{{ asset('./css/style-notifications.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/style-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/nucleo-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/nucleo-svg.css') }}" rel="stylesheet">
@@ -25,61 +25,107 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
+
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <main class="main-content position-relative max-height-vh-100 h-100">
-        <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between" style="background-color: #000;">
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top justify-content-between"
+            style="background-color: #000;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo.png') }}" style="width: 210px; height: 55px;" alt="logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <!-- Botón personalizado para todos los dispositivos -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="sidenav-toggler-inner">
+                        <i class="sidenav-toggler-line line-white"></i>
+                        <i class="sidenav-toggler-line line-white"></i>
+                        <i class="sidenav-toggler-line line-white"></i>
+                    </div>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
+                <!-- Contenido del menú -->
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="/" style="color: #fff;">Home</a>
+                            <a class="nav-link text-uppercase" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}" style="color: #fff;">Vehicles</a>
+                            <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}">Vehicles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#nosotros" style="color: #fff;">About us</a>
+                            <a class="nav-link text-uppercase" href="#nosotros">About us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#contacto" style="color: #fff;">Contact</a>
+                            <a class="nav-link text-uppercase" href="#contacto">Contact</a>
                         </li>
                         @guest
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
-                                <i class="fas fa-user-circle fa-lg"></i>
-                                <i class="fas fa-caret-down fa-md"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('register') }}" style="color: #000;">Register</a>
-                                <a class="dropdown-item" href="{{ route('login') }}" style="color: #000;">Login</a>
-                            </div>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle fa-lg" style="font-size: 24px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+                                    <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                                </div>
+                            </li>
                         @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link no-uppercase" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: #fff;">
-                                <i class="fas fa-user-circle fa-lg"></i>
-                                {{ Auth::user()->name }}
-                                <i class="fas fa-caret-down fa-md"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('profile') }}" style="color: #000;">
-                                    Profile
+                            <li class="nav-item dropdown position-relative">
+                                <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="material-icons notification-material-icons">notifications</i>
+                                    @if (Auth::user()->unreadNotifications->count() > 0)
+                                        <span
+                                            class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
+                                    @endif
                                 </a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #000;">
-                                    Sign out
+                                <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
+                                    aria-labelledby="notificationsDropdown" style="width: 310px;">
+                                    @forelse(Auth::user()->unreadNotifications as $notification)
+                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
+                                            id="notification-{{ $notification->id }}">
+                                            <a href="{{ url('/admin/notifications') }}"
+                                                class="text-decoration-none text-dark w-100">
+                                                <div>
+                                                    <strong>{{ $notification->data['user_name'] }}</strong>:<br>{{ $notification->data['message'] }}
+                                                    <br>
+                                                    <small
+                                                        class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                </div>
+                                            </a>
+                                            <button class="notification-close-btn-custom"
+                                                onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
+                                                <i class="material-icons" style="color: #9c2121;">close</i>
+                                            </button>
+                                        </li>
+                                    @empty
+                                        <li class="notification-dropdown-item-custom text-center w-100"
+                                            id="no-notifications">No notifications</li>
+                                    @endforelse
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
+                                        class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if (Auth::user()->is_admin)
+                                        <a class="dropdown-item" href="{{ url('/admin') }}">Dashboard</a>
+                                    @endif
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
+                                        out</a>
+                                </div>
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -87,14 +133,17 @@
         </nav>
 
         <div class="container-fluid py-4">
-            <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{{ asset('img/fondo-profile.jpg') }}');">
+            <div class="page-header min-height-300 border-radius-xl mt-4"
+                style="background-image: url('{{ asset('img/fondo-profile.jpg') }}');">
                 <span class="mask bg-gradient-dark opacity-6"></span>
             </div>
             <div class="card card-body mx-3 mx-md-4 mt-n6">
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm" style="width: 100px; height: 70px; object-fit: cover;">
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
+                                class="w-100 border-radius-lg shadow-sm"
+                                style="width: 100px; height: 70px; object-fit: cover;">
                         </div>
                     </div>
                     <div class="col-auto my-auto">
@@ -122,19 +171,23 @@
                                 <div class="card-body p-3">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control border" id="name" name="name" value="{{ auth()->user()->name }}">
+                                        <input type="text" class="form-control border" id="name"
+                                            name="name" value="{{ auth()->user()->name }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone_number" class="form-label">Mobile</label>
-                                        <input type="text" class="form-control border" id="phone_number" name="phone_number" value="{{ auth()->user()->phone_number }}">
+                                        <input type="text" class="form-control border" id="phone_number"
+                                            name="phone_number" value="{{ auth()->user()->phone_number }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="city" class="form-label">City</label>
-                                        <input type="text" class="form-control border" id="city" name="city" value="{{ auth()->user()->city }}">
+                                        <input type="text" class="form-control border" id="city"
+                                            name="city" value="{{ auth()->user()->city }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control border" id="address" name="address" value="{{ auth()->user()->address }}">
+                                        <input type="text" class="form-control border" id="address"
+                                            name="address" value="{{ auth()->user()->address }}">
                                     </div>
                                 </div>
                             </div>
@@ -149,23 +202,31 @@
                                 <div class="card-body p-3">
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control border" id="email" name="email" value="{{ auth()->user()->email }}">
+                                        <input type="email" class="form-control border" id="email"
+                                            name="email" value="{{ auth()->user()->email }}">
                                     </div>
                                     <div class="mb-3 position-relative">
                                         <label for="password" class="form-label">New Password</label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control border" id="password" name="password">
-                                            <span class="input-group-text ms-2" onclick="togglePasswordVisibility('password')">
-                                                <i class="material-icons mx-2" style="color: black;">visibility</i> <!-- Icono de ojo -->
+                                            <input type="password" class="form-control border" id="password"
+                                                name="password">
+                                            <span class="input-group-text ms-2"
+                                                onclick="togglePasswordVisibility('password')">
+                                                <i class="material-icons mx-2" style="color: black;">visibility</i>
+                                                <!-- Icono de ojo -->
                                             </span>
                                         </div>
                                     </div>
                                     <div class="mb-3 position-relative">
-                                        <label for="password_confirmation" class="form-label">Confirm New Password</label>
+                                        <label for="password_confirmation" class="form-label">Confirm New
+                                            Password</label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control border" id="password_confirmation" name="password_confirmation">
-                                            <span class="input-group-text ms-2" onclick="togglePasswordVisibility('password_confirmation')">
-                                                <i class="material-icons mx-2" style="color: black;">visibility</i> <!-- Icono de ojo -->
+                                            <input type="password" class="form-control border"
+                                                id="password_confirmation" name="password_confirmation">
+                                            <span class="input-group-text ms-2"
+                                                onclick="togglePasswordVisibility('password_confirmation')">
+                                                <i class="material-icons mx-2" style="color: black;">visibility</i>
+                                                <!-- Icono de ojo -->
                                             </span>
                                         </div>
                                     </div>
@@ -182,7 +243,8 @@
                                 <div class="card-body p-3">
                                     <div class="mb-3">
                                         <label for="profile_photo" class="form-label">Upload New Photo</label>
-                                        <input type="file" class="form-control border" id="profile_photo" name="profile_photo">
+                                        <input type="file" class="form-control border" id="profile_photo"
+                                            name="profile_photo">
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +252,8 @@
                     </div>
                     <div class="row">
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-danger" style="background-color: #9c2121;">Update All</button>
+                            <button type="submit" class="btn btn-danger" style="background-color: #9c2121;">Update
+                                All</button>
                         </div>
                     </div>
                 </form>
@@ -201,7 +264,8 @@
                         const passwordIcon = passwordInput.nextElementSibling.querySelector('i');
                         if (passwordInput.type === "password") {
                             passwordInput.type = "text";
-                            passwordIcon.textContent = "visibility_off"; // Cambia el ícono a "visibility_off" cuando la contraseña es visible
+                            passwordIcon.textContent =
+                                "visibility_off"; // Cambia el ícono a "visibility_off" cuando la contraseña es visible
                         } else {
                             passwordInput.type = "password";
                             passwordIcon.textContent = "visibility"; // Cambia el ícono a "visibility" cuando la contraseña está oculta
@@ -241,7 +305,8 @@
                             <div class="col-12">
                                 <hr class="my-2" style="border-color: white;">
                                 <p class="text-center text-white-600 mt-2">
-                                    Copyright © <script>
+                                    Copyright ©
+                                    <script>
                                         document.write(new Date().getFullYear());
                                     </script> All rights reserved.
                                 </p>
@@ -548,6 +613,38 @@
                 }
             });
         });
+    </script>
+    <script>
+        function markNotificationAsRead(event, notificationId) {
+            event.preventDefault();
+            fetch(`/notifications/${notificationId}/mark-as-read`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById(`notification-${notificationId}`).remove();
+                    if (!document.querySelector('.notification-dropdown-item-custom')) {
+                        const noNotificationsItem = document.createElement('li');
+                        noNotificationsItem.id = 'no-notifications';
+                        noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
+                        noNotificationsItem.textContent = 'No notifications';
+                        document.querySelector('.notification-dropdown-menu-custom').appendChild(
+                            noNotificationsItem);
+                    }
+                    const badge = document.querySelector('.notification-badge-custom');
+                    if (badge) {
+                        const count = parseInt(badge.textContent, 10) - 1;
+                        if (count > 0) {
+                            badge.textContent = count;
+                        } else {
+                            badge.remove();
+                        }
+                    }
+                }
+            });
+        }
     </script>
 
     <!--APP -->

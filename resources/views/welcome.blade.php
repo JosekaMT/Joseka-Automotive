@@ -11,6 +11,7 @@
     <!-- Google Fonts: Nunito -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap">
     <!-- Styles -->
+    <link href="{{ asset('./css/style-notifications.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/style-client.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/nucleo-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('./css/nucleo-svg.css') }}" rel="stylesheet">
@@ -50,7 +51,6 @@
                 <!-- Contenido del menú -->
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto align-items-center">
-
                         <li class="nav-item">
                             <a class="nav-link text-uppercase" href="/">Home</a>
                         </li>
@@ -60,7 +60,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-uppercase" href="#nosotros">About us</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link text-uppercase" href="#contacto">Contact</a>
                         </li>
@@ -76,24 +75,45 @@
                                 </div>
                             </li>
                         @else
-                            <li class="nav-item dropdown">
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
-                                        out</a>
-                                    @if (Auth::user()->is_admin)
-                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                            <li class="nav-item dropdown position-relative">
+                                <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="material-icons notification-material-icons">notifications</i>
+                                    @if (Auth::user()->unreadNotifications->count() > 0)
+                                        <span
+                                            class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
                                     @endif
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-
+                                </a>
+                                <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
+                                    aria-labelledby="notificationsDropdown" style="width: 310px;">
+                                    @forelse(Auth::user()->unreadNotifications as $notification)
+                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
+                                            id="notification-{{ $notification->id }}">
+                                            <a href="{{ url('/admin/notifications') }}"
+                                                class="text-decoration-none text-dark w-100">
+                                                <div>
+                                                    <strong>{{ $notification->data['user_name'] }}</strong>:<br>{{ $notification->data['message'] }}
+                                                    <br>
+                                                    <small
+                                                        class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                </div>
+                                            </a>
+                                            <button class="notification-close-btn-custom"
+                                                onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
+                                                <i class="material-icons" style="color: #9c2121;">close</i>
+                                            </button>
+                                        </li>
+                                    @empty
+                                        <li class="notification-dropdown-item-custom text-center w-100"
+                                            id="no-notifications">No notifications</li>
+                                    @endforelse
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image "
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="profile_image"
                                         class="rounded-circle mx-1" style="width: 32px; height: 32px; object-fit: cover;">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -484,6 +504,38 @@
                 }
             });
         });
+    </script>
+    <script>
+        function markNotificationAsRead(event, notificationId) {
+            event.preventDefault();
+            fetch(`/notifications/${notificationId}/mark-as-read`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById(`notification-${notificationId}`).remove();
+                    if (!document.querySelector('.notification-dropdown-item-custom')) {
+                        const noNotificationsItem = document.createElement('li');
+                        noNotificationsItem.id = 'no-notifications';
+                        noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
+                        noNotificationsItem.textContent = 'No notifications';
+                        document.querySelector('.notification-dropdown-menu-custom').appendChild(
+                            noNotificationsItem);
+                    }
+                    const badge = document.querySelector('.notification-badge-custom');
+                    if (badge) {
+                        const count = parseInt(badge.textContent, 10) - 1;
+                        if (count > 0) {
+                            badge.textContent = count;
+                        } else {
+                            badge.remove();
+                        }
+                    }
+                }
+            });
+        }
     </script>
 
     <!--APP -->
