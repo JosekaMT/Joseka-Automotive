@@ -1,41 +1,39 @@
 @extends('layouts.client')
 
-@section('template_title')
-    Billing
-@endsection
-
 @section('content')
-    <div class="container my-5">
-        <h2 class="mb-4">Billing Information</h2>
-        <table class="table table-bordered">
-            <thead>
+<div class="container">
+    <h1>Billing Information</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Rental ID</th>
+                <th>User ID</th>
+                <th>Car ID</th>
+                <th>User Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Price</th>
+                <th>Invoice</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($rentals as $rental)
                 <tr>
-                    <th>Rental ID</th>
-                    <th>Car</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Total Price</th>
-                    <th>Status</th>
-                    <th>Invoice</th>
+                    <td>{{ $rental->id }}</td>
+                    <td>{{ $rental->user_id }}</td>
+                    <td>{{ $rental->car_id }}</td>
+                    <td>{{ $rental->user->name }}</td>
+                    <td>{{ $rental->start_date }}</td>
+                    <td>{{ $rental->end_date }}</td>
+                    <td>{{ $rental->total_price }}</td>
+                    <td><a href="{{ route('billing.downloadInvoice', $rental->id) }}" class="btn btn-primary">Download Invoice</a></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($rentals as $rental)
-                    <tr>
-                        <td>{{ $rental->id }}</td>
-                        <td>{{ $rental->car->brand }} {{ $rental->car->model }}</td>
-                        <td>{{ $rental->start_date }}</td>
-                        <td>{{ $rental->end_date }}</td>
-                        <td>€{{ $rental->total_price }}</td>
-                        <td>{{ ucfirst($rental->status) }}</td>
-                        <td>
-                            <a href="{{ route('download.invoice', $rental->id) }}" class="btn btn-sm btn-primary">
-                                <i class="material-icons">file_download</i>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @empty
+                <tr>
+                    <td colspan="8">No approved rentals found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
 @endsection

@@ -59,15 +59,19 @@
             <tbody>
                 <tr>
                     <td>Name</td>
-                    <td>{{ $user->name }}</td>
+                    <td>{{ $rental->user->name }}</td>
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td>{{ $user->email }}</td>
+                    <td>{{ $rental->user->email }}</td>
                 </tr>
                 <tr>
                     <td>Phone</td>
-                    <td>{{ $user->phone }}</td>
+                    <td>{{ $rental->user->phone ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td>User ID</td>
+                    <td>{{ $rental->user_id }}</td>
                 </tr>
             </tbody>
         </table>
@@ -93,6 +97,10 @@
                 <tr>
                     <td>Seats</td>
                     <td>{{ $rental->car->seats }}</td>
+                </tr>
+                <tr>
+                    <td>Car ID</td>
+                    <td>{{ $rental->car_id }}</td>
                 </tr>
             </tbody>
         </table>

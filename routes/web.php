@@ -144,10 +144,8 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
     Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
 
-
-    Route::get('/billing', [BillingController::class, 'index'])->name('billing');
-    Route::get('/invoice/{rentalId}', [BillingController::class, 'downloadInvoice'])->name('download.invoice');
-
+    Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
+    Route::get('/billing/download/{rental}', [BillingController::class, 'downloadInvoice'])->name('billing.downloadInvoice');
 
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });
