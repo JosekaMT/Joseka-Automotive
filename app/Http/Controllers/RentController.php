@@ -15,21 +15,14 @@ use Illuminate\Support\Facades\Validator;
 
 class RentController extends Controller
 {
-    /**
-     * Handle a rental request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $carId
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function rent(Request $request, $carId)
     {
-        // el usuario esté autenticado
+        // Asegúrate de que el usuario esté autenticado
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
         }
 
-        // Validate the incoming request
+        // Validar la solicitud entrante
         $validator = Validator::make($request->all(), [
             'pickup_date_time' => 'required|date',
             'dropoff_date_time' => 'required|date|after_or_equal:pickup_date_time'
@@ -39,16 +32,17 @@ class RentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Obtener los detalles del coche
         $car = Car::findOrFail($carId);
         $startDate = new DateTime($request->input('pickup_date_time'));
         $endDate = new DateTime($request->input('dropoff_date_time'));
 
-        // Garantizar al menos 24 horas de alquiler
-        if ($endDate <= $startDate->add(new DateInterval('PT24H'))) {
+        // Asegúrate de que el período de alquiler sea de al menos 24 horas
+        if ($endDate <= (clone $startDate)->add(new DateInterval('PT24H'))) {
             return back()->with('error', 'The rental period must be at least 24 hours.');
         }
 
-        // Calcular horas
+        // Calcular el precio total
         $duration = $startDate->diff($endDate);
         $hours = $duration->h + ($duration->days * 24);
         $totalPrice = $hours * $car->price_per_hour;
@@ -68,59 +62,30 @@ class RentController extends Controller
 
         $rental->save();
 
-        $car->status = 'rented';
-        $car->save();
+        // Cargar el usuario asociado al alquiler
+        $rental->load('user');
 
-        // Notificacion admin
+        // Verificar que el usuario está cargado correctamente
+        if (!$rental->user) {
+            return back()->with('error', 'User not found for the rental.');
+        }
+
+        // Encontrar usuarios administradores
         $admins = User::where('is_admin', true)->get();
+        if ($admins->isEmpty()) {
+            return back()->with('error', 'No administrators found to notify.');
+        }
+
+        // Verifica que los administradores están cargados correctamente
+        foreach ($admins as $admin) {
+            if (!$admin) {
+                return back()->with('error', 'Error loading administrator data.');
+            }
+        }
+
+        // Enviar notificación a los administradores
         Notification::send($admins, new RentalRequestReceived($rental));
 
         return back()->with('success', 'Rental request sent successfully, waiting for approval.');
-    }
-
-    /**
-     * Approve a rental request.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function approve($id)
-    {
-        $rental = Rental::find($id);
-        if ($rental) {
-            $rental->status = 'approved';
-            $rental->save();
-
-            // Notificación al usuario
-            $user = $rental->user;
-            Notification::send($user, new RentalRequestReceived($rental, 'approved', 'Your rental request has been approved.'));
-
-            return redirect()->route('admin.notifications')->with('success', 'Rental approved successfully');
-        }
-
-        return redirect()->route('admin.notifications')->with('error', 'Rental not found');
-    }
-
-    /**
-     * Reject a rental request.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function reject($id)
-    {
-        $rental = Rental::find($id);
-        if ($rental) {
-            $rental->status = 'rejected';
-            $rental->save();
-
-            // Notificación al usuario
-            $user = $rental->user;
-            Notification::send($user, new RentalRequestReceived($rental, 'rejected', 'Your rental request has been rejected.'));
-
-            return redirect()->route('admin.notifications')->with('success', 'Rental rejected successfully');
-        }
-
-        return redirect()->route('admin.notifications')->with('error', 'Rental not found');
     }
 }

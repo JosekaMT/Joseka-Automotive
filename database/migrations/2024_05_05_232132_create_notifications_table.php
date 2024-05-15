@@ -6,11 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateNotificationsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('notifications', function (Blueprint $table) {
@@ -22,6 +24,7 @@ class CreateNotificationsTable extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -116,11 +116,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/vehicle', [AdminController::class, 'vehicle'])->name('admin.vehicle');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
 
-
     Route::get('/admin/notifications', [AdminController::class, 'showNotifications'])->name('admin.notifications');
     Route::post('/admin/rentals/{id}/approve', [AdminController::class, 'approveRental'])->name('admin.rentals.approve');
     Route::post('/admin/rentals/{id}/reject', [AdminController::class, 'rejectRental'])->name('admin.rentals.reject');
-
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+    Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
+    
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
 
@@ -137,6 +138,9 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::get('/admin/notifications', [AdminController::class, 'showNotifications'])->name('admin.notifications');
     Route::post('/admin/rentals/{id}/approve', [AdminController::class, 'approveRental'])->name('admin.rentals.approve');
     Route::post('/admin/rentals/{id}/reject', [AdminController::class, 'rejectRental'])->name('admin.rentals.reject');
-
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+    Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
+    
+   
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });

@@ -19,6 +19,7 @@ class RentalRequestReceived extends Notification
      * @param  \App\Models\Rental  $rental
      * @return void
      */
+
     public function __construct($rental)
     {
         $this->rental = $rental;
@@ -53,6 +54,7 @@ class RentalRequestReceived extends Notification
             'end_date' => $this->rental->end_date,
             'total_price' => $this->rental->total_price,
             'status' => $this->rental->status,
+
         ];
     }
 }

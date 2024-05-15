@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarRequest;
@@ -17,9 +18,10 @@ use App\Notifications\RentalRequestReceived;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
+
+
 class CarController extends Controller
 {
-
     public function create()
     {
         $car = new Car();
@@ -38,7 +40,7 @@ class CarController extends Controller
 
     public function showCars()
     {
-        $cars = Car::where('available', true)->get(); // Obtener solo los coches disponibles cliente
+        $cars = Car::where('available', true)->get();
         return view('vehicles', compact('cars'));
     }
 
@@ -46,7 +48,6 @@ class CarController extends Controller
     {
         $validatedData = $request->validated();
 
-        // Procesar y guardar las imágenes
         $imagePaths = [];
         foreach (['image1', 'image2', 'image3'] as $imageKey) {
             if ($request->hasFile($imageKey)) {
@@ -56,15 +57,13 @@ class CarController extends Controller
             }
         }
 
-        // Guardar el coche con las rutas de las imágenes
         $car = new Car($validatedData);
         $car->image1 = $imagePaths['image1'] ?? null;
         $car->image2 = $imagePaths['image2'] ?? null;
         $car->image3 = $imagePaths['image3'] ?? null;
         $car->save();
 
-        return Redirect::route('cars.index')
-            ->with('success', 'Vehicle created successfully.');
+        return Redirect::route('cars.index')->with('success', 'Vehicle created successfully.');
     }
 
     public function show($id): View
@@ -84,7 +83,6 @@ class CarController extends Controller
         $car = Car::find($id);
         $validatedData = $request->validated();
 
-        // Procesar y guardar las imágenes
         $imagePaths = [];
         foreach (['image1', 'image2', 'image3'] as $imageKey) {
             if ($request->hasFile($imageKey)) {
@@ -94,20 +92,18 @@ class CarController extends Controller
             }
         }
 
-        // Actualizar el coche con las nuevas rutas de las imágenes
         $car->fill($validatedData);
         $car->image1 = $imagePaths['image1'] ?? $car->image1;
         $car->image2 = $imagePaths['image2'] ?? $car->image2;
         $car->image3 = $imagePaths['image3'] ?? $car->image3;
         $car->save();
 
-        return Redirect::route('cars.index')
-            ->with('success', 'Vehicle updated successfully.');
+        return Redirect::route('cars.index')->with('success', 'Vehicle updated successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
-        Log::info("Attempting to delete vehicle with ID: $id"); // Esto agregará una entrada en tus logs.
+        Log::info("Attempting to delete vehicle with ID: $id");
         $car = Car::find($id);
         if ($car) {
             $car->delete();
@@ -123,72 +119,71 @@ class CarController extends Controller
     {
         $car = Car::findOrFail($id);
 
+        if (!$car->available) {
+            return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
+        }
+
+        return view('rent-vehicles', compact('car', 'id'));
+    }
+
+    public function rent(Request $request, $carId)
+    {
+        // Asegurarse de que el usuario esté autenticado
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
+        }
+
+        // Validar los datos del request
+        $validator = Validator::make($request->all(), [
+            'pickup_date_time' => 'required|date',
+            'dropoff_date_time' => 'required|date|after_or_equal:pickup_date_time'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $car = Car::findOrFail($carId);
+
         // Verificar si el coche está disponible
         if (!$car->available) {
             return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
         }
 
-        return view('rent-vehicles', compact('car', 'id')); // Pasar el ID del vehículo a la vista
+        $startDate = new DateTime($request->input('pickup_date_time'));
+        $endDate = new DateTime($request->input('dropoff_date_time'));
+
+        // Garantizar al menos 24 horas de alquiler
+        $minRentalPeriod = new DateInterval('PT24H');
+        $startDateClone = clone $startDate;
+        if ($endDate <= $startDateClone->add($minRentalPeriod)) {
+            return back()->with('error', 'The rental period must be at least 24 hours.');
+        }
+
+        // Calcular horas
+        $duration = $startDate->diff($endDate);
+        $hours = $duration->h + ($duration->days * 24);
+        $totalPrice = $hours * $car->price_per_hour;
+
+        // Crear el registro de alquiler
+        $rental = new Rental([
+            'user_id' => Auth::id(),
+            'car_id' => $car->id,
+            'start_date' => $startDate->format('Y-m-d H:i:s'),
+            'end_date' => $endDate->format('Y-m-d H:i:s'),
+            'total_price' => $totalPrice,
+            'status' => 'pending',
+            'brand' => $car->brand ?? 'Unknown', // Proveer valores adicionales o predeterminados
+            'model' => $car->model ?? 'Unknown', // Proveer valores adicionales o predeterminados
+            'image1' => $car->image1 ?? 'default_image_path', // Proveer valores adicionales o predeterminados
+        ]);
+
+        $rental->save();
+
+        // Notificación admin
+        $admins = User::where('is_admin', true)->get();
+        Notification::send($admins, new RentalRequestReceived($rental));
+
+        return back()->with('success', 'Rental request sent successfully, waiting for approval.');
     }
-
-    public function rent(Request $request, $carId)
-{
-    // Asegurarse de que el usuario esté autenticado
-    if (!Auth::check()) {
-        return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
-    }
-
-    // Validar los datos del request
-    $validator = Validator::make($request->all(), [
-        'pickup_date_time' => 'required|date',
-        'dropoff_date_time' => 'required|date|after_or_equal:pickup_date_time'
-    ]);
-
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
-
-    $car = Car::findOrFail($carId);
-
-    // Verificar si el coche está disponible
-    if (!$car->available) {
-        return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
-    }
-
-    $startDate = new DateTime($request->input('pickup_date_time'));
-    $endDate = new DateTime($request->input('dropoff_date_time'));
-
-    // Garantizar al menos 24 horas de alquiler
-    $minRentalPeriod = new DateInterval('PT24H');
-    $startDateClone = clone $startDate;
-    if ($endDate <= $startDateClone->add($minRentalPeriod)) {
-        return back()->with('error', 'The rental period must be at least 24 hours.');
-    }
-
-    // Calcular horas
-    $duration = $startDate->diff($endDate);
-    $hours = $duration->h + ($duration->days * 24);
-    $totalPrice = $hours * $car->price_per_hour;
-
-    // Crear el registro de alquiler
-    $rental = new Rental([
-        'user_id' => Auth::id(),
-        'car_id' => $car->id,
-        'start_date' => $startDate->format('Y-m-d H:i:s'),
-        'end_date' => $endDate->format('Y-m-d H:i:s'),
-        'total_price' => $totalPrice,
-        'status' => 'pending',
-        'brand' => $car->brand ?? 'Unknown', // Proveer valores adicionales o predeterminados
-        'model' => $car->model ?? 'Unknown', // Proveer valores adicionales o predeterminados
-        'image1' => $car->image1 ?? 'default_image_path', // Proveer valores adicionales o predeterminados
-    ]);
-
-    $rental->save();
-
-    // Notificación admin
-    $admins = User::where('is_admin', true)->get();
-    Notification::send($admins, new RentalRequestReceived($rental));
-
-    return back()->with('success', 'Rental request sent successfully, waiting for approval.');
-}
 }
