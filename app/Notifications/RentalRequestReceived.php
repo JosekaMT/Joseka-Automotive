@@ -49,7 +49,7 @@ class RentalRequestReceived extends Notification
         return [
             'rental_id' => $this->rental->id,
             'user_id' => $this->rental->user_id,
-            'user_name' => $this->rental->user->name, // Asegúrate de que el usuario tiene un nombre
+            'user_name' => $this->rental->user->name,
             'car_id' => $this->rental->car_id,
             'car_brand' => $this->rental->car->brand,
             'start_date' => $this->rental->start_date,

@@ -121,7 +121,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/admin/rentals/{id}/reject', [AdminController::class, 'rejectRental'])->name('admin.rentals.reject');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
     Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
-    
+
     Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
 });
 
@@ -140,7 +140,7 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::post('/admin/rentals/{id}/reject', [AdminController::class, 'rejectRental'])->name('admin.rentals.reject');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
     Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
-    
-   
+
+
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });

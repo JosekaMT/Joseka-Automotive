@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('image1');
-            $table->softDeletes(); // Añade la columna deleted_at para Soft Deletes
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -12,7 +12,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Los atributos que son asignables en masa.
      *
      * @var array<string>
      */
@@ -29,7 +28,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Los atributos que deberían ser ocultos para arreglos.
      *
      * @var array<int, string>
      */
@@ -39,7 +37,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Los atributos que deberían ser convertidos a tipos nativos.
      *
      * @var array<string, string>
      */
