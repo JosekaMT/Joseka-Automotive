@@ -85,19 +85,29 @@
                                 @endif
                             </a>
                             <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
-                                aria-labelledby="notificationsDropdown" style="width: 310px;">
+                                aria-labelledby="notificationsDropdown" style="width: 280px;">
                                 @forelse(Auth::user()->unreadNotifications as $notification)
                                     <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
                                         id="notification-{{ $notification->id }}">
-                                        <a href="{{ url('/admin/notifications') }}" class="text-decoration-none text-dark w-100">
+                                        @php
+                                            $url = '';
+                                            if ($notification->data['status'] == 'approved' || $notification->data['status'] == 'rejected') {
+                                                $url = url('/billing');
+                                            } else {
+                                                $url = url('/admin/notifications');
+                                            }
+                                        @endphp
+                                        <a href="{{ $url }}" class="text-decoration-none text-dark w-100">
                                             <div>
-                                                <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong>:<br>
+                                                @if (!empty($notification->data['admin_name']))
+                                                    <strong>{{ $notification->data['admin_name'] }}:</strong><br>
+                                                @endif
                                                 @if ($notification->data['status'] == 'approved')
                                                     Has approved your rental request.
                                                 @elseif ($notification->data['status'] == 'rejected')
                                                     Has rejected your rental request.
                                                 @else
-                                                    <strong>{{ $notification->data['user_name'] ?? 'User' }}</strong> has requested to rent a car.
+                                                    <strong>{{ $notification->data['user_name'] ?? 'User' }}:</strong><br> Has requested to rent a car.
                                                 @endif
                                                 <br>
                                                 <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
@@ -113,8 +123,7 @@
                                 @endforelse
                             </ul>
                         </li>
-
-
+                        
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -483,7 +492,7 @@
             });
         });
     </script>
-   <script>
+<script>
     function markNotificationAsRead(event, notificationId) {
         event.preventDefault();
         fetch(`/notifications/${notificationId}/mark-as-read`, {

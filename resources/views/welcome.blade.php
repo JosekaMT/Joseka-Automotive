@@ -74,37 +74,53 @@
                                 </div>
                             </li>
                         @else
-                            <li class="nav-item dropdown position-relative">
-                                <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="material-icons notification-material-icons">notifications</i>
-                                    @if (Auth::user()->unreadNotifications->count() > 0)
-                                        <span class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
-                                    @endif
-                                </a>
-                                <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
-                                    aria-labelledby="notificationsDropdown" style="width: 310px;">
-                                    @forelse(Auth::user()->unreadNotifications as $notification)
-                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
-                                            id="notification-{{ $notification->id }}">
-                                            <a href="{{ url('/admin/notifications') }}"
-                                                class="text-decoration-none text-dark w-100">
-                                                <div>
-                                                    <strong>{{ $notification->data['user_name'] }}</strong>:<br>{{ $notification->data['message'] }}
-                                                    <br>
-                                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                                                </div>
-                                            </a>
-                                            <button class="notification-close-btn-custom"
-                                                onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
-                                                <i class="material-icons" style="color: #9c2121;">close</i>
-                                            </button>
-                                        </li>
-                                    @empty
-                                        <li class="notification-dropdown-item-custom text-center w-100" id="no-notifications">No notifications</li>
-                                    @endforelse
-                                </ul>
-                            </li>
+                        <li class="nav-item dropdown position-relative">
+                            <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="material-icons notification-material-icons">notifications</i>
+                                @if (Auth::user()->unreadNotifications->count() > 0)
+                                    <span class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
+                                @endif
+                            </a>
+                            <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
+                                aria-labelledby="notificationsDropdown" style="width: 280px;">
+                                @forelse(Auth::user()->unreadNotifications as $notification)
+                                    <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
+                                        id="notification-{{ $notification->id }}">
+                                        @php
+                                            $url = '';
+                                            if ($notification->data['status'] == 'approved' || $notification->data['status'] == 'rejected') {
+                                                $url = url('/billing');
+                                            } else {
+                                                $url = url('/admin/notifications');
+                                            }
+                                        @endphp
+                                        <a href="{{ $url }}" class="text-decoration-none text-dark w-100">
+                                            <div>
+                                                @if (!empty($notification->data['admin_name']))
+                                                    <strong>{{ $notification->data['admin_name'] }}:</strong><br>
+                                                @endif
+                                                @if ($notification->data['status'] == 'approved')
+                                                    Has approved your rental request.
+                                                @elseif ($notification->data['status'] == 'rejected')
+                                                    Has rejected your rental request.
+                                                @else
+                                                    <strong>{{ $notification->data['user_name'] ?? 'User' }}:</strong><br> Has requested to rent a car.
+                                                @endif
+                                                <br>
+                                                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                            </div>
+                                        </a>
+                                        <button class="notification-close-btn-custom"
+                                            onclick="markNotificationAsRead(event, '{{ $notification->id }}'); event.stopPropagation();">
+                                            <i class="material-icons" style="color: #9c2121;">close</i>
+                                        </button>
+                                    </li>
+                                @empty
+                                    <li class="notification-dropdown-item-custom text-center w-100" id="no-notifications">No notifications</li>
+                                @endforelse
+                            </ul>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -501,7 +517,7 @@
             });
         });
     </script>
-  <script>
+<script>
     function markNotificationAsRead(event, notificationId) {
         event.preventDefault();
         fetch(`/notifications/${notificationId}/mark-as-read`, {
@@ -532,7 +548,6 @@
         });
     }
 </script>
-
     <!--APP -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
