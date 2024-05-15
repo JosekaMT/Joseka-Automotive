@@ -84,41 +84,38 @@
                                     <span class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
                                 @endif
                             </a>
-                            <ul class="notification-dropdown-menu-new-custom dropdown-menu dropdown-menu-end"
+                            <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
                                 aria-labelledby="notificationsDropdown" style="width: 310px;">
-                                @forelse (Auth::user()->unreadNotifications as $notification)
+                                @forelse(Auth::user()->unreadNotifications as $notification)
                                     <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
                                         id="notification-{{ $notification->id }}">
-                                        <a href="{{ url('/admin/notifications') }}"
-                                            class="text-decoration-none text-dark w-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notification-icon">
-                                                    <i class="material-icons">notifications</i>
-                                                </div>
-                                                <div class="notification-text">
-                                                    <p class="mb-0">
-                                                        @if ($notification->data['status'] == 'approved')
-                                                            <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong> has approved your rental request.
-                                                        @elseif ($notification->data['status'] == 'rejected')
-                                                            <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong> has rejected your rental request.
-                                                        @else
-                                                            <strong>{{ $notification->data['user_name'] ?? 'User' }}</strong> has requested to rent a car.
-                                                        @endif
-                                                    </p>
-                                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                                                </div>
+                                        <a href="{{ url('/admin/notifications') }}" class="text-decoration-none text-dark w-100">
+                                            <div>
+                                                <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong>:<br>
+                                                @if ($notification->data['status'] == 'approved')
+                                                    has approved your rental request.
+                                                @elseif ($notification->data['status'] == 'rejected')
+                                                    has rejected your rental request.
+                                                @else
+                                                    <strong>{{ $notification->data['user_name'] ?? 'User' }}</strong> has requested to rent a car.
+                                                @endif
+                                                <br>
+                                                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
                                             </div>
                                         </a>
+                                        <button class="notification-close-btn-custom"
+                                            onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
+                                            <i class="material-icons" style="color: #9c2121;">close</i>
+                                        </button>
                                     </li>
                                 @empty
-                                    <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center">
-                                        <p class="mb-0 text-muted">No new notifications</p>
-                                    </li>
+                                    <li class="notification-dropdown-item-custom text-center w-100" id="no-notifications">No notifications</li>
                                 @endforelse
                             </ul>
                         </li>
-                        
-                        
+
+
+
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
