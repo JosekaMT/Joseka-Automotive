@@ -478,37 +478,36 @@
             });
         });
     </script>
-    <script>
-        function markNotificationAsRead(event, notificationId) {
-            event.preventDefault();
-            fetch(`/notifications/${notificationId}/mark-as-read`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+<script>
+    function markNotificationAsRead(event, notificationId) {
+        event.preventDefault();
+        fetch(`/notifications/${notificationId}/mark-as-read`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById(`notification-${notificationId}`).remove();
+                if (!document.querySelector('.notification-dropdown-item-custom')) {
+                    const noNotificationsItem = document.createElement('li');
+                    noNotificationsItem.id = 'no-notifications';
+                    noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
+                    noNotificationsItem.textContent = 'No notifications';
+                    document.querySelector('.notification-dropdown-menu-custom').appendChild(noNotificationsItem);
                 }
-            }).then(response => {
-                if (response.ok) {
-                    document.getElementById(`notification-${notificationId}`).remove();
-                    if (!document.querySelector('.notification-dropdown-item-custom')) {
-                        const noNotificationsItem = document.createElement('li');
-                        noNotificationsItem.id = 'no-notifications';
-                        noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
-                        noNotificationsItem.textContent = 'No notifications';
-                        document.querySelector('.notification-dropdown-menu-custom').appendChild(
-                            noNotificationsItem);
-                    }
-                    const badge = document.querySelector('.notification-badge-custom');
-                    if (badge) {
-                        const count = parseInt(badge.textContent, 10) - 1;
-                        if (count > 0) {
-                            badge.textContent = count;
-                        } else {
-                            badge.remove();
-                        }
+                const badge = document.querySelector('.notification-badge-custom');
+                if (badge) {
+                    const count = parseInt(badge.textContent, 10) - 1;
+                    if (count > 0) {
+                        badge.textContent = count;
+                    } else {
+                        badge.remove();
                     }
                 }
-            });
-        }
+            }
+        });
+    }
     </script>
     <!--APP -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

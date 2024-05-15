@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Car;
 use App\Models\Rental;
+use Illuminate\Support\Facades\Notification;
 use App\Notifications\RentalRequestStatusChanged;
 
 class AdminController extends Controller
@@ -41,10 +42,7 @@ class AdminController extends Controller
     public function showNotifications()
     {
         $user = Auth::user();
-
-        // Recupera todas las notificaciones, puedes ajustar para traer solo las no leídas
         $notifications = $user->notifications;
-
         return view('admin.notifications', compact('notifications'));
     }
 
@@ -55,7 +53,6 @@ class AdminController extends Controller
         if ($notification && $notification->notifiable_id === $user->id) {
             $notification->markAsRead();
         }
-
         return back();
     }
 
@@ -67,9 +64,7 @@ class AdminController extends Controller
             $rental->save();
 
             $user = $rental->user;
-            if ($user) {  // Verificar si el usuario no es null
-                Notification::send($user, new RentalRequestStatusChanged($rental, 'approved', 'Your rental request has been approved.'));
-            }
+            Notification::send($user, new RentalRequestStatusChanged($rental, 'approved', 'Your rental request has been approved.'));
 
             return redirect()->route('admin.notifications')->with('success', 'Rental request approved.');
         }
@@ -84,9 +79,7 @@ class AdminController extends Controller
             $rental->save();
 
             $user = $rental->user;
-            if ($user) {  // Verificar si el usuario no es null
-                Notification::send($user, new RentalRequestStatusChanged($rental, 'rejected', 'Your rental request has been rejected.'));
-            }
+            Notification::send($user, new RentalRequestStatusChanged($rental, 'rejected', 'Your rental request has been rejected.'));
 
             return redirect()->route('admin.notifications')->with('success', 'Rental request rejected.');
         }

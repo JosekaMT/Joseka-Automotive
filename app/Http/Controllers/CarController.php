@@ -18,6 +18,8 @@ use App\Notifications\RentalRequestReceived;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
+
+
 class CarController extends Controller
 {
     public function create()
@@ -141,10 +143,16 @@ class CarController extends Controller
 
         $car = Car::findOrFail($carId);
 
+        if (!$car->available) {
+            return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
+        }
+
         $startDate = new DateTime($request->input('pickup_date_time'));
         $endDate = new DateTime($request->input('dropoff_date_time'));
 
-        if ($endDate <= (clone $startDate)->add(new DateInterval('PT24H'))) {
+        $minRentalPeriod = new DateInterval('PT24H');
+        $startDateClone = clone $startDate;
+        if ($endDate <= $startDateClone->add($minRentalPeriod)) {
             return back()->with('error', 'The rental period must be at least 24 hours.');
         }
 
@@ -167,6 +175,13 @@ class CarController extends Controller
         $rental->save();
 
         $admins = User::where('is_admin', true)->get();
+        Log::info('Admins: ' . $admins->toJson());
+
+        if ($admins->isEmpty()) {
+            Log::error('No admins found to send notification');
+            return back()->with('error', 'No administrators found to notify.');
+        }
+
         Notification::send($admins, new RentalRequestReceived($rental));
 
         return back()->with('success', 'Rental request sent successfully, waiting for approval.');

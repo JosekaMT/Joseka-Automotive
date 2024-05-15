@@ -1,7 +1,8 @@
+<?php
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -39,7 +40,7 @@ class RentalRequestReceived extends Notification
             'start_date' => $this->rental->start_date,
             'end_date' => $this->rental->end_date,
             'total_price' => $this->rental->total_price,
-            'user_name' => $this->rental->user->name, 
+            'user_name' => $this->rental->user->name,
         ];
     }
 }

@@ -12,16 +12,17 @@ use App\Notifications\RentalRequestReceived;
 use DateTime;
 use DateInterval;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 
 class RentController extends Controller
 {
     public function rent(Request $request, $carId)
     {
+        // Asegúrate de que el usuario esté autenticado
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
         }
 
+        // Validar la solicitud entrante
         $validator = Validator::make($request->all(), [
             'pickup_date_time' => 'required|date',
             'dropoff_date_time' => 'required|date|after_or_equal:pickup_date_time'
@@ -31,18 +32,22 @@ class RentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Obtener los detalles del coche
         $car = Car::findOrFail($carId);
         $startDate = new DateTime($request->input('pickup_date_time'));
         $endDate = new DateTime($request->input('dropoff_date_time'));
 
-        if ($endDate <= $startDate->add(new DateInterval('PT24H'))) {
+        // Asegúrate de que el período de alquiler sea de al menos 24 horas
+        if ($endDate <= (clone $startDate)->add(new DateInterval('PT24H'))) {
             return back()->with('error', 'The rental period must be at least 24 hours.');
         }
 
+        // Calcular el precio total
         $duration = $startDate->diff($endDate);
         $hours = $duration->h + ($duration->days * 24);
         $totalPrice = $hours * $car->price_per_hour;
 
+        // Crear el registro de alquiler
         $rental = new Rental([
             'user_id' => Auth::id(),
             'car_id' => $car->id,
@@ -57,13 +62,29 @@ class RentController extends Controller
 
         $rental->save();
 
-        Log::info('Rental created:', $rental->toArray());
+        // Cargar el usuario asociado al alquiler
+        $rental->load('user');
 
-        // Notificación admin
+        // Verificar que el usuario está cargado correctamente
+        if (!$rental->user) {
+            return back()->with('error', 'User not found for the rental.');
+        }
+
+        // Encontrar usuarios administradores
         $admins = User::where('is_admin', true)->get();
-        Log::info('Admins retrieved:', $admins->toArray());
+        if ($admins->isEmpty()) {
+            return back()->with('error', 'No administrators found to notify.');
+        }
+
+        // Verifica que los administradores están cargados correctamente
+        foreach ($admins as $admin) {
+            if (!$admin) {
+                return back()->with('error', 'Error loading administrator data.');
+            }
+        }
+
+        // Enviar notificación a los administradores
         Notification::send($admins, new RentalRequestReceived($rental));
-        Log::info('Notification sent to admins.');
 
         return back()->with('success', 'Rental request sent successfully, waiting for approval.');
     }
