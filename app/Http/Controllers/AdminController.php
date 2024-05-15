@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Car;
 use App\Models\Rental;
+use App\Notifications\RentalApproved;
+use App\Notifications\RentalRejected;
+
 
 class AdminController extends Controller
 {
@@ -60,23 +63,29 @@ class AdminController extends Controller
 
     public function approveRental($id)
     {
-        $rental = Rental::find($id);
-        if ($rental) {
-            $rental->status = 'approved';
-            $rental->save();
-            return redirect()->route('admin.notifications')->with('success', 'Rental request approved.');
-        }
-        return redirect()->route('admin.notifications')->with('error', 'Rental request not found.');
+        $rental = Rental::findOrFail($id);
+        $rental->status = 'approved';
+        $rental->save();
+
+        // Enviar notificación de aprobación al usuario
+        $user = $rental->user;
+        $adminName = Auth::user()->name ?? 'Administration';
+        $user->notify(new RentalApproved($rental, $adminName));
+
+        return redirect()->back()->with('success', 'Rental approved successfully.');
     }
 
     public function rejectRental($id)
     {
-        $rental = Rental::find($id);
-        if ($rental) {
-            $rental->status = 'rejected';
-            $rental->save();
-            return redirect()->route('admin.notifications')->with('success', 'Rental request rejected.');
-        }
-        return redirect()->route('admin.notifications')->with('error', 'Rental request not found.');
+        $rental = Rental::findOrFail($id);
+        $rental->status = 'rejected';
+        $rental->save();
+
+        // Enviar notificación de rechazo al usuario
+        $user = $rental->user;
+        $adminName = Auth::user()->name ?? 'Administration';
+        $user->notify(new RentalRejected($rental, $adminName));
+
+        return redirect()->back()->with('success', 'Rental rejected successfully.');
     }
 }

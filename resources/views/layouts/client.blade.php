@@ -76,46 +76,49 @@
                                 </div>
                             </li>
                         @else
-                            <li class="nav-item dropdown position-relative">
-                                <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="material-icons notification-material-icons">notifications</i>
-                                    @if (Auth::user()->unreadNotifications->count() > 0)
-                                        <span
-                                            class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
-                                    @endif
-                                </a>
-                                <ul class="notification-dropdown-menu-new-custom dropdown-menu dropdown-menu-end"
-                                    aria-labelledby="notificationsDropdown" style="width: 310px;">
-                                    @forelse (Auth::user()->unreadNotifications as $notification)
-                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
-                                            id="notification-{{ $notification->id }}">
-                                            <a href="{{ url('/admin/notifications') }}"
-                                                class="text-decoration-none text-dark w-100">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="notification-icon">
-                                                        <i class="material-icons">notifications</i>
-                                                    </div>
-                                                    <div class="notification-text">
-                                                        <p class="mb-0">
-                                                            <strong>{{ $notification->data['user_name'] ?? 'User' }}</strong>
-                                                            has
-                                                            requested to rent a car.
-                                                        </p>
-                                                        <small
-                                                            class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                                                    </div>
+                        <li class="nav-item dropdown position-relative">
+                            <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="material-icons notification-material-icons">notifications</i>
+                                @if (Auth::user()->unreadNotifications->count() > 0)
+                                    <span class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
+                                @endif
+                            </a>
+                            <ul class="notification-dropdown-menu-new-custom dropdown-menu dropdown-menu-end"
+                                aria-labelledby="notificationsDropdown" style="width: 310px;">
+                                @forelse (Auth::user()->unreadNotifications as $notification)
+                                    <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
+                                        id="notification-{{ $notification->id }}">
+                                        <a href="{{ url('/admin/notifications') }}"
+                                            class="text-decoration-none text-dark w-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="notification-icon">
+                                                    <i class="material-icons">notifications</i>
                                                 </div>
-                                            </a>
-                                        </li>
-                                    @empty
-                                        <li
-                                            class="notification-dropdown-item-custom d-flex justify-content-between align-items-center">
-                                            <p class="mb-0 text-muted">No new notifications</p>
-                                        </li>
-                                    @endforelse
-                                </ul>
-                            </li>
+                                                <div class="notification-text">
+                                                    <p class="mb-0">
+                                                        @if ($notification->data['status'] == 'approved')
+                                                            <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong> has approved your rental request.
+                                                        @elseif ($notification->data['status'] == 'rejected')
+                                                            <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong> has rejected your rental request.
+                                                        @else
+                                                            <strong>{{ $notification->data['user_name'] ?? 'User' }}</strong> has requested to rent a car.
+                                                        @endif
+                                                    </p>
+                                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center">
+                                        <p class="mb-0 text-muted">No new notifications</p>
+                                    </li>
+                                @endforelse
+                            </ul>
+                        </li>
+                        
+                        
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
