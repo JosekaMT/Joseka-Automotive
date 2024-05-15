@@ -1,5 +1,3 @@
-<?php
-
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -7,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RentalRequestReceived extends Notification implements ShouldQueue
+class RentalRequestReceived extends Notification
 {
     use Queueable;
 
@@ -35,14 +33,13 @@ class RentalRequestReceived extends Notification implements ShouldQueue
     {
         return [
             'rental_id' => $this->rental->id,
-            'user_id' => $this->rental->user_id,
-            'car_id' => $this->rental->car_id,
             'message' => 'A rental application has been received.',
             'brand' => $this->rental->brand,
             'model' => $this->rental->model,
             'start_date' => $this->rental->start_date,
             'end_date' => $this->rental->end_date,
             'total_price' => $this->rental->total_price,
+            'user_name' => $this->rental->user->name, 
         ];
     }
 }

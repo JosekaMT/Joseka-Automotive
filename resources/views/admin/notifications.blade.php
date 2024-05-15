@@ -2,7 +2,6 @@
 
 @section('content')
     <main class="main-content position-relative max-height-vh-100 h-100">
-        <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
@@ -127,7 +126,6 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center justify-content-end">
-                                    <!-- Mostrar foto del vehículo -->
                                     <img src="{{ asset('storage/' . $car->image1) }}" class="img-fluid rounded-end"
                                         alt="Car Photo"
                                         style="width: auto; height: 100%; max-height: 200px; object-fit: cover; border-radius: 10px;">
