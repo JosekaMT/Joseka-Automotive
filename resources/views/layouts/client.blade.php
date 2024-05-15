@@ -93,9 +93,9 @@
                                             <div>
                                                 <strong>{{ $notification->data['admin_name'] ?? 'Administration' }}</strong>:<br>
                                                 @if ($notification->data['status'] == 'approved')
-                                                    has approved your rental request.
+                                                    Has approved your rental request.
                                                 @elseif ($notification->data['status'] == 'rejected')
-                                                    has rejected your rental request.
+                                                    Has rejected your rental request.
                                                 @else
                                                     <strong>{{ $notification->data['user_name'] ?? 'User' }}</strong> has requested to rent a car.
                                                 @endif
@@ -104,7 +104,7 @@
                                             </div>
                                         </a>
                                         <button class="notification-close-btn-custom"
-                                            onclick="markNotificationAsRead(event, '{{ $notification->id }}')">
+                                            onclick="markNotificationAsRead(event, '{{ $notification->id }}'); event.stopPropagation();">
                                             <i class="material-icons" style="color: #9c2121;">close</i>
                                         </button>
                                     </li>
@@ -113,7 +113,6 @@
                                 @endforelse
                             </ul>
                         </li>
-
 
 
 
@@ -484,38 +483,37 @@
             });
         });
     </script>
-    <script>
-        function markNotificationAsRead(event, notificationId) {
-            event.preventDefault();
-            fetch(`/notifications/${notificationId}/mark-as-read`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+   <script>
+    function markNotificationAsRead(event, notificationId) {
+        event.preventDefault();
+        fetch(`/notifications/${notificationId}/mark-as-read`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById(`notification-${notificationId}`).remove();
+                if (!document.querySelector('.notification-dropdown-item-custom')) {
+                    const noNotificationsItem = document.createElement('li');
+                    noNotificationsItem.id = 'no-notifications';
+                    noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
+                    noNotificationsItem.textContent = 'No notifications';
+                    document.querySelector('.notification-dropdown-menu-custom').appendChild(noNotificationsItem);
                 }
-            }).then(response => {
-                if (response.ok) {
-                    document.getElementById(`notification-${notificationId}`).remove();
-                    if (!document.querySelector('.notification-dropdown-item-custom')) {
-                        const noNotificationsItem = document.createElement('li');
-                        noNotificationsItem.id = 'no-notifications';
-                        noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
-                        noNotificationsItem.textContent = 'No notifications';
-                        document.querySelector('.notification-dropdown-menu-custom').appendChild(
-                            noNotificationsItem);
-                    }
-                    const badge = document.querySelector('.notification-badge-custom');
-                    if (badge) {
-                        const count = parseInt(badge.textContent, 10) - 1;
-                        if (count > 0) {
-                            badge.textContent = count;
-                        } else {
-                            badge.remove();
-                        }
+                const badge = document.querySelector('.notification-badge-custom');
+                if (badge) {
+                    const count = parseInt(badge.textContent, 10) - 1;
+                    if (count > 0) {
+                        badge.textContent = count;
+                    } else {
+                        badge.remove();
                     }
                 }
-            });
-        }
-    </script>
+            }
+        });
+    }
+</script>
     <!--APP -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
