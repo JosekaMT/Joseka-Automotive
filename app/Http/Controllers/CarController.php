@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarRequest;
@@ -132,71 +131,64 @@ class CarController extends Controller
         return view('rent-vehicles', compact('car', 'id')); // Pasar el ID del vehículo a la vista
     }
 
-    /**
-     * Handle a rental request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $carId
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function rent(Request $request, $carId)
-    {
-        // Asegurarse de que el usuario esté autenticado
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
-        }
-
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
-            'pickup_date_time' => 'required|date',
-            'dropoff_date_time' => 'required|date|after_or_equal:pickup_date_time'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $car = Car::findOrFail($carId);
-
-        // Verificar si el coche está disponible
-        if (!$car->available) {
-            return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
-        }
-
-        $startDate = new DateTime($request->input('pickup_date_time'));
-        $endDate = new DateTime($request->input('dropoff_date_time'));
-
-        // Garantizar al menos 24 horas de alquiler
-        $minRentalPeriod = new DateInterval('PT24H');
-        $startDateClone = clone $startDate;
-        if ($endDate <= $startDateClone->add($minRentalPeriod)) {
-            return back()->with('error', 'The rental period must be at least 24 hours.');
-        }
-
-        // Calcular horas
-        $duration = $startDate->diff($endDate);
-        $hours = $duration->h + ($duration->days * 24);
-        $totalPrice = $hours * $car->price_per_hour;
-
-        // Crear el registro de alquiler
-        $rental = new Rental([
-            'user_id' => Auth::id(),
-            'car_id' => $car->id,
-            'start_date' => $startDate->format('Y-m-d H:i:s'),
-            'end_date' => $endDate->format('Y-m-d H:i:s'),
-            'total_price' => $totalPrice,
-            'status' => 'pending',
-            'brand' => $car->brand,
-            'model' => $car->model,
-            'image1' => $car->image1
-        ]);
-
-        $rental->save();
-
-        // Notificacion admin
-        $admins = User::where('is_admin', true)->get();
-        Notification::send($admins, new RentalRequestReceived($rental));
-
-        return back()->with('success', 'Rental request sent successfully, waiting for approval.');
+{
+    // Asegurarse de que el usuario esté autenticado
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'You must be logged in to rent a car.');
     }
+
+    // Validar los datos del request
+    $validator = Validator::make($request->all(), [
+        'pickup_date_time' => 'required|date',
+        'dropoff_date_time' => 'required|date|after_or_equal:pickup_date_time'
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $car = Car::findOrFail($carId);
+
+    // Verificar si el coche está disponible
+    if (!$car->available) {
+        return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
+    }
+
+    $startDate = new DateTime($request->input('pickup_date_time'));
+    $endDate = new DateTime($request->input('dropoff_date_time'));
+
+    // Garantizar al menos 24 horas de alquiler
+    $minRentalPeriod = new DateInterval('PT24H');
+    $startDateClone = clone $startDate;
+    if ($endDate <= $startDateClone->add($minRentalPeriod)) {
+        return back()->with('error', 'The rental period must be at least 24 hours.');
+    }
+
+    // Calcular horas
+    $duration = $startDate->diff($endDate);
+    $hours = $duration->h + ($duration->days * 24);
+    $totalPrice = $hours * $car->price_per_hour;
+
+    // Crear el registro de alquiler
+    $rental = new Rental([
+        'user_id' => Auth::id(),
+        'car_id' => $car->id,
+        'start_date' => $startDate->format('Y-m-d H:i:s'),
+        'end_date' => $endDate->format('Y-m-d H:i:s'),
+        'total_price' => $totalPrice,
+        'status' => 'pending',
+        'brand' => $car->brand ?? 'Unknown', // Proveer valores adicionales o predeterminados
+        'model' => $car->model ?? 'Unknown', // Proveer valores adicionales o predeterminados
+        'image1' => $car->image1 ?? 'default_image_path', // Proveer valores adicionales o predeterminados
+    ]);
+
+    $rental->save();
+
+    // Notificación admin
+    $admins = User::where('is_admin', true)->get();
+    Notification::send($admins, new RentalRequestReceived($rental));
+
+    return back()->with('success', 'Rental request sent successfully, waiting for approval.');
+}
 }

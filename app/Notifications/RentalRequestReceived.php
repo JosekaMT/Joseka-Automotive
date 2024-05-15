@@ -1,65 +1,58 @@
 <?php
-
+namespace App\Notifications;
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class RentalRequestReceived extends Notification
 {
     use Queueable;
 
     protected $rental;
-    protected $status;
-    protected $adminResponse;
 
-    public function __construct($rental, $status = 'pending', $adminResponse = null)
+    /**
+     * Create a new notification instance.
+     *
+     * @param  \App\Models\Rental  $rental
+     * @return void
+     */
+    public function __construct($rental)
     {
         $this->rental = $rental;
-        $this->status = $status;
-        $this->adminResponse = $adminResponse;
     }
 
-    public function toMail($notifiable)
-    {
-        $mailMessage = (new MailMessage)
-            ->line('A rental application has been received.')
-            ->action('View Details', url('/'))
-            ->line('Thank you for using our application!');
-
-        if ($this->status != 'pending') {
-            $mailMessage->line("The rental application has been {$this->status}.");
-        }
-
-        return $mailMessage;
-    }
-
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
-    public function toDatabase($notifiable)
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
     {
-        $data = [
+        return [
             'rental_id' => $this->rental->id,
-            'message' => 'A rental application has been received.',
-            'brand' => $this->rental->car->brand,
-            'model' => $this->rental->car->model,
+            'user_id' => $this->rental->user_id,
+            'user_name' => $this->rental->user->name, // Asegúrate de que el usuario tiene un nombre
+            'car_id' => $this->rental->car_id,
+            'car_brand' => $this->rental->car->brand,
             'start_date' => $this->rental->start_date,
             'end_date' => $this->rental->end_date,
             'total_price' => $this->rental->total_price,
-            'action_url' => url('/rentals/' . $this->rental->id),
-            'user_name' => $this->rental->user->name, // Agregar el nombre del usuario
+            'status' => $this->rental->status,
         ];
-
-        if ($this->status != 'pending') {
-            $data['message'] = "The rental application has been {$this->status}.";
-            $data['adminResponse'] = $this->adminResponse;
-        }
-
-        return $data;
     }
 }
