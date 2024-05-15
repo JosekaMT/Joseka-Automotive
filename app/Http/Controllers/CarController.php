@@ -141,16 +141,10 @@ class CarController extends Controller
 
         $car = Car::findOrFail($carId);
 
-        if (!$car->available) {
-            return redirect()->route('vehicles.index')->with('error', 'This car is not available for rent.');
-        }
-
         $startDate = new DateTime($request->input('pickup_date_time'));
         $endDate = new DateTime($request->input('dropoff_date_time'));
 
-        $minRentalPeriod = new DateInterval('PT24H');
-        $startDateClone = clone $startDate;
-        if ($endDate <= $startDateClone->add($minRentalPeriod)) {
+        if ($endDate <= (clone $startDate)->add(new DateInterval('PT24H'))) {
             return back()->with('error', 'The rental period must be at least 24 hours.');
         }
 
