@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Rental;
+use App\Models\User; // Asegúrate de importar el modelo User
 use PDF;
 
 class BillingController extends Controller
@@ -21,7 +22,8 @@ class BillingController extends Controller
 
     public function downloadInvoice(Rental $rental)
     {
-        $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental'));
+        $admin = Auth::user(); // Suponemos que el administrador está autenticado
+        $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental', 'admin'));
         return $pdf->download('invoice.pdf');
     }
 
@@ -37,7 +39,8 @@ class BillingController extends Controller
 
     public function downloadAdminInvoice(Rental $rental)
     {
-        $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental'));
+        $admin = Auth::user(); // Suponemos que el administrador está autenticado
+        $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental', 'admin'));
         return $pdf->download('invoice.pdf');
     }
 }
