@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@section('template_title')
+    Register
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
@@ -105,7 +109,7 @@
                             <div class="mb-4 text-center">
                                 <span style="color: white;">{{ __('Already have an account?') }} <a
                                         href="{{ route('login') }}"
-                                        style="color: #ccc; text-decoration: none;">{{ __('Login here') }}</a></span>
+                                        style="color: #9c2121; text-decoration: none;">{{ __('Login here') }}</a></span>
                             </div>
 
                             <div class="mb-0">

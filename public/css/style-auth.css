@@ -76,7 +76,7 @@ video {
 
 /* Estilos adicionales */
 .position-relative .form-control {
-    padding-right: 40px; /* Espacio para el ícono del ojo */
+    padding-right: 40px;
 }
 
 .position-relative i.fas {
