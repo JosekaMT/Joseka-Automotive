@@ -28,7 +28,6 @@
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 
-
 </head>
 
 <body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
