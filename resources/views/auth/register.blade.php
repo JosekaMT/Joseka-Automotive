@@ -37,6 +37,33 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <input id="phone_number" type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" placeholder="{{ __('Phone Number') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px; border-radius: 5px;">
+                            @error('phone_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" required autocomplete="city" placeholder="{{ __('City') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px; border-radius: 5px;">
+                            @error('city')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" required autocomplete="address" placeholder="{{ __('Address') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px; border-radius: 5px;">
+                            @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
                         <div class="mb-3 position-relative">
                             <input id="password" type="password" class="form-control" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px; border-radius: 5px;">
                             <i class="fas fa-eye" id="togglePassword" style="color: black; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
