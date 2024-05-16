@@ -152,6 +152,6 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::get('/admin/billing', [BillingController::class, 'adminIndex'])->name('admin.billing');
     Route::get('/admin/billing/download/{rental}', [BillingController::class, 'downloadAdminInvoice'])->name('admin.billing.downloadInvoice');
 
-    
+
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });

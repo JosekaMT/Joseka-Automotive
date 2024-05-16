@@ -250,6 +250,18 @@
                                                             </button>
                                                         </td>
                                                     </tr>
+
+
+
+
+
+
+
+
+
+
+
+                                                    
                                                     <!-- Edit Car Modal -->
                                                     <div class="modal fade" id="editCarModal{{ $car->id }}"
                                                         tabindex="-1" role="dialog"
