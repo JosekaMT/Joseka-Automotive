@@ -102,10 +102,10 @@ body {
     content: "";
     position: absolute;
     bottom: 0;
-    left: 50%; /* Inicio del subrayado desde el centro */
-    width: 0; /* Inicia con un ancho de 0 */
+    left: 50%;
+    width: 0;
     height: 2px;
-    background-color: #9c2121; /* Ajusta al color deseado, por ejemplo rojo */
+    background-color: #9c2121;
     transition: width 0.3s ease, left 0.3s ease; /* Transición suavizada para el ancho y la posición izquierda */
     transform-origin: center; /* Transformación desde el centro */
 }
@@ -117,7 +117,6 @@ body {
 
 .icon-white {
     color: #fff;
-    /* Color blanco para el icono */
 }
 
 #dropdownMenuButton:before {
@@ -168,9 +167,9 @@ body {
 /*NO BORRAR NAV*/
 @media (max-width: 991.98px) {
     .navbar-toggler + .navbar-collapse .dropdown.nav-item .dropdown-menu {
-        background-color: white !important; /* Reestablece a su valor predeterminado*/
-        overflow: visible !important; /* Asegura que 'overflow' no esté oculto*/
-        position: absolute !important; /* Posiciona el menú de manera absoluta relativa al contenedor más cercano*/
+        background-color: white !important;
+        overflow: visible !important;
+        position: absolute !important;
     }
 }
 /*NO BORRAR NAV*/
@@ -226,7 +225,6 @@ video {
     min-width: 600px;
     max-width: 800px;
     margin: 0 auto;
-    /* Esto centrará el contenedor horizontalmente */
 }
 
 @media (max-width: 768px) {

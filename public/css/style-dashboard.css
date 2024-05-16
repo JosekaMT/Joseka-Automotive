@@ -11,6 +11,19 @@ body {
     font-family: "Nunito", sans-serif;
 }
 
+.vehicle-heading {
+    text-align: center;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.vehicle-heading2 {
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #000;
+}
+
 #sidenav-main {
     max-width: 17.12rem !important;
     background-color: black !important;
@@ -181,3 +194,12 @@ body {
     justify-content: flex-start; /* Alinea los elementos de la lista a la izquierda */
 }
 /*------------------ASIDE Y NAV ADMIN---------------------*/
+
+.table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+}
