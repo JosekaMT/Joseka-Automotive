@@ -125,7 +125,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
 
 
-    Route::get('/admin/vehicle2', [AdminController::class, 'vehicle2'])->name('admin.vehicle2');
+    Route::get('/admin/billing', [AdminController::class, 'billing'])->name('admin.billing');
 });
 
 Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin aqui para restrigir el acceso al resto de usuarios
@@ -144,8 +144,14 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
     Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
 
+
     Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
-    Route::get('/billing/download/{rental}', [BillingController::class, 'downloadInvoice'])->name('billing.downloadInvoice');
+Route::get('/billing/download/{rental}', [BillingController::class, 'downloadInvoice'])->name('billing.downloadInvoice');
+
+Route::get('/admin/billing', [BillingController::class, 'adminIndex'])->name('admin.billing');
+Route::get('/admin/billing/download/{rental}', [BillingController::class, 'downloadAdminInvoice'])->name('admin.billing.downloadInvoice');
+
+
 
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });

@@ -24,4 +24,26 @@ class BillingController extends Controller
         $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental'));
         return $pdf->download('invoice.pdf');
     }
+
+
+
+    public function adminIndex()
+    {
+        $rentals = Rental::where('user_id', Auth::id())
+            ->where('status', 'approved')
+            ->with('car', 'user')
+            ->get();
+
+        return view('admin.billing', compact('rentals'));
+    }
+
+    public function downloadAdminInvoice(Rental $rental)
+    {
+        $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental'));
+        return $pdf->download('invoice.pdf');
+    }
+
+
+
+
 }
