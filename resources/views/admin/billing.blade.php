@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('template_title')
+    Billing
+@endsection
+
 @section('content')
     <main class="main-content position-relative max-height-vh-100 h-100">
         <!-- Navbar -->
@@ -64,7 +68,8 @@
                                 <td>{{ $rental->end_date }}</td>
                                 <td>{{ $rental->total_price }} €</td>
                                 <td>
-                                    <a href="{{ route('admin.billing.downloadInvoice', $rental->id) }}" class="btn" style="background-color: #9c2121; color: white;">
+                                    <a href="{{ route('admin.billing.downloadInvoice', $rental->id) }}" class="btn"
+                                        style="background-color: #9c2121; color: white;">
                                         <i class="fas fa-download"></i> Download Invoice
                                     </a>
                                 </td>
