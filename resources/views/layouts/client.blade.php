@@ -91,7 +91,8 @@
                                         id="notification-{{ $notification->id }}">
                                         @php
                                             $url = '';
-                                            if ($notification->data['status'] == 'approved' || $notification->data['status'] == 'rejected') {
+                                            $status = $notification->data['status'] ?? null;
+                                            if ($status == 'approved' || $status == 'rejected') {
                                                 $url = url('/billing');
                                             } else {
                                                 $url = url('/admin/notifications');
@@ -102,9 +103,9 @@
                                                 @if (!empty($notification->data['admin_name']))
                                                     <strong>{{ $notification->data['admin_name'] }}:</strong><br>
                                                 @endif
-                                                @if ($notification->data['status'] == 'approved')
+                                                @if ($status == 'approved')
                                                     Has approved your rental request.
-                                                @elseif ($notification->data['status'] == 'rejected')
+                                                @elseif ($status == 'rejected')
                                                     Has rejected your rental request.
                                                 @else
                                                     <strong>{{ $notification->data['user_name'] ?? 'User' }}:</strong><br> Has requested to rent a car.
@@ -123,6 +124,8 @@
                                 @endforelse
                             </ul>
                         </li>
+                        
+                        
                         
 
                             <li class="nav-item dropdown">

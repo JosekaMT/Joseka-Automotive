@@ -12,6 +12,7 @@ use App\Notifications\RentalRequestReceived;
 use DateTime;
 use DateInterval;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RentController extends Controller
 {
@@ -76,15 +77,25 @@ class RentController extends Controller
             return back()->with('error', 'No administrators found to notify.');
         }
 
-        // Verifica que los administradores están cargados correctamente
-        foreach ($admins as $admin) {
-            if (!$admin) {
-                return back()->with('error', 'Error loading administrator data.');
-            }
-        }
-
         // Enviar notificación a los administradores
-        Notification::send($admins, new RentalRequestReceived($rental));
+        foreach ($admins as $admin) {
+            // Crear la notificación manualmente con un UUID
+            $notificationData = [
+                'id' => Str::uuid()->toString(), // Genera un UUID
+                'type' => RentalRequestReceived::class, // El tipo de notificación que estás usando
+                'data' => json_encode([
+                    'rental_id' => $rental->id,
+                    'user_name' => $rental->user->name, // Incluye el nombre del usuario
+                ]), // Asegúrate de que $data sea un array o un objeto serializable
+                'notifiable_id' => $admin->id,
+                'notifiable_type' => User::class,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            // Crear la notificación directamente en la base de datos
+            \DB::table('notifications')->insert($notificationData);
+        }
 
         return back()->with('success', 'Rental request sent successfully, waiting for approval.');
     }
