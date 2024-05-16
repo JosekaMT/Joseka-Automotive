@@ -19,7 +19,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Email') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px;">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Email') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px; border-radius: 5px;">
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -28,10 +28,8 @@
                         </div>
 
                         <div class="mb-3 position-relative">
-                            <input id="password" type="password" class="form-control pe-5" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px;">
-                            <button type="button" id="togglePassword" class="btn position-absolute top-50 end-0 translate-middle-y" style="background-color: transparent; border: none; right: 10px;">
-                                <i class="fas fa-eye text-dark" id="passwordIcon"></i>
-                            </button>
+                            <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px; border-radius: 5px;">
+                            <i class="fas fa-eye" id="togglePassword" style="color: black;"></i>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -53,7 +51,7 @@
                                     {{ __('Forgot your password?') }}
                                 </a>
                                 @endif
-                                <button type="submit" class="btn" style="background-color: #9c2121; border: none; color: white; padding: 10px 20px; border-radius: 4px;">
+                                <button type="submit" class="btn" style="background-color: #9c2121; border: none; color: white; padding: 10px 20px; border-radius: 5px;">
                                     {{ __('Login') }}
                                 </button>
                             </div>
@@ -68,7 +66,6 @@
 <script>
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#password');
-    const passwordIcon = document.querySelector('#passwordIcon');
 
     togglePassword.addEventListener('click', function(e) {
         // Alternar el tipo de entrada del campo de contraseña
@@ -77,13 +74,11 @@
 
         // Cambiar el icono del ojo
         if (type === 'password') {
-            passwordIcon.classList.remove('fa-eye-slash');
-            passwordIcon.classList.add('fa-eye');
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
         } else {
-            passwordIcon.classList.remove('fa-eye');
-            passwordIcon.classList.add('fa-eye-slash');
+            togglePassword.classList.remove('fa-eye');
+            togglePassword.classList.add('fa-eye-slash');
         }
     });
 </script>
-
-@endsection

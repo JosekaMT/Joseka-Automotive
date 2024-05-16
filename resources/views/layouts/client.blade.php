@@ -76,57 +76,58 @@
                                 </div>
                             </li>
                         @else
-                        <li class="nav-item dropdown position-relative">
-                            <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-icons notification-material-icons">notifications</i>
-                                @if (Auth::user()->unreadNotifications->count() > 0)
-                                    <span class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
-                                @endif
-                            </a>
-                            <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
-                                aria-labelledby="notificationsDropdown" style="width: 280px;">
-                                @forelse(Auth::user()->unreadNotifications as $notification)
-                                    <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
-                                        id="notification-{{ $notification->id }}">
-                                        @php
-                                            $url = '';
-                                            $status = $notification->data['status'] ?? null;
-                                            if ($status == 'approved' || $status == 'rejected') {
-                                                $url = url('/billing');
-                                            } else {
-                                                $url = url('/admin/notifications');
-                                            }
-                                        @endphp
-                                        <a href="{{ $url }}" class="text-decoration-none text-dark w-100">
-                                            <div>
-                                                @if (!empty($notification->data['admin_name']))
-                                                    <strong>{{ $notification->data['admin_name'] }}:</strong><br>
-                                                @endif
-                                                @if ($status == 'approved')
-                                                    Has approved your rental request.
-                                                @elseif ($status == 'rejected')
-                                                    Has rejected your rental request.
-                                                @else
-                                                    <strong>{{ $notification->data['user_name'] ?? 'User' }}:</strong><br> Has requested to rent a car.
-                                                @endif
-                                                <br>
-                                                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                                            </div>
-                                        </a>
-                                        <button class="notification-close-btn-custom"
-                                            onclick="markNotificationAsRead(event, '{{ $notification->id }}'); event.stopPropagation();">
-                                            <i class="material-icons" style="color: #9c2121;">close</i>
-                                        </button>
-                                    </li>
-                                @empty
-                                    <li class="notification-dropdown-item-custom text-center w-100" id="no-notifications">No notifications</li>
-                                @endforelse
-                            </ul>
-                        </li>
-                        
-                        
-                        
+                            <li class="nav-item dropdown position-relative">
+                                <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="material-icons notification-material-icons">notifications</i>
+                                    @if (Auth::user()->unreadNotifications->count() > 0)
+                                        <span
+                                            class="notification-badge-custom">{{ Auth::user()->unreadNotifications->count() }}</span>
+                                    @endif
+                                </a>
+                                <ul class="notification-dropdown-menu-custom dropdown-menu dropdown-menu-end p-3 shadow"
+                                    aria-labelledby="notificationsDropdown" style="width: 280px;">
+                                    @forelse(Auth::user()->unreadNotifications as $notification)
+                                        <li class="notification-dropdown-item-custom d-flex justify-content-between align-items-center"
+                                            id="notification-{{ $notification->id }}">
+                                            @php
+                                                $url = '';
+                                                $status = $notification->data['status'] ?? null;
+                                                if ($status == 'approved' || $status == 'rejected') {
+                                                    $url = url('/billing');
+                                                } else {
+                                                    $url = url('/admin/notifications');
+                                                }
+                                            @endphp
+                                            <a href="{{ $url }}" class="text-decoration-none text-dark w-100">
+                                                <div>
+                                                    @if (!empty($notification->data['admin_name']))
+                                                        <strong>{{ $notification->data['admin_name'] }}:</strong><br>
+                                                    @endif
+                                                    @if ($status == 'approved')
+                                                        Has approved your rental request.
+                                                    @elseif ($status == 'rejected')
+                                                        Has rejected your rental request.
+                                                    @else
+                                                        <strong>{{ $notification->data['user_name'] ?? 'User' }}:</strong><br>
+                                                        Has requested to rent a car.
+                                                    @endif
+                                                    <br>
+                                                    <small
+                                                        class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                </div>
+                                            </a>
+                                            <button class="notification-close-btn-custom"
+                                                onclick="markNotificationAsRead(event, '{{ $notification->id }}'); event.stopPropagation();">
+                                                <i class="material-icons" style="color: #9c2121;">close</i>
+                                            </button>
+                                        </li>
+                                    @empty
+                                        <li class="notification-dropdown-item-custom text-center w-100"
+                                            id="no-notifications">No notifications</li>
+                                    @endforelse
+                                </ul>
+                            </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -495,37 +496,38 @@
             });
         });
     </script>
-<script>
-    function markNotificationAsRead(event, notificationId) {
-        event.preventDefault();
-        fetch(`/notifications/${notificationId}/mark-as-read`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        }).then(response => {
-            if (response.ok) {
-                document.getElementById(`notification-${notificationId}`).remove();
-                if (!document.querySelector('.notification-dropdown-item-custom')) {
-                    const noNotificationsItem = document.createElement('li');
-                    noNotificationsItem.id = 'no-notifications';
-                    noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
-                    noNotificationsItem.textContent = 'No notifications';
-                    document.querySelector('.notification-dropdown-menu-custom').appendChild(noNotificationsItem);
+    <script>
+        function markNotificationAsRead(event, notificationId) {
+            event.preventDefault();
+            fetch(`/notifications/${notificationId}/mark-as-read`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
-                const badge = document.querySelector('.notification-badge-custom');
-                if (badge) {
-                    const count = parseInt(badge.textContent, 10) - 1;
-                    if (count > 0) {
-                        badge.textContent = count;
-                    } else {
-                        badge.remove();
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById(`notification-${notificationId}`).remove();
+                    if (!document.querySelector('.notification-dropdown-item-custom')) {
+                        const noNotificationsItem = document.createElement('li');
+                        noNotificationsItem.id = 'no-notifications';
+                        noNotificationsItem.className = 'notification-dropdown-item-custom text-center w-100';
+                        noNotificationsItem.textContent = 'No notifications';
+                        document.querySelector('.notification-dropdown-menu-custom').appendChild(
+                            noNotificationsItem);
+                    }
+                    const badge = document.querySelector('.notification-badge-custom');
+                    if (badge) {
+                        const count = parseInt(badge.textContent, 10) - 1;
+                        if (count > 0) {
+                            badge.textContent = count;
+                        } else {
+                            badge.remove();
+                        }
                     }
                 }
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
     <!--APP -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

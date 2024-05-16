@@ -86,7 +86,7 @@ class RentController extends Controller
                 'data' => json_encode([
                     'rental_id' => $rental->id,
                     'user_name' => $rental->user->name, // Incluye el nombre del usuario
-                ]), // Asegúrate de que $data sea un array o un objeto serializable
+                ]),
                 'notifiable_id' => $admin->id,
                 'notifiable_type' => User::class,
                 'created_at' => now(),
