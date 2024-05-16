@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('template_title')
+    Notifications
+@endsection
+
 @section('content')
     <main class="main-content position-relative max-height-vh-100 h-100">
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none bg-black" id="navbarBlur">

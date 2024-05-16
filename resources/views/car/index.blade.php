@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('template_title')
-    Cars
+    Vehicles
 @endsection
 
 @section('content')
@@ -124,7 +124,6 @@
                                         <h2 class="vehicle-heading2" id="card_title"> {{ __('Vehicles') }}</h2>
                                     </div>
                                 </div>
-
                                 <div class="px-0 d-flex justify-content">
                                     @if ($message = Session::get('success'))
                                         <div class="alert alert-success w-auto p-2 mt-2">
@@ -132,10 +131,8 @@
                                         </div>
                                     @endif
                                 </div>
-
                                 <div class="card-body px-0 pb-2">
                                     <div class="float">
-
                                         <button class="btn btn-success btn-sm align-content-md-end" data-toggle="modal"
                                             data-target="#createCarModal">
                                             <i class="fa fa-plus"></i> Create New
@@ -240,15 +237,6 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
-
-
-
-
-
-
-
-
 
                                                     <!-- Edit Car Modal -->
                                                     <div class="modal fade" id="editCarModal{{ $car->id }}"

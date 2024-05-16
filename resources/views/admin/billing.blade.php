@@ -39,8 +39,6 @@
                 <span class="mask bg-gradient-dark opacity-6"></span>
             </div>
 
-
-            
             <div class="card card-body mx-3 mx-md-4 mt-n6">
                 <h2 class="vehicle-heading2">Billing Information</h2>
                 <div class="table-responsive" style="overflow-x: auto;">
