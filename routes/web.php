@@ -145,13 +145,13 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::post('/rent-car/{carId}', [RentController::class, 'rent'])->name('car.rent');
 
 
+
     Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
     Route::get('/billing/download/{rental}', [BillingController::class, 'downloadInvoice'])->name('billing.downloadInvoice');
 
     Route::get('/admin/billing', [BillingController::class, 'adminIndex'])->name('admin.billing');
     Route::get('/admin/billing/download/{rental}', [BillingController::class, 'downloadAdminInvoice'])->name('admin.billing.downloadInvoice');
 
-
-
+    
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });

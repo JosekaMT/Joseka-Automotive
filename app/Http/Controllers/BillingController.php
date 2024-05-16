@@ -25,12 +25,10 @@ class BillingController extends Controller
         return $pdf->download('invoice.pdf');
     }
 
-
-
     public function adminIndex()
     {
-        $rentals = Rental::where('user_id', Auth::id())
-            ->where('status', 'approved')
+        // Obtener todas las facturas aprobadas de todos los usuarios
+        $rentals = Rental::where('status', 'approved')
             ->with('car', 'user')
             ->get();
 
