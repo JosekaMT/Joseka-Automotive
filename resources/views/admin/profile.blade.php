@@ -166,7 +166,7 @@
                         if (passwordInput.type === "password") {
                             passwordInput.type = "text";
                             passwordIcon.textContent =
-                            "visibility_off"; // Cambia el ícono a "visibility_off" cuando la contraseña es visible
+                                "visibility_off"; // Cambia el ícono a "visibility_off" cuando la contraseña es visible
                         } else {
                             passwordInput.type = "password";
                             passwordIcon.textContent = "visibility"; // Cambia el ícono a "visibility" cuando la contraseña está oculta
@@ -176,5 +176,5 @@
 
             </div>
         </div>
-    </main>
+
 @endsection

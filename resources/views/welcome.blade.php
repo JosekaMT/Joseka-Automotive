@@ -58,10 +58,10 @@
                             <a class="nav-link text-uppercase" href="{{ url('/vehicles') }}">Vehicles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#nosotros">About us</a>
+                            <a class="nav-link text-uppercase" href="{{ url('/billing') }}">Billing</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#contacto">Contact</a>
+                            <a class="nav-link text-uppercase" href="{{ url('/contact') }}">Contact</a>
                         </li>
                         @guest
                             <li class="nav-item dropdown">
@@ -202,9 +202,9 @@
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center gap-4 flex-wrap">
                                 <a class="footer-link mx-4" href="/">Home</a>
-                                <a class="footer-link mx-4" href="#articles">Vehicles</a>
-                                <a class="footer-link mx-4" href="#becomePartner">About us</a>
-                                <a class="footer-link mx-4" href="#about">Contact</a>
+                                <a class="footer-link mx-4" href="{{ url('/vehicles') }}">Vehicles</a>
+                                <a class="footer-link mx-4" href="{{ url('/billing') }}">Billing</a>
+                                <a class="footer-link mx-4" href="{{ url('/contact') }}">Contact</a>
                                 <a class="footer-link mx-2 " href="https://twitter.com/joseka_mt">
                                     <i class="fab fa-twitter"></i>
                                 </a>

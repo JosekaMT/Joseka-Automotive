@@ -145,7 +145,7 @@
         <div class="row">
             <div class="col-12">
                 <hr class="my-2" style="border-color: white;">
-                <p class="text-center text-white-600 mt-4">
+                <p class="text-center text-black mt-4">
                     Copyright ©
                     <script>
                         document.write(new Date().getFullYear());
