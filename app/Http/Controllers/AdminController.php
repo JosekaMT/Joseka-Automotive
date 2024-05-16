@@ -35,9 +35,9 @@ class AdminController extends Controller
         return view('admin.notifications');
     }
 
-    public function vehicle2()
+    public function billing()
     {
-        return view('admin.vehicle2');
+        return view('admin.billing');
     }
 
     public function showNotifications()

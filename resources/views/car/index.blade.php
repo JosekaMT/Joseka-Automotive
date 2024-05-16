@@ -121,7 +121,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-7">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <h4 id="card_title"><i class="fa fa-car"></i> {{ __('Vehicles') }}</h4>
+                                        <h2 class="vehicle-heading2" id="card_title"> {{ __('Vehicles') }}</h2>
                                     </div>
                                 </div>
 
@@ -145,50 +145,35 @@
                                         <table class="table align-items-center mb-0" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         ID</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Image</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Brand</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Model</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Body</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Fuel</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Gears</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        Engine (CC)</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        Horsepower (HP)</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
+                                                        Engine</th>
+                                                    <th>
+                                                        Horsepower</th>
+                                                    <th>
                                                         Seats</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Color</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Availability</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
                                                         Rental</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        Price Per Hour (€)</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    <th>
+                                                        Price Per Hour</th>
+                                                    <th>
                                                         Actions</th>
                                                 </tr>
                                             </thead>
@@ -200,11 +185,12 @@
                                                             @if ($car->image1)
                                                                 <img src="{{ asset('storage/' . $car->image1) }}"
                                                                     alt="Car Image"
-                                                                    style="max-width: 120px; max-height: 120px;">
+                                                                    style="max-width: 130px; max-height: 130px; border-radius: 10px;">
                                                             @else
                                                                 No Image
                                                             @endif
                                                         </td>
+
                                                         <td class="text-center">{{ $car->brand }}</td>
                                                         <td class="text-center">{{ $car->model }}</td>
                                                         <td class="text-center">{{ $car->body }}</td>
@@ -232,22 +218,26 @@
 
                                                         <td class="text-center">{{ $car->price_per_hour }} €</td>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-info btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#showCarModal{{ $car->id }}">
-                                                                <i class="fa fa-fw fa-eye" style="font-size: 1.2em;"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-warning btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#editCarModal{{ $car->id }}">
-                                                                <i class="fa fa-fw fa-edit" style="font-size: 1.2em;"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-danger btn-sm"
-                                                                style="background-color: #9c2121;" data-toggle="modal"
-                                                                data-target="#deleteCarModal{{ $car->id }}">
-                                                                <i class="fa fa-fw fa-trash"
-                                                                    style="font-size: 1.2em;"></i>
-                                                            </button>
+                                                            <div class="d-flex flex-column align-items-center">
+                                                                <button type="button" class="btn btn-info btn-sm mb-1"
+                                                                    data-toggle="modal"
+                                                                    data-target="#showCarModal{{ $car->id }}">
+                                                                    <i class="fa fa-fw fa-eye"
+                                                                        style="font-size: 1.2em;"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-warning btn-sm mb-1"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editCarModal{{ $car->id }}">
+                                                                    <i class="fa fa-fw fa-edit"
+                                                                        style="font-size: 1.2em;"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-danger btn-sm mb-1"
+                                                                    style="background-color: #9c2121;" data-toggle="modal"
+                                                                    data-target="#deleteCarModal{{ $car->id }}">
+                                                                    <i class="fa fa-fw fa-trash"
+                                                                        style="font-size: 1.2em;"></i>
+                                                                </button>
+                                                            </div>
                                                         </td>
                                                     </tr>
 
@@ -260,8 +250,6 @@
 
 
 
-
-                                                    
                                                     <!-- Edit Car Modal -->
                                                     <div class="modal fade" id="editCarModal{{ $car->id }}"
                                                         tabindex="-1" role="dialog"
