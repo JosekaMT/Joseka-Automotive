@@ -19,7 +19,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Correo electrónico') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px;">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Email') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px;">
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="mb-3 position-relative">
-                            <input id="password" type="password" class="form-control pe-5" name="password" required autocomplete="current-password" placeholder="{{ __('Contraseña') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px;">
+                            <input id="password" type="password" class="form-control pe-5" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}" style="background-color: white; border: none; color: black; margin-bottom: 15px;">
                             <button type="button" id="togglePassword" class="btn position-absolute top-50 end-0 translate-middle-y" style="background-color: transparent; border: none; right: 10px;">
                                 <i class="fas fa-eye text-dark" id="passwordIcon"></i>
                             </button>
@@ -42,7 +42,7 @@
                         <div class="mb-3 form-check" style="text-align: left;">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label" for="remember" style="color: white;">
-                                {{ __('Recordar contraseña') }}
+                                {{ __('Remember password') }}
                             </label>
                         </div>
 
@@ -50,11 +50,11 @@
                             <div class="d-flex justify-content-between align-items-start">
                                 @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}" style="color: #ccc; text-decoration: none; padding-left: 0; margin-top: 3px;">
-                                    {{ __('¿Olvidaste tu contraseña?') }}
+                                    {{ __('Forgot your password?') }}
                                 </a>
                                 @endif
                                 <button type="submit" class="btn" style="background-color: #9c2121; border: none; color: white; padding: 10px 20px; border-radius: 4px;">
-                                    {{ __('Iniciar sesión') }}
+                                    {{ __('Login') }}
                                 </button>
                             </div>
                         </div>
