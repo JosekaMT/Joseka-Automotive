@@ -173,9 +173,9 @@ class CarController extends Controller
             'end_date' => $endDate->format('Y-m-d H:i:s'),
             'total_price' => $totalPrice,
             'status' => 'pending',
-            'brand' => $car->brand ?? 'Unknown', // Proveer valores adicionales o predeterminados
-            'model' => $car->model ?? 'Unknown', // Proveer valores adicionales o predeterminados
-            'image1' => $car->image1 ?? 'default_image_path', // Proveer valores adicionales o predeterminados
+            'brand' => $car->brand ?? 'Unknown',
+            'model' => $car->model ?? 'Unknown',
+            'image1' => $car->image1 ?? 'default_image_path',
         ]);
 
         $rental->save();

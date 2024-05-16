@@ -146,10 +146,10 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
 
 
     Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
-Route::get('/billing/download/{rental}', [BillingController::class, 'downloadInvoice'])->name('billing.downloadInvoice');
+    Route::get('/billing/download/{rental}', [BillingController::class, 'downloadInvoice'])->name('billing.downloadInvoice');
 
-Route::get('/admin/billing', [BillingController::class, 'adminIndex'])->name('admin.billing');
-Route::get('/admin/billing/download/{rental}', [BillingController::class, 'downloadAdminInvoice'])->name('admin.billing.downloadInvoice');
+    Route::get('/admin/billing', [BillingController::class, 'adminIndex'])->name('admin.billing');
+    Route::get('/admin/billing/download/{rental}', [BillingController::class, 'downloadAdminInvoice'])->name('admin.billing.downloadInvoice');
 
 
 

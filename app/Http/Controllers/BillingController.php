@@ -42,8 +42,4 @@ class BillingController extends Controller
         $pdf = PDF::loadView('layouts.invoice.invoice', compact('rental'));
         return $pdf->download('invoice.pdf');
     }
-
-
-
-
 }
