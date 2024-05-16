@@ -62,11 +62,11 @@
                                 <div class="text-sm text-neutral-600">
                                     @if (isset($admin))
                                         <h2 class="whitespace-nowrap font-bold text-main">JOSEKA AUTOMOTIVE</h2><br>
-                                        <p class="font-bold">{{ $admin->name }}</p>
-                                        <p>Email: {{ $admin->email }}</p>
-                                        <p>Phone: {{ $admin->phone_number ?? 'N/A' }}</p>
-                                        <p>City: {{ $admin->city ?? 'N/A' }}</p>
-                                        <p>Address: {{ $admin->address ?? 'N/A' }}</p>
+                                        <p class="font-bold">Administration</p>
+                                        <p>Email: admin@example.com</p>
+                                        <p>Phone: +34 677 27 57 </p>
+                                        <p>City: Sevilla</p>
+                                        <p>Address: Andres Almonaster y Roxas</p>
                                     @endif
                                 </div>
                             </td>
@@ -183,8 +183,8 @@
                 <footer class="fixed bottom-0 left-0 bg-slate-100 w-full text-neutral-600 text-center text-xs py-3">
                     Joseka Automotive
                     <span class="text-slate-300 px-2">|</span>
-                    {{ $admin->email }}
+                    admin@example.com
                     <span class="text-slate-300 px-2">|</span>
-                    {{ $admin->phone_number ?? 'N/A' }}
+                    <p>Phone: +34 677 27 57 </p>
                 </footer>
             @endif
