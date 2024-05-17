@@ -15,6 +15,7 @@ use DateTime;
 use DateInterval;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class RentController extends Controller
 {
@@ -105,19 +106,22 @@ class RentController extends Controller
     public function approveRental($id)
     {
         $rental = Rental::findOrFail($id);
-        $car = Car::findOrFail($rental->car_id);
-
         $rental->status = 'approved';
+        $rental->save();
+
+        // Actualizar el estado del coche
+        $car = Car::findOrFail($rental->car_id);
         $car->available = false;
         $car->rented = true;
-
-        $rental->save();
         $car->save();
 
         // Enviar notificación de aprobación al usuario
         $user = $rental->user;
         $adminName = Auth::user()->name ?? 'Administration';
         $user->notify(new RentalApproved($rental, $adminName));
+
+        // Llamar a la función para verificar y actualizar alquileres expirados
+        $this->checkAndReleaseExpiredRentals();
 
         return redirect()->back()->with('success', 'Rental approved successfully.');
     }
@@ -134,5 +138,28 @@ class RentController extends Controller
         $user->notify(new RentalRejected($rental, $adminName));
 
         return redirect()->back()->with('success', 'Rental rejected successfully.');
+    }
+
+    private function checkAndReleaseExpiredRentals()
+    {
+        $now = Carbon::now();
+
+        $rentals = Rental::where('status', 'approved')
+            ->where('end_date', '<', $now)
+            ->get();
+
+        foreach ($rentals as $rental) {
+            $car = Car::find($rental->car_id);
+
+            if ($car) {
+                $car->available = true;
+                $car->rented = false;
+                $car->save();
+
+                // Actualiza el estado del alquiler a 'completed'
+                $rental->status = 'completed';
+                $rental->save();
+            }
+        }
     }
 }
