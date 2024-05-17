@@ -154,4 +154,5 @@
                         <h4 class="text-center">No notifications found.</h4>
                     @endif
                 </div>
+                </div>
             @endsection
