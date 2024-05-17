@@ -53,7 +53,8 @@
                                 </div>
                                 <div class="card-body px-0 pb-2">
                                     <div class="float">
-                                        <button class="btn btn-success btn-sm align-content-md-end" data-toggle="modal" data-target="#createUserModal">
+                                        <button class="btn btn-success btn-sm align-content-md-end" data-toggle="modal"
+                                            data-target="#createUserModal">
                                             <i class="fa fa-plus"></i> Create New
                                         </button>
                                     </div>
@@ -78,7 +79,9 @@
                                                         <td class="text-center">{{ $user->id }}</td>
                                                         <td class="text-center">
                                                             @if ($user->profile_photo)
-                                                                <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Profile Photo" style="max-width: 100px; max-height: 100px; border-radius: 10px;">
+                                                                <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                                                                    alt="Profile Photo"
+                                                                    style="max-width: 100px; max-height: 100px; border-radius: 10px;">
                                                             @else
                                                                 No Image
                                                             @endif
@@ -97,73 +100,161 @@
                                                         <td class="text-center">{{ $user->address }}</td>
                                                         <td class="text-center">
                                                             <div class="d-flex flex-column align-items-center">
-                                                                <button type="button" class="btn btn-info btn-sm mb-1" data-toggle="modal" data-target="#showUserModal{{ $user->id }}">
-                                                                    <i class="fa fa-fw fa-eye" style="font-size: 1.2em;"></i>
+                                                                <button type="button" class="btn btn-info btn-sm mb-1"
+                                                                    data-toggle="modal"
+                                                                    data-target="#showUserModal{{ $user->id }}">
+                                                                    <i class="fa fa-fw fa-eye"
+                                                                        style="font-size: 1.2em;"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#editUserModal{{ $user->id }}">
-                                                                    <i class="fa fa-fw fa-edit" style="font-size: 1.2em;"></i>
+                                                                <button type="button" class="btn btn-warning btn-sm mb-1"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editUserModal{{ $user->id }}">
+                                                                    <i class="fa fa-fw fa-edit"
+                                                                        style="font-size: 1.2em;"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-danger btn-sm mb-1" style="background-color: #9c2121;" data-toggle="modal" data-target="#deleteUserModal{{ $user->id }}">
-                                                                    <i class="fa fa-fw fa-trash" style="font-size: 1.2em;"></i>
+                                                                <button type="button" class="btn btn-danger btn-sm mb-1"
+                                                                    style="background-color: #9c2121;" data-toggle="modal"
+                                                                    data-target="#deleteUserModal{{ $user->id }}">
+                                                                    <i class="fa fa-fw fa-trash"
+                                                                        style="font-size: 1.2em;"></i>
                                                                 </button>
                                                             </div>
                                                         </td>
                                                     </tr>
 
                                                     <!-- Edit User Modal -->
-                                                    <div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel{{ $user->id }}" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document" style="max-width: 800px;">
+                                                    <div class="modal fade" id="editUserModal{{ $user->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="editUserModalLabel{{ $user->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <h5 class="modal-title"
+                                                                        id="editUserModalLabel{{ $user->id }}">
+                                                                        {{ __('Edit User') }}</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
+                                                                    <form method="POST"
+                                                                        action="{{ route('users.update', $user->id) }}"
+                                                                        enctype="multipart/form-data">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <div class="form-group">
-                                                                            <label for="name">Name</label>
-                                                                            <input type="text" name="name" class="form-control" value="{{ $user->name }}" required>
+                                                                        <div class="row py-3 px-3">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="name"
+                                                                                        class="form-label">{{ __('Name') }}</label>
+                                                                                    <input type="text" name="name"
+                                                                                        class="form-control border @error('name') is-invalid @enderror"
+                                                                                        value="{{ old('name', $user->name) }}"
+                                                                                        id="name" placeholder="Name"
+                                                                                        required>
+                                                                                    {!! $errors->first('name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="is_admin"
+                                                                                        class="form-label">{{ __('Role') }}</label>
+                                                                                    <select name="is_admin"
+                                                                                        class="form-select border @error('is_admin') is-invalid @enderror"
+                                                                                        id="is_admin" required>
+                                                                                        <option value="0"
+                                                                                            {{ !$user->is_admin ? 'selected' : '' }}>
+                                                                                            Client</option>
+                                                                                        <option value="1"
+                                                                                            {{ $user->is_admin ? 'selected' : '' }}>
+                                                                                            Admin</option>
+                                                                                    </select>
+                                                                                    {!! $errors->first('is_admin', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="email"
+                                                                                        class="form-label">{{ __('Email') }}</label>
+                                                                                    <input type="email" name="email"
+                                                                                        class="form-control border @error('email') is-invalid @enderror"
+                                                                                        value="{{ old('email', $user->email) }}"
+                                                                                        id="email" placeholder="Email"
+                                                                                        required>
+                                                                                    {!! $errors->first('email', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="phone_number"
+                                                                                        class="form-label">{{ __('Phone Number') }}</label>
+                                                                                    <input type="text"
+                                                                                        name="phone_number"
+                                                                                        class="form-control border @error('phone_number') is-invalid @enderror"
+                                                                                        value="{{ old('phone_number', $user->phone_number) }}"
+                                                                                        id="phone_number"
+                                                                                        placeholder="Phone Number">
+                                                                                    {!! $errors->first('phone_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="city"
+                                                                                        class="form-label">{{ __('City') }}</label>
+                                                                                    <input type="text" name="city"
+                                                                                        class="form-control border @error('city') is-invalid @enderror"
+                                                                                        value="{{ old('city', $user->city) }}"
+                                                                                        id="city" placeholder="City">
+                                                                                    {!! $errors->first('city', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="address"
+                                                                                        class="form-label">{{ __('Address') }}</label>
+                                                                                    <input type="text" name="address"
+                                                                                        class="form-control border @error('address') is-invalid @enderror"
+                                                                                        value="{{ old('address', $user->address) }}"
+                                                                                        id="address"
+                                                                                        placeholder="Address">
+                                                                                    {!! $errors->first('address', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="profile_photo"
+                                                                                        class="form-label">{{ __('Profile Photo') }}</label>
+                                                                                    <input type="file"
+                                                                                        name="profile_photo"
+                                                                                        class="form-control border @error('profile_photo') is-invalid @enderror"
+                                                                                        id="profile_photo">
+                                                                                    {!! $errors->first(
+                                                                                        'profile_photo',
+                                                                                        '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
+                                                                                    ) !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="password"
+                                                                                        class="form-label">{{ __('Password') }}</label>
+                                                                                    <input type="password" name="password"
+                                                                                        class="form-control border @error('password') is-invalid @enderror"
+                                                                                        id="password"
+                                                                                        placeholder="Password">
+                                                                                    {!! $errors->first('password', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                                                                </div>
+                                                                                <div class="form-group mb-4">
+                                                                                    <label for="password_confirmation"
+                                                                                        class="form-label">{{ __('Confirm Password') }}</label>
+                                                                                    <input type="password"
+                                                                                        name="password_confirmation"
+                                                                                        class="form-control border @error('password_confirmation') is-invalid @enderror"
+                                                                                        id="password_confirmation"
+                                                                                        placeholder="Confirm Password">
+                                                                                    {!! $errors->first(
+                                                                                        'password_confirmation',
+                                                                                        '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
+                                                                                    ) !!}
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="email">Email</label>
-                                                                            <input type="email" name="email" class="form-control" value="{{ $user->email }}" required>
+                                                                        <div class="row px-3">
+                                                                            <div class="col-md-12 mt-4">
+                                                                                <button type="submit" class="btn"
+                                                                                    style="background-color: #9c2121; color: white;">{{ __('Save changes') }}</button>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="phone_number">Phone Number</label>
-                                                                            <input type="text" name="phone_number" class="form-control" value="{{ $user->phone_number }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="city">City</label>
-                                                                            <input type="text" name="city" class="form-control" value="{{ $user->city }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="address">Address</label>
-                                                                            <input type="text" name="address" class="form-control" value="{{ $user->address }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="profile_photo">Profile Photo</label>
-                                                                            <input type="file" name="profile_photo" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="password">Password</label>
-                                                                            <input type="password" name="password" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="password_confirmation">Confirm Password</label>
-                                                                            <input type="password" name="password_confirmation" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="is_admin">Role</label>
-                                                                            <select name="is_admin" class="form-control">
-                                                                                <option value="1" {{ $user->is_admin ? 'selected' : '' }}>Admin</option>
-                                                                                <option value="0" {{ !$user->is_admin ? 'selected' : '' }}>Client</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -171,13 +262,22 @@
                                                     </div>
                                                     <!-- End Edit User Modal -->
 
+
                                                     <!-- Show User Modal -->
-                                                    <div class="modal fade" id="showUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="showUserModalLabel{{ $user->id }}" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                                                    <div class="modal fade" id="showUserModal{{ $user->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="showUserModalLabel{{ $user->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable modal-lg"
+                                                            role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="showUserModalLabel{{ $user->id }}" style="color: black; font-size: 18px;">Show User</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <h5 class="modal-title"
+                                                                        id="showUserModalLabel{{ $user->id }}"
+                                                                        style="color: black; font-size: 18px;">Show User
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
@@ -186,37 +286,59 @@
                                                                         <div class="row mt-3">
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">Name:</strong>
-                                                                                    <p style="color: black; font-size: 18px;">{{ $user->name }}</p>
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Name:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->name }}</p>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">Role:</strong>
-                                                                                    <p style="color: black; font-size: 18px;">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Role:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
                                                                                         {{ $user->is_admin ? 'Admin' : 'Client' }}
                                                                                     </p>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">Email:</strong>
-                                                                                    <p style="color: black; font-size: 18px;">{{ $user->email }}</p>
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Email:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->email }}</p>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">Phone Number:</strong>
-                                                                                    <p style="color: black; font-size: 18px;">{{ $user->phone_number }}</p>
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Phone
+                                                                                        Number:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->phone_number }}</p>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">City:</strong>
-                                                                                    <p style="color: black; font-size: 18px;">{{ $user->city }}</p>
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">City:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->city }}</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">Address:</strong>
-                                                                                    <p style="color: black; font-size: 18px;">{{ $user->address }}</p>
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Address:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->address }}</p>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <strong style="color: black; font-size: 18px;">Profile Photo:</strong>
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Profile
+                                                                                        Photo:</strong>
                                                                                     @if ($user->profile_photo)
-                                                                                        <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Profile Photo" style="max-width: 130px; max-height: 130px; border-radius: 10px;">
+                                                                                        <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                                                                                            alt="Profile Photo"
+                                                                                            style="max-width: 130px; max-height: 130px; border-radius: 10px;">
                                                                                     @else
                                                                                         No Image
                                                                                     @endif
@@ -231,12 +353,18 @@
                                                     <!-- End Show User Modal -->
 
                                                     <!-- Delete User Modal -->
-                                                    <div class="modal fade" id="deleteUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel{{ $user->id }}" aria-hidden="true">
+                                                    <div class="modal fade" id="deleteUserModal{{ $user->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="deleteUserModalLabel{{ $user->id }}"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="deleteUserModalLabel{{ $user->id }}">Delete User</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <h5 class="modal-title"
+                                                                        id="deleteUserModalLabel{{ $user->id }}">
+                                                                        Delete User</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
@@ -244,11 +372,14 @@
                                                                     Are you sure you want to delete this user?
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                                                    <form action="{{ route('users.destroy', $user->id) }}"
+                                                                        method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn" style="background-color: #9c2121; color: white;">Delete</button>
+                                                                        <button type="button" class="btn btn-dark"
+                                                                            data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn"
+                                                                            style="background-color: #9c2121; color: white;">Delete</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -266,7 +397,8 @@
                 </div>
 
                 <!-- Modal for Create User -->
-                <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
+                <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog"
+                    aria-labelledby="createUserModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -278,46 +410,93 @@
                             <div class="modal-body">
                                 <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" name="name" class="form-control" required>
+                                    <div class="row py-3 px-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-4">
+                                                <label for="name" class="form-label">{{ __('Name') }}</label>
+                                                <input type="text" name="name"
+                                                    class="form-control border @error('name') is-invalid @enderror"
+                                                    id="name" placeholder="Name" required>
+                                                {!! $errors->first('name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="is_admin" class="form-label">{{ __('Role') }}</label>
+                                                <select name="is_admin"
+                                                    class="form-select border @error('is_admin') is-invalid @enderror"
+                                                    id="is_admin" required>
+                                                    <option value="0">Client</option>
+                                                    <option value="1">Admin</option>
+                                                </select>
+                                                {!! $errors->first('is_admin', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="email" class="form-label">{{ __('Email') }}</label>
+                                                <input type="email" name="email"
+                                                    class="form-control border @error('email') is-invalid @enderror"
+                                                    id="email" placeholder="Email" required>
+                                                {!! $errors->first('email', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="phone_number"
+                                                    class="form-label">{{ __('Phone Number') }}</label>
+                                                <input type="text" name="phone_number"
+                                                    class="form-control border @error('phone_number') is-invalid @enderror"
+                                                    id="phone_number" placeholder="Phone Number">
+                                                {!! $errors->first('phone_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="city" class="form-label">{{ __('City') }}</label>
+                                                <input type="text" name="city"
+                                                    class="form-control border @error('city') is-invalid @enderror"
+                                                    id="city" placeholder="City">
+                                                {!! $errors->first('city', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-4">
+                                                <label for="address" class="form-label">{{ __('Address') }}</label>
+                                                <input type="text" name="address"
+                                                    class="form-control border @error('address') is-invalid @enderror"
+                                                    id="address" placeholder="Address">
+                                                {!! $errors->first('address', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="profile_photo"
+                                                    class="form-label">{{ __('Profile Photo') }}</label>
+                                                <input type="file" name="profile_photo"
+                                                    class="form-control border @error('profile_photo') is-invalid @enderror"
+                                                    id="profile_photo">
+                                                {!! $errors->first(
+                                                    'profile_photo',
+                                                    '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
+                                                ) !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="password" class="form-label">{{ __('Password') }}</label>
+                                                <input type="password" name="password"
+                                                    class="form-control border @error('password') is-invalid @enderror"
+                                                    id="password" placeholder="Password" required>
+                                                {!! $errors->first('password', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="password_confirmation"
+                                                    class="form-label">{{ __('Confirm Password') }}</label>
+                                                <input type="password" name="password_confirmation"
+                                                    class="form-control border @error('password_confirmation') is-invalid @enderror"
+                                                    id="password_confirmation" placeholder="Confirm Password" required>
+                                                {!! $errors->first(
+                                                    'password_confirmation',
+                                                    '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
+                                                ) !!}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="is_admin">Role</label>
-                                        <select name="is_admin" class="form-control">
-                                            <option value="1">Admin</option>
-                                            <option value="0">Client</option>
-                                        </select>
+                                    <div class="row px-3">
+                                        <div class="col-md-12 mt-4">
+                                            <button type="submit" class="btn"
+                                                style="background-color: #9c2121; color: white;">{{ __('Create User') }}</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone_number">Phone Number</label>
-                                        <input type="text" name="phone_number" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="city">City</label>
-                                        <input type="text" name="city" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <input type="text" name="address" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="profile_photo">Profile Photo</label>
-                                        <input type="file" name="profile_photo" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password_confirmation">Confirm Password</label>
-                                        <input type="password" name="password_confirmation" class="form-control" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Create User</button>
                                 </form>
                             </div>
                         </div>
