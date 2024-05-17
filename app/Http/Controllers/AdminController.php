@@ -40,6 +40,11 @@ class AdminController extends Controller
         return view('admin.billing');
     }
 
+    public function users()
+    {
+        return view('admin.users');
+    }
+
     public function showNotifications()
     {
         $user = Auth::user();
@@ -88,4 +93,6 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Rental rejected successfully.');
     }
+    
+    
 }
