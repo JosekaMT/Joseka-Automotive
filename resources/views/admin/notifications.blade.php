@@ -37,8 +37,6 @@
                 <span class="mask bg-gradient-dark opacity-6"></span>
             </div>
 
-
-
             <div class="card card-body mx-3 mx-md-4 mt-n6">
                 <h2 class="vehicle-heading2">Notifications</h2>
                 <div class="container mt-3">
@@ -124,12 +122,12 @@
                                                 {{ $rental->end_date }}<br>
                                                 <strong>Total Price:</strong> {{ $rental->total_price }} €<br>
                                             </p>
-                                            <form action="{{ route('admin.rentals.approve', $rental->id) }}" method="POST"
+                                            <form action="{{ route('admin.approveRental', $rental->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 <button type="submit" class="btn btn-success btn-sm">Approve</button>
                                             </form>
-                                            <form action="{{ route('admin.rentals.reject', $rental->id) }}" method="POST"
+                                            <form action="{{ route('admin.rejectRental', $rental->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm"

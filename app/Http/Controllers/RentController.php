@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\RentalRequestReceived;
+use App\Notifications\RentalApproved;
+use App\Notifications\RentalRejected;
 use DateTime;
 use DateInterval;
 use Illuminate\Support\Facades\Validator;
@@ -98,5 +100,39 @@ class RentController extends Controller
         }
 
         return back()->with('success', 'Rental request sent successfully, waiting for approval.');
+    }
+
+    public function approveRental($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $car = Car::findOrFail($rental->car_id);
+
+        $rental->status = 'approved';
+        $car->available = false;
+        $car->rented = true;
+
+        $rental->save();
+        $car->save();
+
+        // Enviar notificación de aprobación al usuario
+        $user = $rental->user;
+        $adminName = Auth::user()->name ?? 'Administration';
+        $user->notify(new RentalApproved($rental, $adminName));
+
+        return redirect()->back()->with('success', 'Rental approved successfully.');
+    }
+
+    public function rejectRental($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->status = 'rejected';
+        $rental->save();
+
+        // Enviar notificación de rechazo al usuario
+        $user = $rental->user;
+        $adminName = Auth::user()->name ?? 'Administration';
+        $user->notify(new RentalRejected($rental, $adminName));
+
+        return redirect()->back()->with('success', 'Rental rejected successfully.');
     }
 }
