@@ -93,6 +93,4 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Rental rejected successfully.');
     }
-    
-    
 }
