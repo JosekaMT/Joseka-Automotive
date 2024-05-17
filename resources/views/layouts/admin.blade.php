@@ -26,7 +26,7 @@
 
 </head>
 
-<body class="g-sidenav-show bg-gray-200">
+<body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
         <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
             <i class="fas fa-times p-3 cursor-pointer text-white position-absolute end-0 top-0 d-none d-xl-none"
@@ -139,49 +139,30 @@
         </div>
     </aside>
 
-    <main class="main-content position-relative max-height-vh-100 h-100">
-        @yield('content')
+    @yield('content')
 
-        <footer class="footer py-4">
-            <div class="row">
-                <div class="col-12">
-                    <hr class="my-2" style="border-color: white;">
-                    <p class="text-center text-black mt-4">
-                        Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved.
-                    </p>
-                </div>
+    <footer class="footer py-4">
+        <div class="row">
+            <div class="col-12">
+                <hr class="my-2" style="border-color: white;">
+                <p class="text-center text-black mt-4">
+                    Copyright ©
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved.
+                </p>
             </div>
-        </footer>
+        </div>
+    </footer>
     </main>
-
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
 
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win) {
-            // Smooth Scrollbar for the entire page
-            if (document.querySelector('body')) {
-                Scrollbar.init(document.querySelector('body'), {
-                    damping: '0.5'
-                });
-            }
-        }
 
-        // Toggle sidenav
-        document.getElementById('iconSidenav').addEventListener('click', function() {
-            document.getElementById('sidenav-main').classList.toggle('d-none');
-        });
-        document.querySelector('.sidenav-toggler-inner').addEventListener('click', function() {
-            document.getElementById('sidenav-main').classList.toggle('d-none');
-        });
-    </script>
+
 
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -432,24 +413,47 @@
     </script>
 
     <script>
-        // Smooth Scrollbar for the entire page
+        /*NO BORRAR*/
         var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('.main-content')) {
-            Scrollbar.init(document.querySelector('.main-content'), { damping: '0.5' });
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+        /*NO BORRAR*/
+        /*OCULTAR SCROLL LATERAL*/
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent.classList.contains('ps--active-x')) {
+                mainContent.classList.remove('ps--active-x');
+            }
+        });
+        /*NO BORRAR*/
+        const ps = new PerfectScrollbar('.main-content', {
+            suppressScrollX: true
 
-        // Initialize Smooth Scrollbar for the whole body
-        if (win && document.querySelector('body')) {
-            Scrollbar.init(document.querySelector('body'), { damping: '0.5' });
-        }
-
-        // Toggle sidenav
-        document.getElementById('iconSidenav').addEventListener('click', function () {
-            document.getElementById('sidenav-main').classList.toggle('d-none');
+        });
+        document.querySelector('.main-content').addEventListener('ps-scroll-x', function() {
+            this.classList.remove('ps--active-x');
         });
 
-        document.querySelector('.sidenav-toggler-inner').addEventListener('click', function () {
-            document.getElementById('sidenav-main').classList.toggle('d-none');
+
+        $(document).ready(function() {
+
+            $("#top").click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 'smooth');
+            });
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('#top').fadeIn('slow');
+                } else {
+                    $('#top').fadeOut('slow');
+                }
+            });
         });
     </script>
 
@@ -458,7 +462,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
 </body>
