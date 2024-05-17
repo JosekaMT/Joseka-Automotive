@@ -26,7 +26,7 @@
 
 </head>
 
-<body class="g-sidenav-show  bg-gray-200 ps ps--active-y">
+<body class="g-sidenav-show bg-gray-200">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs my-0 fixed-start ms-0 bg-black" id="sidenav-main">
         <div class="sidenav-header d-flex justify-content-center align-items-center bg-black">
             <i class="fas fa-times p-3 cursor-pointer text-white position-absolute end-0 top-0 d-none d-xl-none"
@@ -139,30 +139,49 @@
         </div>
     </aside>
 
-    @yield('content')
+    <main class="main-content position-relative max-height-vh-100 h-100">
+        @yield('content')
 
-    <footer class="footer py-4">
-        <div class="row">
-            <div class="col-12">
-                <hr class="my-2" style="border-color: white;">
-                <p class="text-center text-black mt-4">
-                    Copyright ©
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script> All rights reserved.
-                </p>
+        <footer class="footer py-4">
+            <div class="row">
+                <div class="col-12">
+                    <hr class="my-2" style="border-color: white;">
+                    <p class="text-center text-black mt-4">
+                        Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved.
+                    </p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
     </main>
+
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
 
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win) {
+            // Smooth Scrollbar for the entire page
+            if (document.querySelector('body')) {
+                Scrollbar.init(document.querySelector('body'), {
+                    damping: '0.5'
+                });
+            }
+        }
 
-
+        // Toggle sidenav
+        document.getElementById('iconSidenav').addEventListener('click', function() {
+            document.getElementById('sidenav-main').classList.toggle('d-none');
+        });
+        document.querySelector('.sidenav-toggler-inner').addEventListener('click', function() {
+            document.getElementById('sidenav-main').classList.toggle('d-none');
+        });
+    </script>
 
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -413,47 +432,24 @@
     </script>
 
     <script>
-        /*NO BORRAR*/
+        // Smooth Scrollbar for the entire page
         var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        if (win && document.querySelector('.main-content')) {
+            Scrollbar.init(document.querySelector('.main-content'), { damping: '0.5' });
         }
-        /*NO BORRAR*/
-        /*OCULTAR SCROLL LATERAL*/
-        document.addEventListener("DOMContentLoaded", function() {
-            const mainContent = document.querySelector('.main-content');
-            if (mainContent.classList.contains('ps--active-x')) {
-                mainContent.classList.remove('ps--active-x');
-            }
-        });
-        /*NO BORRAR*/
-        const ps = new PerfectScrollbar('.main-content', {
-            suppressScrollX: true
 
-        });
-        document.querySelector('.main-content').addEventListener('ps-scroll-x', function() {
-            this.classList.remove('ps--active-x');
+        // Initialize Smooth Scrollbar for the whole body
+        if (win && document.querySelector('body')) {
+            Scrollbar.init(document.querySelector('body'), { damping: '0.5' });
+        }
+
+        // Toggle sidenav
+        document.getElementById('iconSidenav').addEventListener('click', function () {
+            document.getElementById('sidenav-main').classList.toggle('d-none');
         });
 
-
-        $(document).ready(function() {
-
-            $("#top").click(function() {
-                $('html, body').animate({
-                    scrollTop: 0
-                }, 'smooth');
-            });
-
-            $(window).scroll(function() {
-                if ($(this).scrollTop() > 50) {
-                    $('#top').fadeIn('slow');
-                } else {
-                    $('#top').fadeOut('slow');
-                }
-            });
+        document.querySelector('.sidenav-toggler-inner').addEventListener('click', function () {
+            document.getElementById('sidenav-main').classList.toggle('d-none');
         });
     </script>
 
