@@ -41,7 +41,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-7">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <h2 class="vehicle-heading2" id="card_title">{{ __('Users') }}</h2>
+                                        <h2 class="vehicle-heading2" id="card_title"> {{ __('Users') }}</h2>
                                     </div>
                                 </div>
                                 <div class="px-0 d-flex justify-content">
@@ -63,9 +63,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
+                                                    <th>Profile Photo</th>
                                                     <th>Name</th>
+                                                    <th>Role</th>
                                                     <th>Email</th>
-                                                    <th>Phone</th>
+                                                    <th>Phone Number</th>
                                                     <th>City</th>
                                                     <th>Address</th>
                                                     <th>Actions</th>
@@ -75,7 +77,23 @@
                                                 @foreach ($users as $user)
                                                     <tr>
                                                         <td class="text-center">{{ $user->id }}</td>
+                                                        <td class="text-center">
+                                                            @if ($user->profile_photo)
+                                                                <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                                                                    alt="Profile Photo"
+                                                                    style="max-width: 100px; max-height: 100px; border-radius: 10px;">
+                                                            @else
+                                                                No Image
+                                                            @endif
+                                                        </td>
                                                         <td class="text-center">{{ $user->name }}</td>
+                                                        <td class="text-center">
+                                                            @if ($user->is_admin)
+                                                                <span class="badge bg-success">Admin</span>
+                                                            @else
+                                                                <span class="badge bg-primary">Client</span>
+                                                            @endif
+                                                        </td>
                                                         <td class="text-center">{{ $user->email }}</td>
                                                         <td class="text-center">{{ $user->phone_number }}</td>
                                                         <td class="text-center">{{ $user->city }}</td>
@@ -104,17 +122,17 @@
                                                         </td>
                                                     </tr>
 
-                                                    <!-- Show User Modal -->
-                                                    <div class="modal fade" id="showUserModal{{ $user->id }}"
+                                                    <!-- Edit User Modal -->
+                                                    <div class="modal fade" id="editUserModal{{ $user->id }}"
                                                         tabindex="-1" role="dialog"
-                                                        aria-labelledby="showUserModalLabel{{ $user->id }}"
+                                                        aria-labelledby="editUserModalLabel{{ $user->id }}"
                                                         aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="showUserModalLabel{{ $user->id }}">Show User
-                                                                    </h5>
+                                                                        id="editUserModalLabel{{ $user->id }}">
+                                                                        {{ __('Edit User') }}</h5>
                                                                     <button type="button" class="close"
                                                                         data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -130,80 +148,97 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End Show User Modal -->
+                                                    <!-- End Edit User Modal -->
 
-                                                    <!-- Edit User Modal -->
-                                                    <div class="modal fade" id="editUserModal{{ $user->id }}"
+
+                                                    <!-- Show User Modal -->
+                                                    <div class="modal fade" id="showUserModal{{ $user->id }}"
                                                         tabindex="-1" role="dialog"
-                                                        aria-labelledby="editUserModalLabel{{ $user->id }}"
+                                                        aria-labelledby="showUserModalLabel{{ $user->id }}"
                                                         aria-hidden="true">
-                                                        <div class="modal-dialog" role="document"
-                                                            style="max-width: 800px;">
+                                                        <div class="modal-dialog modal-dialog-scrollable modal-lg"
+                                                            role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="editUserModalLabel{{ $user->id }}">Edit User</h5>
+                                                                        id="showUserModalLabel{{ $user->id }}"
+                                                                        style="color: black; font-size: 18px;">Show User
+                                                                    </h5>
                                                                     <button type="button" class="close"
                                                                         data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="POST"
-                                                                        action="{{ route('admin.users.update', $user->id) }}"
-                                                                        enctype="multipart/form-data">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="form-group">
-                                                                            <label for="name">Name</label>
-                                                                            <input type="text" class="form-control" id="name"
-                                                                                name="name" value="{{ $user->name }}" required>
+                                                                    <div class="container-fluid">
+                                                                        <div class="row mt-3">
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Name:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->name }}</p>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Role:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->is_admin ? 'Admin' : 'Client' }}
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Email:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->email }}</p>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Phone
+                                                                                        Number:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->phone_number }}</p>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">City:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->city }}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Address:</strong>
+                                                                                    <p
+                                                                                        style="color: black; font-size: 18px;">
+                                                                                        {{ $user->address }}</p>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <strong
+                                                                                        style="color: black; font-size: 18px;">Profile
+                                                                                        Photo:</strong>
+                                                                                    @if ($user->profile_photo)
+                                                                                        <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                                                                                            alt="Profile Photo"
+                                                                                            style="max-width: 130px; max-height: 130px; border-radius: 10px;">
+                                                                                    @else
+                                                                                        No Image
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="email">Email</label>
-                                                                            <input type="email" class="form-control" id="email"
-                                                                                name="email" value="{{ $user->email }}" required>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="phone_number">Phone</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="phone_number" name="phone_number"
-                                                                                value="{{ $user->phone_number }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="city">City</label>
-                                                                            <input type="text" class="form-control" id="city"
-                                                                                name="city" value="{{ $user->city }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="address">Address</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="address" name="address"
-                                                                                value="{{ $user->address }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="profile_photo">Profile Photo</label>
-                                                                            <input type="file" class="form-control"
-                                                                                id="profile_photo" name="profile_photo">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="password">Password</label>
-                                                                            <input type="password" class="form-control"
-                                                                                id="password" name="password">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="password_confirmation">Confirm Password</label>
-                                                                            <input type="password" class="form-control"
-                                                                                id="password_confirmation" name="password_confirmation">
-                                                                        </div>
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Save changes</button>
-                                                                    </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End Edit User Modal -->
+                                                    <!-- End Show User Modal -->
 
                                                     <!-- Delete User Modal -->
                                                     <div class="modal fade" id="deleteUserModal{{ $user->id }}"
@@ -214,8 +249,8 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="deleteUserModalLabel{{ $user->id }}">Delete User
-                                                                    </h5>
+                                                                        id="deleteUserModalLabel{{ $user->id }}">
+                                                                        Delete User</h5>
                                                                     <button type="button" class="close"
                                                                         data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -225,14 +260,14 @@
                                                                     Are you sure you want to delete this user?
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <form method="POST"
-                                                                        action="{{ route('admin.users.destroy', $user->id) }}">
+                                                                    <form action="{{ route('users.destroy', $user->id) }}"
+                                                                        method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="button" class="btn btn-secondary"
+                                                                        <button type="button" class="btn btn-dark"
                                                                             data-dismiss="modal">Close</button>
-                                                                        <button type="submit"
-                                                                            class="btn btn-danger">Delete</button>
+                                                                        <button type="submit" class="btn"
+                                                                            style="background-color: #9c2121; color: white;">Delete</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -261,7 +296,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" action="{{ route('admin.users.store') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label for="name">Name</label>
@@ -287,23 +322,16 @@
                                         <label for="profile_photo">Profile Photo</label>
                                         <input type="file" class="form-control" id="profile_photo" name="profile_photo">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    <div class="row px-3">
+                                        <div class="col-md-12 mt-4">
+                                            <button type="submit" class="btn"
+                                                style="background-color: #9c2121; color: white;">{{ __('Create User') }}</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="password_confirmation">Confirm Password</label>
-                                        <input type="password" class="form-control" id="password_confirmation"
-                                            name="password_confirmation" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Create User</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Modal for Create User -->
-            </div>
-        </div>
-    </main>
-@endsection
+            @endsection
