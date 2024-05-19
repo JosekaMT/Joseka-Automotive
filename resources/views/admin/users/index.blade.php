@@ -395,7 +395,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('users.store') }}">
                                     @csrf
                                     <div class="row py-3 px-3">
                                         <div class="col-md-6">
@@ -479,4 +479,4 @@
                     </div>
                 </div>
                 <!-- End Modal for Create User -->
-            @endsection
+@endsection

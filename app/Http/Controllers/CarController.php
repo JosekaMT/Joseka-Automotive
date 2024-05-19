@@ -66,11 +66,17 @@ class CarController extends Controller
         return Redirect::route('cars.index')->with('success', 'Vehicle created successfully.');
     }
 
-    public function show($id): View
+    public function show($id): Response
     {
         $car = Car::find($id);
-        return view('car.show', compact('car'));
+    
+        if (!$car) {
+            abort(404, 'Car not found.');
+        }
+    
+        return response()->view('car.show', compact('car'));
     }
+    
 
     public function edit($id): View
     {

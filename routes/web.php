@@ -13,6 +13,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\BillingController;
@@ -155,6 +156,8 @@ Route::middleware(['auth'])->group(function () {  //Meter todas las vistas admin
     Route::post('/admin/approve-rental/{id}', [RentController::class, 'approveRental'])->name('admin.approveRental');
     Route::post('/admin/reject-rental/{id}', [RentController::class, 'rejectRental'])->name('admin.rejectRental');
 
+
     
+    Route::resource('users', UserAdminController::class)->except(['create', 'show', 'edit']);
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
 });
