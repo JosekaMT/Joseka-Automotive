@@ -176,17 +176,23 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="product-card-container-outer py-6">
             <div class="container">
                 <h2 class="vehicle-heading">Vehicles</h2>
                 <div id="product-card-container" class="product-card-container">
-                    @foreach ($cars as $car)
-                        @include('layouts.car-card', ['car' => $car])
-                    @endforeach
+                    @if($cars->isEmpty())
+                        <p>No vehicles available.</p>
+                    @else
+                        @foreach ($cars as $car)
+                            @include('layouts.car-card', ['car' => $car])
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
+        
+        
 
         <footer class="text-white bg-black">
             <div class="container py-2">
