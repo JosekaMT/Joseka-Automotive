@@ -4,79 +4,75 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    public function index()
+    public function create()
     {
-        $users = User::all();
-        return view('admin.users', compact('users'));
+        // Método para mostrar el formulario de creación de usuario
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone_number' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'profile_photo' => 'nullable|image',
-            'password' => 'required|string|min:6|confirmed',
-            'is_admin' => 'required|boolean'
-        ]);
-
-        $user = new User($validatedData);
-        $user->password = Hash::make($validatedData['password']);
-
-        if ($request->hasFile('profile_photo')) {
-            $path = $request->file('profile_photo')->store('profile_photos', 'public');
-            $user->profile_photo = $path;
-        }
-
-        $user->save();
-
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        // Método para almacenar un nuevo usuario en la base de datos
     }
 
-    public function update(Request $request, $id)
+    public function show($id)
     {
-        $user = User::findOrFail($id);
+        // Método para mostrar los detalles de un usuario específico
+    }
 
+    public function edit($id)
+    {
+        // Método para mostrar el formulario de edición de un usuario
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+    
+        // Validación de todos los campos requeridos, incluyendo address
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone_number' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
-            'address' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255', // Añadir validación para el campo address
             'profile_photo' => 'nullable|image',
             'password' => 'nullable|string|min:6|confirmed',
-            'is_admin' => 'required|boolean'
         ]);
-
-        $user->fill($validatedData);
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
-
+    
+        // Actualización de los campos básicos, incluyendo address
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->phone_number = $validatedData['phone_number'];
+        $user->city = $validatedData['city'];
+        $user->address = $validatedData['address']; // Actualizar el campo address
+    
+        // Manejo de la carga de la foto de perfil
         if ($request->hasFile('profile_photo')) {
             $path = $request->file('profile_photo')->store('profile_photos', 'public');
             $user->profile_photo = $path;
         }
-
-        $user->save();
-
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    
+        // Actualizar la contraseña si se proporciona una nueva
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+    
+        // Guardar los cambios y manejar posibles errores
+        if (!$user->save()) {
+            Log::error('Failed to update user', ['user_id' => $user->id]);
+            return redirect()->back()->with('error', 'Failed to update profile.');
+        }
+    
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
-
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        // Método para eliminar un usuario de la base de datos
     }
 }
