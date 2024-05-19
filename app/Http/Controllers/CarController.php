@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\RentalRequestReceived;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Notifications\DatabaseNotification;
+use App\Notifications\RentalApproved;
+use App\Notifications\RentalRejected;
 
 
 
@@ -34,8 +37,9 @@ class CarController extends Controller
         $totalCars = Car::count();
         $availableCars = Car::where('available', true)->count();
         $totalUsers = User::where('is_admin', false)->count();
+        $notificationsCount = Auth::user()->notifications->count();
 
-        return view('car.index', compact('cars', 'totalCars', 'availableCars', 'totalUsers'));
+        return view('car.index', compact('cars', 'totalCars', 'availableCars', 'totalUsers', 'notificationsCount'));
     }
 
     public function showCars()

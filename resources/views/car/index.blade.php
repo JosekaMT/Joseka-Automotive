@@ -92,16 +92,15 @@
                     </div>
                 </div>
 
-                <div class="col-xl-3 col-sm-6">
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">euro</i>
+                            <div class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
+                                <i class="material-icons opacity-10">notifications</i>
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Sales</p>
-                                <h4 class="mb-0">$103,430</h4>
+                                <p class="text-sm mb-0 text-capitalize">Notifications</p>
+                                <h4 class="mb-0">{{ $notificationsCount }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -110,6 +109,9 @@
                         </div>
                     </div>
                 </div>
+
+
+                
             </div>
             <div class="row mt-4">
             </div>
