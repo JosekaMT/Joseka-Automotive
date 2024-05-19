@@ -139,110 +139,11 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="POST"
-                                                                        action="{{ route('users.update', $user->id) }}">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="row py-3 px-3">
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="name"
-                                                                                        class="form-label">{{ __('Name') }}</label>
-                                                                                    <input type="text" name="name"
-                                                                                        class="form-control border @error('name') is-invalid @enderror"
-                                                                                        value="{{ old('name', $user->name) }}"
-                                                                                        id="name" placeholder="Name"
-                                                                                        required>
-                                                                                    {!! $errors->first('name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="is_admin"
-                                                                                        class="form-label">{{ __('Role') }}</label>
-                                                                                    <select name="is_admin"
-                                                                                        class="form-select border @error('is_admin') is-invalid @enderror"
-                                                                                        id="is_admin" required>
-                                                                                        <option value="0"
-                                                                                            {{ !$user->is_admin ? 'selected' : '' }}>
-                                                                                            Client</option>
-                                                                                        <option value="1"
-                                                                                            {{ $user->is_admin ? 'selected' : '' }}>
-                                                                                            Admin</option>
-                                                                                    </select>
-                                                                                    {!! $errors->first('is_admin', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="email"
-                                                                                        class="form-label">{{ __('Email') }}</label>
-                                                                                    <input type="email" name="email"
-                                                                                        class="form-control border @error('email') is-invalid @enderror"
-                                                                                        value="{{ old('email', $user->email) }}"
-                                                                                        id="email" placeholder="Email"
-                                                                                        required>
-                                                                                    {!! $errors->first('email', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="phone_number"
-                                                                                        class="form-label">{{ __('Phone Number') }}</label>
-                                                                                    <input type="text"
-                                                                                        name="phone_number"
-                                                                                        class="form-control border @error('phone_number') is-invalid @enderror"
-                                                                                        value="{{ old('phone_number', $user->phone_number) }}"
-                                                                                        id="phone_number"
-                                                                                        placeholder="Phone Number">
-                                                                                    {!! $errors->first('phone_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="city"
-                                                                                        class="form-label">{{ __('City') }}</label>
-                                                                                    <input type="text" name="city"
-                                                                                        class="form-control border @error('city') is-invalid @enderror"
-                                                                                        value="{{ old('city', $user->city) }}"
-                                                                                        id="city" placeholder="City">
-                                                                                    {!! $errors->first('city', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="address"
-                                                                                        class="form-label">{{ __('Address') }}</label>
-                                                                                    <input type="text" name="address"
-                                                                                        class="form-control border @error('address') is-invalid @enderror"
-                                                                                        value="{{ old('address', $user->address) }}"
-                                                                                        id="address"
-                                                                                        placeholder="Address">
-                                                                                    {!! $errors->first('address', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="password"
-                                                                                        class="form-label">{{ __('Password') }}</label>
-                                                                                    <input type="password" name="password"
-                                                                                        class="form-control border @error('password') is-invalid @enderror"
-                                                                                        id="password"
-                                                                                        placeholder="Password">
-                                                                                    {!! $errors->first('password', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                                                                </div>
-                                                                                <div class="form-group mb-4">
-                                                                                    <label for="password_confirmation"
-                                                                                        class="form-label">{{ __('Confirm Password') }}</label>
-                                                                                    <input type="password"
-                                                                                        name="password_confirmation"
-                                                                                        class="form-control border @error('password_confirmation') is-invalid @enderror"
-                                                                                        id="password_confirmation"
-                                                                                        placeholder="Confirm Password">
-                                                                                    {!! $errors->first(
-                                                                                        'password_confirmation',
-                                                                                        '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
-                                                                                    ) !!}
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row px-3">
-                                                                            <div class="col-md-12 mt-4">
-                                                                                <button type="submit" class="btn"
-                                                                                    style="background-color: #9c2121; color: white;">{{ __('Save changes') }}</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
+                                                                    <p><strong>Name:</strong> {{ $user->name }}</p>
+                                                                    <p><strong>Email:</strong> {{ $user->email }}</p>
+                                                                    <p><strong>Phone:</strong> {{ $user->phone_number }}</p>
+                                                                    <p><strong>City:</strong> {{ $user->city }}</p>
+                                                                    <p><strong>Address:</strong> {{ $user->address }}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -397,75 +298,29 @@
                             <div class="modal-body">
                                 <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="row py-3 px-3">
-                                        <div class="col-md-6">
-                                            <div class="form-group mb-4">
-                                                <label for="name" class="form-label">{{ __('Name') }}</label>
-                                                <input type="text" name="name"
-                                                    class="form-control border @error('name') is-invalid @enderror"
-                                                    id="name" placeholder="Name" required>
-                                                {!! $errors->first('name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="is_admin" class="form-label">{{ __('Role') }}</label>
-                                                <select name="is_admin"
-                                                    class="form-select border @error('is_admin') is-invalid @enderror"
-                                                    id="is_admin" required>
-                                                    <option value="0">Client</option>
-                                                    <option value="1">Admin</option>
-                                                </select>
-                                                {!! $errors->first('is_admin', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="email" class="form-label">{{ __('Email') }}</label>
-                                                <input type="email" name="email"
-                                                    class="form-control border @error('email') is-invalid @enderror"
-                                                    id="email" placeholder="Email" required>
-                                                {!! $errors->first('email', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="phone_number"
-                                                    class="form-label">{{ __('Phone Number') }}</label>
-                                                <input type="text" name="phone_number"
-                                                    class="form-control border @error('phone_number') is-invalid @enderror"
-                                                    id="phone_number" placeholder="Phone Number">
-                                                {!! $errors->first('phone_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="city" class="form-label">{{ __('City') }}</label>
-                                                <input type="text" name="city"
-                                                    class="form-control border @error('city') is-invalid @enderror"
-                                                    id="city" placeholder="City">
-                                                {!! $errors->first('city', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group mb-4">
-                                                <label for="address" class="form-label">{{ __('Address') }}</label>
-                                                <input type="text" name="address"
-                                                    class="form-control border @error('address') is-invalid @enderror"
-                                                    id="address" placeholder="Address">
-                                                {!! $errors->first('address', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="password" class="form-label">{{ __('Password') }}</label>
-                                                <input type="password" name="password"
-                                                    class="form-control border @error('password') is-invalid @enderror"
-                                                    id="password" placeholder="Password" required>
-                                                {!! $errors->first('password', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="password_confirmation"
-                                                    class="form-label">{{ __('Confirm Password') }}</label>
-                                                <input type="password" name="password_confirmation"
-                                                    class="form-control border @error('password_confirmation') is-invalid @enderror"
-                                                    id="password_confirmation" placeholder="Confirm Password" required>
-                                                {!! $errors->first(
-                                                    'password_confirmation',
-                                                    '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
-                                                ) !!}
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone_number">Phone</label>
+                                        <input type="text" class="form-control" id="phone_number" name="phone_number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control" id="city" name="city">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile_photo">Profile Photo</label>
+                                        <input type="file" class="form-control" id="profile_photo" name="profile_photo">
                                     </div>
                                     <div class="row px-3">
                                         <div class="col-md-12 mt-4">
