@@ -176,12 +176,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="product-card-container-outer py-6">
             <div class="container">
                 <h2 class="vehicle-heading">Vehicles</h2>
                 <div id="product-card-container" class="product-card-container">
-                    @if($cars->isEmpty())
+                    @if ($cars->isEmpty())
                         <p>No vehicles available.</p>
                     @else
                         @foreach ($cars as $car)
@@ -191,8 +191,88 @@
                 </div>
             </div>
         </div>
-        
-        
+        <!-- Características -->
+        <div class="container">
+            <h2 class="vehicle-heading text-center">Characteristics</h2>
+            <div class="row text-center py-5">
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape text-center shadow-danger border-radius-xl mt-n4 position-absolute"
+                                style="background-color: #9c2121;">
+                                <i class="material-icons opacity-10" style="color: #ffffff;">directions_car</i>
+                            </div>
+                            <div class="text-end pt-1">
+                                <h4 class="mb-0">Wide selection <br>of vehicles</h4>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-body">
+                            <p>We offer a wide variety of vehicles for rent, from compacts to SUVs and luxury vehicles
+                                to meet all your needs.
+                                luxury vehicles, to meet all your needs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape text-center shadow-danger border-radius-xl mt-n4 position-absolute"
+                                style="background-color: #9c2121;">
+                                <i class="material-icons opacity-10" style="color: #ffffff;">people</i>
+                            </div>
+                            <div class="text-end pt-1">
+                                <h4 class="mb-0">Experienced <br>personnel</h4>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-body">
+                            <p>Our team of car rental experts is always available to offer advice and help you find the
+                                perfect vehicle.
+                                advice and help you find the perfect vehicle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape text-center shadow-danger border-radius-xl mt-n4 position-absolute"
+                                style="background-color: #9c2121;">
+                                <i class="material-icons opacity-10" style="color: #ffffff;">support_agent</i>
+                            </div>
+                            <div class="text-end pt-1">
+                                <h4 class="mb-0">Attention to <br>24/7 customer</h4>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-body">
+                            <p>We provide 24/7 customer service to assist you at any time,
+                                ensuring that your rental experience is hassle-free and enjoyable.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape text-center shadow-danger border-radius-xl mt-n4 position-absolute"
+                                style="background-color: #9c2121;">
+                                <i class="material-icons opacity-10" style="color: #ffffff;">security</i>
+                            </div>
+                            <div class="text-end pt-1">
+                                <h4 class="mb-0">Secure rental <br>processes</h4>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-body">
+                            <p>We are committed to offer safe rental processes and vehicles in excellent condition,
+                                guaranteeing the peace of mind and safety of our customers in every trip.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @include('layouts.contact')
 
         <footer class="text-white bg-black">
             <div class="container py-2">
@@ -236,6 +316,20 @@
             </div>
         </footer>
     </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>

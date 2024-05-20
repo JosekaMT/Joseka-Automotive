@@ -21,8 +21,6 @@ use Illuminate\Notifications\DatabaseNotification;
 use App\Notifications\RentalApproved;
 use App\Notifications\RentalRejected;
 
-
-
 class CarController extends Controller
 {
     public function create()
